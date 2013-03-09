@@ -20,7 +20,9 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
         var urlBuilderOptions = {
             categories: categoryIds,
-            search: $scope.searchTerm
+            search: $scope.searchTerm,
+            state: $scope.state,
+            instock: $scope.instock
         };
         var url = _urlBuilder.catalogService(urlBuilderOptions);
         url = url + "&callback=JSON_CALLBACK";
@@ -53,12 +55,17 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.selectedRegion = "";
         $scope.selectedAppellation = "";
         $scope.searchTerm = "";
+        $scope.state = "CA";
+        $scope.instock = true;
         $scope.products = null;
-        //_initialiseMenus();
-        _initialiseMenus2();
+        _initialiseMenus();
+        $location.path("/search");
     };
 
     $scope.getLargeLabelImageUrlForProduct = function (product) {
+        if (!product) {
+            return "";
+        }
         return product.Labels[0].Url.replace("m.jpg", "l.jpg");
     };
 
@@ -71,37 +78,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         return result;
     };
 
-    var _initialiseMenus = function () {
-
-        var urlBuilderOptions = {
-            categories: wineApi.constants.SHOP_WINE_ONLY,
-            show: [
-                wineApi.constants.CATEGORY_ID_WINETYPE,
-                wineApi.constants.CATEGORY_ID_VARIETAL,
-                wineApi.constants.CATEGORY_ID_REGION,
-                wineApi.constants.CATEGORY_ID_APPELLATION
-            ]
-        };
-        var url = _urlBuilder.categoryMapService(urlBuilderOptions);
-        url = url + "&callback=JSON_CALLBACK";
-
-        $scope.showProgressBar = true;
-        $http.jsonp(url)
-            .success(function(data) {
-                if (data.Status.ReturnCode === 0) {
-                    $scope.wineTypes = _getCategoryRefinements(data, wineApi.constants.CATEGORY_ID_WINETYPE);
-                    $scope.varietals = _getCategoryRefinements(data, wineApi.constants.CATEGORY_ID_VARIETAL);
-                    $scope.regions = _getCategoryRefinements(data, wineApi.constants.CATEGORY_ID_REGION);
-                    $scope.appellations = _getCategoryRefinements(data, wineApi.constants.CATEGORY_ID_APPELLATION);
-                }
-                $scope.showProgressBar = false;
-            })
-            .error(function() {
-                $scope.showProgressBar = false;
-            });
-    };
-
-    var _initialiseMenus2 = function() {
+    var _initialiseMenus = function() {
         $scope.wineTypes = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_WINETYPE);
         $scope.varietals = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_VARIETAL);
         $scope.regions = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_REGION);

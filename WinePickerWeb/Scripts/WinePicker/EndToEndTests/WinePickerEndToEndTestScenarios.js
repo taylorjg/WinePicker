@@ -10,25 +10,11 @@ describe("WinePicker End-to-End Tests", function () {
     // (see the "Specific port" setting).
     var url = "http://localhost:51051/WinePicker";
 
-    it("can enter text into the search box and retrieve it", function () {
+    it("can search for 'dom perignon'", function () {
         browser().navigateTo(url);
-        input("searchTerm").enter("gamay");
-        expect(input("searchTerm").val()).toBe("gamay");
-    });
-
-    it("can search for gamay", function () {
-        browser().navigateTo(url);
-        input("searchTerm").enter("gamay");
+        input("searchTerm").enter("dom perignon");
         element("#searchButton").click();
         expect(window.binding("products.Total")).toBeGreaterThan(0);
-        expect(window.binding("product.Name")).toContain("Gamay");
-    });
-    
-    it("can search for retsina", function () {
-        browser().navigateTo(url);
-        input("searchTerm").enter("retsina");
-        element("#searchButton").click();
-        expect(window.binding("products.Total")).toBeGreaterThan(0);
-        expect(window.binding("product.Name")).toContain("Retsina");
+        expect(window.binding("product.Name")).toContain("Dom Perignon");
     });
 });
