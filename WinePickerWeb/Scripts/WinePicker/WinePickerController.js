@@ -1,4 +1,5 @@
 ﻿/// <reference path="WineApi.js" />
+/// <reference path="WineApiMenuData.js" />
 /// <reference path="../underscore.js" />
 
 // ReSharper disable InconsistentNaming
@@ -53,7 +54,8 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.selectedAppellation = "";
         $scope.searchTerm = "";
         $scope.products = null;
-        _initialiseMenus();
+        //_initialiseMenus();
+        _initialiseMenus2();
     };
 
     $scope.getLargeLabelImageUrlForProduct = function (product) {
@@ -99,7 +101,14 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
             });
     };
 
-    var _getMenuData = function (categoryIdToShow, categoryIdToFilterBy, fn) {
+    var _initialiseMenus2 = function() {
+        $scope.wineTypes = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_WINETYPE);
+        $scope.varietals = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_VARIETAL);
+        $scope.regions = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_REGION);
+        $scope.appellations = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_APPELLATION);
+    };
+
+    var _getMenuData = function(categoryIdToShow, categoryIdToFilterBy, fn) {
 
         var urlBuilderOptions = {
             categories: [wineApi.constants.SHOP_WINE_ONLY, categoryIdToFilterBy],

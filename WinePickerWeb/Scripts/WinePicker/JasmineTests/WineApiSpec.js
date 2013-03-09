@@ -1,5 +1,5 @@
-/// <reference path="../../lib/jasmine-1.3.1/jasmine.js" />
-/// <reference path="WineApi.js" />
+/// <reference path="../../jasmine/jasmine.js" />
+/// <reference path="../WineApi.js" />
 
 describe("wineApi.UrlBuilder", function () {
 

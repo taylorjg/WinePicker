@@ -139,6 +139,7 @@
     <Content Include="Content\jasmine\jasmine.css" />
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="Global.asax" />
+    <Content Include="Notes\WineApi_angularjs_bootstrap.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
@@ -319,19 +320,20 @@
     <Content Include="Scripts\jstd-scenario-adapter.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\WinePicker\WineApiMenuData.js" />
     <Content Include="Scripts\WinePicker\SearchResultsController.js" />
-    <Content Include="Scripts\WinePicker\SearchResultsControllerSpec.js" />
+    <Content Include="Scripts\WinePicker\JasmineTests\SearchResultsControllerSpec.js" />
     <Content Include="Scripts\WinePicker\WineApi.js" />
-    <Content Include="Scripts\WinePicker\WineApiSpec.js" />
-    <Content Include="Scripts\WinePicker\WineApiSpecRunner.html" />
+    <Content Include="Scripts\WinePicker\JasmineTests\WineApiSpec.js" />
+    <Content Include="Scripts\WinePicker\JasmineTests\WineApiSpecRunner.html" />
     <Content Include="Scripts\WinePicker\WineDetailsController.js" />
-    <Content Include="Scripts\WinePicker\WineDetailsControllerSpec.js" />
+    <Content Include="Scripts\WinePicker\JasmineTests\WineDetailsControllerSpec.js" />
     <Content Include="Scripts\WinePicker\WinePickerApp.js" />
     <Content Include="Scripts\WinePicker\WinePickerController.js" />
-    <Content Include="Scripts\WinePicker\WinePickerControllerSpec.js" />
-    <Content Include="Scripts\WinePicker\WinePickerEndToEndTestRunner.html" />
-    <Content Include="Scripts\WinePicker\WinePickerEndToEndTestScenarios.js" />
-    <Content Include="Scripts\WinePicker\WinePickerSpecRunner.html" />
+    <Content Include="Scripts\WinePicker\JasmineTests\WinePickerControllerSpec.js" />
+    <Content Include="Scripts\WinePicker\EndToEndTests\WinePickerEndToEndTestRunner.html" />
+    <Content Include="Scripts\WinePicker\EndToEndTests\WinePickerEndToEndTestScenarios.js" />
+    <Content Include="Scripts\WinePicker\JasmineTests\WinePickerSpecRunner.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

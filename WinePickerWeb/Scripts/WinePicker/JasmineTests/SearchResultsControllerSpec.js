@@ -1,8 +1,8 @@
-﻿/// <reference path="../jasmine/jasmine.js" />
-/// <reference path="../angular.js" />
-/// <reference path="../angular-mocks.js" />
-/// <reference path="SearchResultsController.js" />
-/// <reference path="WineApi.js" />
+﻿/// <reference path="../../jasmine/jasmine.js" />
+/// <reference path="../../angular.js" />
+/// <reference path="../../angular-mocks.js" />
+/// <reference path="../SearchResultsController.js" />
+/// <reference path="../WineApi.js" />
 
 // ReSharper disable InconsistentNaming
 
