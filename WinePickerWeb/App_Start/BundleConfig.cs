@@ -10,7 +10,8 @@ namespace WinePickerWeb.App_Start
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/underscore.js",
                 "~/Scripts/angular.js",
-                "~/Content/bootstrap/js/bootstrap.js"));
+                "~/Content/bootstrap/js/bootstrap.js",
+                "~/Scripts/WinePicker/*.js"));
         }
     }
 }
