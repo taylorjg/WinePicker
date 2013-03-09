@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Wine Picker";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div id="containerDiv" class="container-fluid" ng-app="WinePickerApp" ng-controller="WinePickerController">
+    <div class="row">
+        
+        <div class="span4">
+            <br />
+            <br />
+            <a href="http://www.wine.com/" title="Wine.com the destination for Wine and Wine Gifts">
+                <img src="http://cache.wine.com/images/logos/300x200_winecom_logo.png" alt="Wine.com the destination for Wine and Wine Gifts" />
+            </a>
+        </div>
+
+        <div class="span8">
+            
+            <br />
+            <br />
+            
+            <form class="form-search" action="">
+                
+                <select id="wineTypeMenu" ng-model="selectedWineType" ng-change="onWineTypeChanged()">
+                    <option value="">Any Wine Type</option>
+                    <option ng-repeat="wineType in wineTypes" value="{{wineType.Id}}">{{wineType.Name}}</option>
+                </select>
+
+                <br />
+                <br />
+
+                <select id="varietalMenu" ng-model="selectedVarietal" ng-change="onVarietalChanged()">
+                    <option value="">Any Varietal</option>
+                    <option ng-repeat="varietal in varietals" value="{{varietal.Id}}">{{varietal.Name}}</option>
+                </select>
+
+                <br />
+                <br />
+
+                <select id="regionMenu" ng-model="selectedRegion" ng-change="onRegionChanged()">
+                    <option value="">Any Region</option>
+                    <option ng-repeat="region in regions" value="{{region.Id}}">{{region.Name}}</option>
+                </select>
+
+                <br />
+                <br />
+
+                <select id="appellationMenu" ng-model="selectedAppellation" ng-change="onAppellationChanged()">
+                    <option value="">Any Appellation</option>
+                    <option ng-repeat="appellation in appellations" value="{{appellation.Id}}">{{appellation.Name}}</option>
+                </select>
+
+                <br />
+                <br />
+            
+                <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" ng-model="searchTerm">
+                <button id="searchButton" class="btn btn-primary" type="submit" ng-click="onSearch()"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
+                <button id="resetButton" class="btn " type="button" ng-click="onReset()"><i class="icon-remove"></i>&nbsp;Reset</button>
+
+            </form>
+
+            <div class="progress progress-striped active" ng-show="showProgressBar">
+                <div class="bar" style="width: 100%;"></div>
+            </div>
+
+            <div ng-view></div>
+            
+        </div>
+        <div class="span2" />
+    </div>
+</div>
+
+@section endOfBodyScripts {
+    <script src="~/Scripts/WineApi/WineApi.js" type="text/javascript"></script>
+    <script src="~/Scripts/WineApi/WinePickerApp.js" type="text/javascript"></script>
+    <script src="~/Scripts/WineApi/WinePickerController.js" type="text/javascript"></script>
+    <script src="~/Scripts/WineApi/SearchResultsController.js" type="text/javascript"></script>
+    <script src="~/Scripts/WineApi/WineDetailsController.js" type="text/javascript"></script>
+}

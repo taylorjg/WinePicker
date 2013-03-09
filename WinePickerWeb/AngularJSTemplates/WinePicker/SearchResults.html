@@ -1,0 +1,33 @@
+<div ng-show="products != null">
+    <hr />
+    <div>
+        Total number of matching products found: {{products.Total}}
+    </div>
+    <br />
+    <div id="myCarousel" class="carousel slide" ng-show="products.Total > 0">
+        <ol class="carousel-indicators">
+            <li ng-repeat="product in products.List" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active: $first}"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div ng-repeat="product in products.List" class="item" ng-class="{active: $first}">
+                <div style="margin-left: 70px; margin-right: 70px; height: 200px;">
+                    <img ng-src="{{getLargeLabelImageUrlForProduct(product)}}" alt="Label for {{product.Name}}" style="float: left;"/>
+                    <div style="float: left;">
+                        <table class="span4 table table-striped table-condensed table-bordered">
+                            <tbody>
+                                <tr><td>Name</td><td>{{product.Name}}</td></tr>
+                                <tr><td>Varietal</td><td>{{product.Varietal.Name}}</td></tr>
+                                <tr><td>Appellation</td><td>{{product.Appellation.Name}}</td></tr>
+                                <tr><td>Price</td><td>{{product.PriceRetail | currency}}</td></tr>
+                                <tr><td colspan="2"><a ng-href="#/wines/{{product.Id}}">View product details (in page)</a></td></tr>
+                                <tr><td colspan="2"><a ng-href="{{product.Url}}" target="_blank">View product details (at wine.com)</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+</div>
