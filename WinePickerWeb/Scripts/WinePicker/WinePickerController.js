@@ -27,7 +27,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         var url = _urlBuilder.catalogService(urlBuilderOptions);
         url = url + "&callback=JSON_CALLBACK";
 
-        $scope.showProgressBar = true;
+        $scope.showProgressBar();
         $http.jsonp(url)
             .success(function (data) {
                 if (data.Status.ReturnCode === 0) {
@@ -36,16 +36,16 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
                         $scope.$apply();
                     }
                 }
-                $scope.showProgressBar = false;
+                $scope.hideProgressBar();
                 $location.path("/searchResults");
             })
             .error(function () {
-                $scope.showProgressBar = false;
+                $scope.hideProgressBar();
             });
     };
 
     $scope.onReset = function () {
-        $scope.showProgressBar = false;
+        $scope.progressBarVisible = false;
         $scope.wineTypes = [];
         $scope.varietals = [];
         $scope.regions = [];
@@ -67,6 +67,14 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
             return "";
         }
         return product.Labels[0].Url.replace("m.jpg", "l.jpg");
+    };
+
+    $scope.showProgressBar = function() {
+        $scope.progressBarVisible = true;
+    };
+
+    $scope.hideProgressBar = function () {
+        $scope.progressBarVisible = false;
     };
 
     var _getCategoryRefinements = function (data, categoryId) {
@@ -94,17 +102,17 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         var url = _urlBuilder.categoryMapService(urlBuilderOptions);
         url = url + "&callback=JSON_CALLBACK";
 
-        $scope.showProgressBar = true;
+        $scope.showProgressBar();
         $http.jsonp(url)
             .success(function(data) {
                 if (data.Status.ReturnCode === 0) {
                     var result = _getCategoryRefinements(data, categoryIdToShow);
                     fn(result);
                 }
-                $scope.showProgressBar = false;
+                $scope.hideProgressBar();
             })
             .error(function() {
-                $scope.showProgressBar = false;
+                $scope.hideProgressBar();
             });
     };
 

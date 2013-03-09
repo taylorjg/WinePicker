@@ -19,8 +19,9 @@
                                 <tr><td>Varietal</td><td>{{product.Varietal.Name}}</td></tr>
                                 <tr><td>Appellation</td><td>{{product.Appellation.Name}}</td></tr>
                                 <tr><td>Price</td><td>{{product.PriceRetail | currency}}</td></tr>
-                                <tr><td colspan="2"><a ng-href="#/wines/{{product.Id}}">View product details (in page)</a></td></tr>
-                                <tr><td colspan="2"><a ng-href="{{product.Url}}" target="_blank">View product details (at wine.com)</a></td></tr>
+                                <tr><td colspan="2"><a ng-href="#/wines/{{product.Id}}">View product details</a>&nbsp;(in-page)</td></tr>
+                                <tr><td colspan="2"><a ng-href="{{product.Url}}" target="_blank">View product details</a>
+                                (at wine.com <img src="/Content/Images/Icon_External_Link.png" title="External link" alt="External link" />)</td></tr>
                             </tbody>
                         </table>
                     </div>

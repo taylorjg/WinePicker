@@ -27,7 +27,7 @@ function WineDetailsController($scope, $http, $routeParams, urlBuilder) {
         var url = _urlBuilder.catalogService(urlBuilderOptions);
         url = url + "&callback=JSON_CALLBACK";
 
-        $scope.showProgressBar = true;
+        $scope.showProgressBar();
         $http.jsonp(url)
             .success(function(data) {
                 if (data.Status.ReturnCode === 0) {
@@ -35,10 +35,10 @@ function WineDetailsController($scope, $http, $routeParams, urlBuilder) {
                         $scope.product = data.Products.List[0];
                     }
                 }
-                $scope.showProgressBar = false;
+                $scope.hideProgressBar();
             })
             .error(function() {
-                $scope.showProgressBar = false;
+                $scope.hideProgressBar();
             });
     };
 
