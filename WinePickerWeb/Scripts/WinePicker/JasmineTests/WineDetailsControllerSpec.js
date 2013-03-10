@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../jasmine/jasmine.js" />
 /// <reference path="../../angular.js" />
 /// <reference path="../../angular-mocks.js" />
+/// <reference path="../WinePickerController.js" />
 /// <reference path="../WineDetailsController.js" />
 /// <reference path="../WineApi.js" />
 
@@ -9,6 +10,7 @@
 describe("WineDetailsController", function () {
 
     var _$httpBackend;
+    var _parentScope;
     var _scope;
     var _routeParams;
     var _controller;
@@ -16,7 +18,15 @@ describe("WineDetailsController", function () {
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
         _$httpBackend = _$httpBackend_;
-        _scope = $rootScope.$new();
+        _parentScope = $rootScope.$new();
+        _scope = _parentScope.$new();
+
+        // TODO: Is there a better way to deal with parent scope functions in unit tests ?
+        _parentScope.showProgressBar = function () {
+        };
+        _parentScope.hideProgressBar = function () {
+        };
+
         _routeParams = $routeParams;
         $routeParams.id = "91856";
 
@@ -42,14 +52,14 @@ describe("WineDetailsController", function () {
                         }
                     },
                     "Labels": [{
-                            "Id": "91856m",
-                            "Name": "thumbnail",
-                            "Url": "http:\/\/cache.wine.com\/labels\/91856m.jpg"
-                        }, {
-                            "Id": "91856l",
-                            "Name": "large",
-                            "Url": "http:\/\/cache.wine.com\/labels\/91856l.jpg"
-                        }],
+                        "Id": "91856m",
+                        "Name": "thumbnail",
+                        "Url": "http:\/\/cache.wine.com\/labels\/91856m.jpg"
+                    }, {
+                        "Id": "91856l",
+                        "Name": "large",
+                        "Url": "http:\/\/cache.wine.com\/labels\/91856l.jpg"
+                    }],
                     "Type": "Wine",
                     "Varietal": {
                         "Id": 146,
