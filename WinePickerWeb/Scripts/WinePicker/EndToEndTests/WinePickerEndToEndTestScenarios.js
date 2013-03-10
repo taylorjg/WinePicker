@@ -17,4 +17,10 @@ describe("WinePicker End-to-End Tests", function () {
         expect(window.binding("products.Total")).toBeGreaterThan(0);
         expect(window.binding("product.Name")).toContain("Dom Perignon");
     });
+
+    it("can browse directly to /wines/112875", function () {
+        var path = "/wines/112875";
+        browser().navigateTo(url + "#" + path);
+        expect(window.binding("product.Name")).toContain("Rioja Alta Vina Ardanza Reserva");
+    });
 });
