@@ -52,7 +52,22 @@
 
                 <br />
                 <br />
-            
+
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria">More search criteria</a>
+                </div>
+                <div id="moreSearchCriteria" class="accordion-body collapse out">
+                    <div class="accordion-inner">
+                        <select id="state" ng-model="state" ng-change="onStateChanged()">
+                            <option value="">Select a US state</option>
+                            <option value="CA">California</option>
+                            <option value="WA">Washington</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br />
+
                 <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" ng-model="searchTerm">
                 <button id="searchButton" class="btn btn-primary" type="submit" ng-click="onSearch()"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
                 <button id="resetButton" class="btn " type="button" ng-click="onReset()"><i class="icon-remove"></i>&nbsp;Reset</button>

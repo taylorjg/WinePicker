@@ -135,6 +135,9 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
     $scope.onAppellationChanged = function () {
     };
 
+    $scope.onStateChanged = function() {
+    };
+
     $scope.onReset();
 }
 
