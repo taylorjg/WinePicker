@@ -10,27 +10,18 @@
 describe("WineDetailsController", function () {
 
     var _$httpBackend;
-    var _parentScope;
     var _scope;
     var _routeParams;
     var _controller;
     var _urlBuilder = new wineApi.UrlBuilder("2fd879a5765785c043cc992b550d2bda");
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
+        
         _$httpBackend = _$httpBackend_;
-        _parentScope = $rootScope.$new();
-        _scope = _parentScope.$new();
-
-        // TODO: Is there a better way to deal with parent scope functions in unit tests ?
-        _parentScope.showProgressBar = function () {
-        };
-        _parentScope.hideProgressBar = function () {
-        };
-
         _routeParams = $routeParams;
         $routeParams.id = "91856";
 
-        _$httpBackend.expectJSONP("http://services.wine.com/api/beta2/service.svc/json/catalog?apikey=2fd879a5765785c043cc992b550d2bda&filter=product(91856)&callback=JSON_CALLBACK").respond({
+        _$httpBackend.expectJSONP("http://services.wine.com/api/beta2/service.svc/json/catalog?apikey=2fd879a5765785c043cc992b550d2bda&filter=product(91856)&state=CA&instock=true&callback=JSON_CALLBACK").respond({
             "Status": {
                 "Messages": [],
                 "ReturnCode": 0
@@ -121,6 +112,14 @@ describe("WineDetailsController", function () {
             }
         });
 
+        // Create a parent scope and initialise it by constructing a WinePickerController.
+        var parentScope = $rootScope.$new();
+        // ReSharper disable UnusedLocals
+        var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope, urlBuilder: _urlBuilder });
+        // ReSharper restore UnusedLocals
+        
+        // Now create a new scope based on parentScope that we can use when constructing a WineDetailsController.
+        _scope = parentScope.$new();
         _controller = $controller(WineDetailsController, { $scope: _scope, urlBuilder: _urlBuilder });
     }));
 
