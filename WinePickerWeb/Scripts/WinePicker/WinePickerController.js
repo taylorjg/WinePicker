@@ -8,6 +8,8 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
     "use strict";
 
+    console.log("WinePickerController - $location.path(): " + $location.path());
+
     var _urlBuilder = urlBuilder;
 
     $scope.onSearch = function () {
@@ -59,7 +61,6 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.instock = true;
         $scope.products = null;
         _initialiseMenus();
-        $location.path("/search");
     };
 
     $scope.getLargeLabelImageUrlForProduct = function (product) {

@@ -3,9 +3,11 @@
 
 // ReSharper disable InconsistentNaming
 
-function WineDetailsController($scope, $http, $routeParams, urlBuilder) {
+function WineDetailsController($scope, $http, $location, $routeParams, urlBuilder) {
 
     "use strict";
+
+    console.log("WineDetailsController - $location.path(): " + $location.path());
 
     var _urlBuilder = urlBuilder;
 
@@ -17,6 +19,8 @@ function WineDetailsController($scope, $http, $routeParams, urlBuilder) {
 
     var _populateData = function() {
 
+        console.log("WineDetailsController _populateData()");
+        
         $scope.product = null;
 
         var urlBuilderOptions = {
@@ -45,4 +49,4 @@ function WineDetailsController($scope, $http, $routeParams, urlBuilder) {
     _populateData();
 }
 
-WineDetailsController.$inject = ["$scope", "$http", "$routeParams", "urlBuilder"];
+WineDetailsController.$inject = ["$scope", "$http", "$location", "$routeParams", "urlBuilder"];
