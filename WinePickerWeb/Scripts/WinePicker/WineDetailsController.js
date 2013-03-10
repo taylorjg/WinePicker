@@ -12,15 +12,16 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
     var _urlBuilder = urlBuilder;
 
     $scope.id = $routeParams.id;
+    $scope.hasProductAttributes = false;
 
-    $scope.productAttributeWithImageUrl = function (productAttribute) {
-        return productAttribute.ImageUrl != "";
+    $scope.productAttributeHasImageUrl = function (productAttribute) {
+        return productAttribute && productAttribute.ImageUrl != "";
     };
 
-    var _populateData = function() {
+    var _populateData = function () {
 
         console.log("WineDetailsController _populateData()");
-        
+
         $scope.product = null;
 
         var urlBuilderOptions = {
@@ -33,15 +34,19 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
 
         $scope.showProgressBar();
         $http.jsonp(url)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.Status.ReturnCode === 0) {
                     if (data.Products.List.length === 1) {
                         $scope.product = data.Products.List[0];
+                        var filteredProductAttributes = _.filter($scope.product.ProductAttributes, $scope.productAttributeHasImageUrl);
+                        if (filteredProductAttributes.length > 0) {
+                            $scope.hasProductAttributes = true;
+                        }
                     }
                 }
                 $scope.hideProgressBar();
             })
-            .error(function() {
+            .error(function () {
                 $scope.hideProgressBar();
             });
     };

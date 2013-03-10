@@ -18,10 +18,10 @@
             </table>
             <img ng-src="{{getLargeLabelImageUrlForProduct(product)}}" alt="Label for {{product.Name}}" style="float: right;" />
             <br />
-            <div class="span4">
+            <div class="span4" ng-show="hasProductAttributes">
                 <p>Product attributes:</p>
                 <ul style="list-style-type: none; margin: 0;">
-                    <li ng-repeat="productAttribute in product.ProductAttributes | filter:productAttributeWithImageUrl" style="display: inline; margin-right: 5px;">
+                    <li ng-repeat="productAttribute in product.ProductAttributes | filter:productAttributeHasImageUrl" style="display: inline; margin-right: 5px;">
                         <img ng-src="{{productAttribute.ImageUrl}}" title="{{productAttribute.Name}}" alt="{{productAttribute.Name}}" />
                     </li>
                 </ul>
