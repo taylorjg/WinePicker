@@ -27,23 +27,14 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
             instock: $scope.instock
         };
         var url = _urlBuilder.catalogService(urlBuilderOptions);
-        url = url + "&callback=JSON_CALLBACK";
 
-        $scope.showProgressBar();
-        $http.jsonp(url)
-            .success(function (data) {
-                if (data.Status.ReturnCode === 0) {
-                    $scope.products = data.Products;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
-                }
-                $scope.hideProgressBar();
-                $location.path("/searchResults");
-            })
-            .error(function () {
-                $scope.hideProgressBar();
-            });
+        $scope.invokeWineApi(url, function(data) {
+            $scope.products = data.Products;
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
+            $location.path("/searchResults");
+        });
     };
 
     $scope.onReset = function () {
@@ -78,6 +69,24 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.progressBarVisible = false;
     };
 
+    $scope.invokeWineApi = function (url, fn) {
+        $scope.showProgressBar();
+        url = url + "&callback=JSON_CALLBACK";
+        $http.jsonp(url)
+            .success(function (data) {
+                if (data && data.Status && data.Status.ReturnCode === 0) {
+                    fn(data);
+                } else {
+                    // TODO: handle the error...
+                }
+                $scope.hideProgressBar();
+            })
+            .error(function () {
+                // TODO: handle the error...
+                $scope.hideProgressBar();
+            });
+    };
+
     var _getCategoryRefinements = function (data, categoryId) {
         var result = [];
         var filteredCategories = _.filter(data.Categories, function (c) { return c.Id === categoryId; });
@@ -94,27 +103,18 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.appellations = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_APPELLATION);
     };
 
-    var _getMenuData = function(categoryIdToShow, categoryIdToFilterBy, fn) {
+    var _getMenuData = function (categoryIdToShow, categoryIdToFilterBy, fn) {
 
         var urlBuilderOptions = {
             categories: [wineApi.constants.SHOP_WINE_ONLY, categoryIdToFilterBy],
             show: categoryIdToShow
         };
         var url = _urlBuilder.categoryMapService(urlBuilderOptions);
-        url = url + "&callback=JSON_CALLBACK";
 
-        $scope.showProgressBar();
-        $http.jsonp(url)
-            .success(function(data) {
-                if (data.Status.ReturnCode === 0) {
-                    var result = _getCategoryRefinements(data, categoryIdToShow);
-                    fn(result);
-                }
-                $scope.hideProgressBar();
-            })
-            .error(function() {
-                $scope.hideProgressBar();
-            });
+        $scope.invokeWineApi(url, function(data) {
+            var refinements = _getCategoryRefinements(data, categoryIdToShow);
+            fn(refinements);
+        });
     };
 
     $scope.onWineTypeChanged = function () {

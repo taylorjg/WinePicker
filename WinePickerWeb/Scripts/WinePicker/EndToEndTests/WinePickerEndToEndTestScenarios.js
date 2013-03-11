@@ -21,6 +21,6 @@ describe("WinePicker End-to-End Tests", function () {
     it("can browse directly to /wines/112875", function () {
         var path = "/wines/112875";
         browser().navigateTo(url + "#" + path);
-        expect(window.binding("product.Name")).toContain("Rioja Alta Vina Ardanza Reserva");
+        expect(window.binding("product.Varietal.Name")).toContain("Tempranillo");
     });
 });
