@@ -38,7 +38,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
     };
 
     $scope.onReset = function () {
-        $scope.progressBarVisible = false;
+        $scope.wineApiCallInProgress = false;
         $scope.wineTypes = [];
         $scope.varietals = [];
         $scope.regions = [];
@@ -61,16 +61,16 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         return product.Labels[0].Url.replace("m.jpg", "l.jpg");
     };
 
-    $scope.showProgressBar = function() {
-        $scope.progressBarVisible = true;
+    $scope.beginWineApiCall = function() {
+        $scope.wineApiCallInProgress = true;
     };
 
-    $scope.hideProgressBar = function () {
-        $scope.progressBarVisible = false;
+    $scope.endWineApiCall = function () {
+        $scope.wineApiCallInProgress = false;
     };
 
     $scope.invokeWineApi = function (url, fn) {
-        $scope.showProgressBar();
+        $scope.beginWineApiCall();
         url = url + "&callback=JSON_CALLBACK";
         $http.jsonp(url)
             .success(function (data) {
@@ -79,11 +79,11 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
                 } else {
                     // TODO: handle the error...
                 }
-                $scope.hideProgressBar();
+                $scope.endWineApiCall();
             })
             .error(function () {
                 // TODO: handle the error...
-                $scope.hideProgressBar();
+                $scope.endWineApiCall();
             });
     };
 

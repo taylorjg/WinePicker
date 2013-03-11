@@ -69,12 +69,12 @@
                 <br />
 
                 <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" data-ng-model="searchTerm">
-                <button id="searchButton" class="btn btn-primary" type="submit" data-ng-click="onSearch()"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
-                <button id="resetButton" class="btn " type="button" data-ng-click="onReset()"><i class="icon-remove"></i>&nbsp;Reset</button>
+                <button id="searchButton" class="btn btn-primary" type="submit" data-ng-click="onSearch()" data-ng-disabled="wineApiCallInProgress"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
+                <button id="resetButton" class="btn " type="button" data-ng-click="onReset()" data-ng-disabled="wineApiCallInProgress"><i class="icon-remove"></i>&nbsp;Reset</button>
 
             </form>
 
-            <div class="progress progress-striped active" data-ng-show="progressBarVisible">
+            <div class="progress progress-striped active" data-ng-show="wineApiCallInProgress">
                 <div class="bar" style="width: 100%;"></div>
             </div>
 
