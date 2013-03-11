@@ -1,17 +1,17 @@
-<div ng-show="products != null">
+<div data-ng-show="products != null">
     <hr />
     <div>
         Total number of matching products found: {{products.Total}}
     </div>
     <br />
-    <div id="myCarousel" class="carousel slide" ng-show="products.Total > 0">
+    <div id="myCarousel" class="carousel slide" data-ng-show="products.Total > 0">
         <ol class="carousel-indicators">
-            <li ng-repeat="product in products.List" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active: $first}"></li>
+            <li data-ng-repeat="product in products.List" data-target="#myCarousel" data-slide-to="{{$index}}" data-ng-class="{active: $first}"></li>
         </ol>
         <div class="carousel-inner">
-            <div ng-repeat="product in products.List" class="item" ng-class="{active: $first}">
+            <div data-ng-repeat="product in products.List" class="item" data-ng-class="{active: $first}">
                 <div style="margin-left: 70px; margin-right: 70px; height: 200px;">
-                    <img ng-src="{{getLargeLabelImageUrlForProduct(product)}}" alt="Label for {{product.Name}}" style="float: left;" />
+                    <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" alt="Label for {{product.Name}}" style="float: left;" />
                     <div style="float: left;">
                         <table class="span4 table table-striped table-condensed table-bordered">
                             <tbody>
@@ -19,9 +19,8 @@
                                 <tr><td>Varietal</td><td>{{product.Varietal.Name}}</td></tr>
                                 <tr><td>Appellation</td><td>{{product.Appellation.Name}}</td></tr>
                                 <tr><td>Price</td><td>{{product.PriceRetail | currency}}</td></tr>
-                                <tr><td colspan="2"><a ng-href="#/wines/{{product.Id}}">View product details</a>&nbsp;(in-page)</td></tr>
-                                <tr><td colspan="2"><a ng-href="{{product.Url}}" target="_blank">View product details</a>
-                                (at wine.com <img src="/Content/Images/Icon_External_Link.png" title="External link" alt="External link" />)</td></tr>
+                                <tr><td colspan="2"><a data-ng-href="#/wines/{{product.Id}}">View product details</a>&nbsp;(in-page)</td></tr>
+                                <tr><td colspan="2"><a data-ng-href="{{product.Url}}" target="_blank">View product details</a><span data-jt-external-link /></td></tr>
                             </tbody>
                         </table>
                     </div>
