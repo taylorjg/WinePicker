@@ -4,7 +4,7 @@
         Total number of matching products found: {{products.Total}}
     </div>
     <br />
-    <div id="myCarousel" class="carousel slide" data-ng-show="products.Total > 0" data-jt-carousel-cycle>
+    <div id="myCarousel" class="carousel slide" data-ng-show="products.Total > 0" data-jt-carousel-cycle="products != null && products.List.length > 0">
         <ol class="carousel-indicators">
             <li data-ng-repeat="product in products.List" data-target="#myCarousel" data-slide-to="{{$index}}" data-ng-class="{active: $first}"></li>
         </ol>
