@@ -28,11 +28,10 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         };
         var url = _urlBuilder.catalogService(urlBuilderOptions);
 
-        $scope.invokeWineApi(url, function(data) {
+        $scope.products = null;
+
+        $scope.invokeWineApi(url, function (data) {
             $scope.products = data.Products;
-            if (!$scope.$$phase) {
-                $scope.$apply();
-            }
             $location.path("/searchResults");
         });
     };

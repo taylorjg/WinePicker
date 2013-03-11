@@ -30,4 +30,26 @@ angular.module("WinePickerApp", [/* requires */])
             }
         };
         return directiveDefinitionObject;
+    })
+    .directive("jtCarouselCycle", function () {
+        console.log(".directive() function for jtCarouselCycle");
+        var directiveDefinitionObject = {
+            restrict: "A",
+            link: function (scope, iElement, iAttrs) {
+                console.log("jtCarouselCycle postLink()");
+                console.dir(arguments);
+                scope.$watch("products", function () {
+                    console.log("jtCarouselCycle $watch function for 'products'");
+                    var $element = $(iElement);
+                    if (scope.products !== null && scope.products.List.length > 0) {
+                        console.log("calling $element.carousel('cycle')");
+                        $element.carousel("cycle");
+                    } else {
+                        console.log("calling $element.carousel('pause')");
+                        $element.carousel("pause");
+                    }
+                });
+            }
+        };
+        return directiveDefinitionObject;
     });
