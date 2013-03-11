@@ -11,7 +11,7 @@
         <div class="carousel-inner">
             <div data-ng-repeat="product in products.List" class="item" data-ng-class="{active: $first}">
                 <div style="margin-left: 70px; margin-right: 70px; height: 200px;">
-                    <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" alt="Label for {{product.Name}}" style="float: left;" />
+                    <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" title="Label for {{product.Name}}" alt="Label for {{product.Name}}" style="float: left;" />
                     <div style="float: left;">
                         <table class="span4 table table-striped table-condensed table-bordered">
                             <tbody>

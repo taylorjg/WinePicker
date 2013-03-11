@@ -16,7 +16,7 @@
                     <tr><td>Price</td><td>{{product.PriceRetail | currency}}</td></tr>
                 </tbody>
             </table>
-            <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" alt="Label for {{product.Name}}" style="float: right;" />
+            <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" title="Label for {{product.Name}}" alt="Label for {{product.Name}}" style="float: right;" />
             <br />
             <div class="span4" data-ng-show="hasProductAttributes">
                 <p>Product attributes:</p>
