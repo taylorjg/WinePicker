@@ -43,12 +43,81 @@ describe("WinePickerController", function () {
         expect(_.isArray(_scope.appellations)).toBe(true);
         expect(_scope.appellations.length).toBe(numRefinements(wineApi.constants.CATEGORY_ID_APPELLATION));
 
+        expect(_scope.wineApiCallInProgress).toBe(false);
+        expect(_scope.errorMessagesVisible).toBe(false);
+        expect(_scope.errorMessages).toBeNull();
         expect(_scope.selectedWineType).toBe("");
         expect(_scope.selectedVarietal).toBe("");
         expect(_scope.selectedRegion).toBe("");
         expect(_scope.selectedAppellation).toBe("");
         expect(_scope.searchTerm).toBe("");
+        expect(_scope.state).toBe("CA"); // temp value
+        expect(_scope.instock).toBe(true); // temp value
         expect(_scope.products).toBeNull();
+    });
+
+    describe("showErrorMessages", function () {
+
+        describe("when called with 1 string argument", function () {
+
+            it("results in errorMessages with 1 element and errorMessagesVisible set to true", function () {
+                _scope.showErrorMessages("ErrorMessage1");
+                expect(_scope.errorMessages.length).toBe(1);
+                expect(_scope.errorMessages[0]).toBe("ErrorMessage1");
+                expect(_scope.errorMessagesVisible).toBe(true);
+            });
+        });
+
+        describe("when called with 2 string arguments", function () {
+
+            it("results in errorMessages with 2 elements and errorMessagesVisible set to true", function () {
+                _scope.showErrorMessages("ErrorMessage1", "ErrorMessage2");
+                expect(_scope.errorMessages.length).toBe(2);
+                expect(_scope.errorMessages[0]).toBe("ErrorMessage1");
+                expect(_scope.errorMessages[1]).toBe("ErrorMessage2");
+                expect(_scope.errorMessagesVisible).toBe(true);
+            });
+        });
+
+        describe("when called with no arguments", function () {
+
+            it("results in errorMessages set to null and errorMessagesVisible set to false", function () {
+                _scope.showErrorMessages();
+                expect(_scope.errorMessages).toBeNull();
+                expect(_scope.errorMessagesVisible).toBe(false);
+            });
+        });
+
+        describe("when called with array containing 1 string argument", function () {
+
+            it("results in errorMessages with 1 element and errorMessagesVisible set to true", function () {
+                _scope.showErrorMessages(["ErrorMessage1"]);
+                expect(_scope.errorMessages.length).toBe(1);
+                expect(_scope.errorMessages[0]).toBe("ErrorMessage1");
+                expect(_scope.errorMessagesVisible).toBe(true);
+            });
+        });
+
+        describe("when called with array containing 3 string arguments", function () {
+
+            it("results in errorMessages with 3 elements and errorMessagesVisible set to true", function () {
+                _scope.showErrorMessages(["ErrorMessage1", "ErrorMessage2", "ErrorMessage3"]);
+                expect(_scope.errorMessages.length).toBe(3);
+                expect(_scope.errorMessages[0]).toBe("ErrorMessage1");
+                expect(_scope.errorMessages[1]).toBe("ErrorMessage2");
+                expect(_scope.errorMessages[2]).toBe("ErrorMessage3");
+                expect(_scope.errorMessagesVisible).toBe(true);
+            });
+        });
+
+        describe("when called with empty array", function () {
+
+            it("results in errorMessages set to null and errorMessagesVisible set to false", function () {
+                _scope.showErrorMessages([]);
+                expect(_scope.errorMessages).toBeNull();
+                expect(_scope.errorMessagesVisible).toBe(false);
+            });
+        });
     });
 
     describe("getLargeLabelImageUrlForProduct method", function () {

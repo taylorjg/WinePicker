@@ -49,8 +49,8 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.selectedRegion = "";
         $scope.selectedAppellation = "";
         $scope.searchTerm = "";
-        $scope.state = "CA";
-        $scope.instock = true;
+        $scope.state = "CA"; // temp value
+        $scope.instock = true; // temp value
         $scope.products = null;
         _initialiseMenus();
     };
