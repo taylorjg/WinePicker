@@ -19,9 +19,9 @@
             <br />
             <br />
             
-            <div class="alert alert-error" data-ng-show="errorMessages">
-                @*<button type="button" class="close" data-dismiss="alert">&times;</button>*@
-                <strong>Error!</strong>&nbsp;<span data-ng-repeat="errorMessage in errorMessages">{{errorMessage}}<br data-ng-show="!$last" /></span>
+            <div class="alert alert-error" data-ng-show="errorMessagesVisible">
+                <button type="button" class="close" data-ng-click="errorMessagesVisible = false">&times;</button>
+                <strong>Error!</strong>&nbsp;<span data-ng-repeat="errorMessage in errorMessages">{{errorMessage}}<br data-ng-hide="$last" /></span>
                 <br />
             </div>
 

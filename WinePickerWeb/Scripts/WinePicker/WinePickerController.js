@@ -38,7 +38,8 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
     $scope.onReset = function () {
         $scope.wineApiCallInProgress = false;
-        $scope.errorMessage = null;
+        $scope.errorMessagesVisible = false;
+        $scope.errorMessages = null;
         $scope.wineTypes = [];
         $scope.varietals = [];
         $scope.regions = [];
@@ -69,6 +70,38 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.wineApiCallInProgress = false;
     };
 
+    $scope.showErrorMessages = function (errorMessages) {
+
+        var errorMessagesArray = [];
+
+        if (arguments.length === 1) {
+            if (_.isArray(errorMessages)) {
+                errorMessagesArray = errorMessages;
+            }
+            else {
+                errorMessagesArray.push(errorMessages);
+            }
+        }
+        else {
+            for (var i = 0; i < arguments.length; i++) {
+                errorMessagesArray.push(arguments[i]);
+            }
+        }
+
+        if (errorMessagesArray.length === 0) {
+            $scope.hideErrorMessages();
+            return;
+        }
+
+        $scope.errorMessages = errorMessagesArray;
+        $scope.errorMessagesVisible = true;
+    };
+
+    $scope.hideErrorMessages = function() {
+        $scope.errorMessages = null;
+        $scope.errorMessagesVisible = false;
+    };
+
     $scope.invokeWineApi = function (url, fn) {
         $scope.beginWineApiCall();
         var originalUrl = url;
@@ -76,18 +109,17 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $http.jsonp(url)
             .success(function (data) {
                 if (data && data.Status && data.Status.ReturnCode === 0) {
-                    $scope.errorMessages = null;
+                    $scope.hideErrorMessages();
                     fn(data);
                 } else {
-                    $scope.errorMessage = data.Status.Messages;
+                    $scope.showErrorMessages(data.Status.Messages);
                 }
                 $scope.endWineApiCall();
             })
             .error(function (/* data, status, headers, config */) {
-                $scope.errorMessages = [
-                    "Failed to invoke wine.com API call.",
-                    "url: " + originalUrl
-                ];
+                // The status parameter seems to always be 0.
+                // Is this because we did a jsonp request (as opposed to, say, a get request) ?
+                $scope.showErrorMessages("Failed to invoke wine.com API call.", "url: " + originalUrl);
                 $scope.endWineApiCall();
             });
     };
