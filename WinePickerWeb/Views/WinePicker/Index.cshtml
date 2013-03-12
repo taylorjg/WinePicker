@@ -19,6 +19,12 @@
             <br />
             <br />
             
+            <div class="alert alert-error" data-ng-show="errorMessages">
+                @*<button type="button" class="close" data-dismiss="alert">&times;</button>*@
+                <strong>Error!</strong>&nbsp;<span data-ng-repeat="errorMessage in errorMessages">{{errorMessage}}<br data-ng-show="!$last" /></span>
+                <br />
+            </div>
+
             <form class="form-search" action="">
                 
                 <select id="wineTypeMenu" data-ng-model="selectedWineType" data-ng-change="onWineTypeChanged()">

@@ -38,6 +38,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
     $scope.onReset = function () {
         $scope.wineApiCallInProgress = false;
+        $scope.errorMessage = null;
         $scope.wineTypes = [];
         $scope.varietals = [];
         $scope.regions = [];
@@ -70,18 +71,23 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
     $scope.invokeWineApi = function (url, fn) {
         $scope.beginWineApiCall();
+        var originalUrl = url;
         url = url + "&callback=JSON_CALLBACK";
         $http.jsonp(url)
             .success(function (data) {
                 if (data && data.Status && data.Status.ReturnCode === 0) {
+                    $scope.errorMessages = null;
                     fn(data);
                 } else {
-                    // TODO: handle the error...
+                    $scope.errorMessage = data.Status.Messages;
                 }
                 $scope.endWineApiCall();
             })
-            .error(function () {
-                // TODO: handle the error...
+            .error(function (/* data, status, headers, config */) {
+                $scope.errorMessages = [
+                    "Failed to invoke wine.com API call.",
+                    "url: " + originalUrl
+                ];
                 $scope.endWineApiCall();
             });
     };
