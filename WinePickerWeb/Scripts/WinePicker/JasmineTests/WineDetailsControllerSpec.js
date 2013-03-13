@@ -21,7 +21,7 @@ describe("WineDetailsController", function () {
         _routeParams = $routeParams;
         $routeParams.id = "91856";
 
-        _$httpBackend.expectJSONP("http://services.wine.com/api/beta2/service.svc/json/catalog?apikey=2fd879a5765785c043cc992b550d2bda&filter=product(91856)&state=CA&instock=true&callback=JSON_CALLBACK").respond({
+        _$httpBackend.expectJSONP("http://services.wine.com/api/beta2/service.svc/json/catalog?apikey=2fd879a5765785c043cc992b550d2bda&filter=product(91856)&callback=JSON_CALLBACK").respond({
             "Status": {
                 "Messages": [],
                 "ReturnCode": 0

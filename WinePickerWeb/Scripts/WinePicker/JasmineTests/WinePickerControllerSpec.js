@@ -51,8 +51,12 @@ describe("WinePickerController", function () {
         expect(_scope.selectedRegion).toBe("");
         expect(_scope.selectedAppellation).toBe("");
         expect(_scope.searchTerm).toBe("");
-        expect(_scope.state).toBe("CA"); // temp value
-        expect(_scope.instock).toBe(true); // temp value
+        expect(_scope.state).toBe("");
+        expect(_scope.instock).toBe(false);
+        expect(_scope.priceFrom).toBe("");
+        expect(_scope.priceTo).toBe("");
+        expect(_scope.ratingFrom).toBe("");
+        expect(_scope.ratingTo).toBe("");
         expect(_scope.products).toBeNull();
     });
 

@@ -22,10 +22,26 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
         var urlBuilderOptions = {
             categories: categoryIds,
-            search: $scope.searchTerm,
-            state: $scope.state,
-            instock: $scope.instock
+            search: $scope.searchTerm
         };
+        if ($scope.state != "") {
+            urlBuilderOptions.state = $scope.state;
+            urlBuilderOptions.instock = $scope.instock;
+        }
+        if (_.isNumber($scope.priceFrom)) {
+            var priceFilter = [$scope.priceFrom];
+            if (_.isNumber($scope.priceTo) && $scope.priceTo > $scope.priceFrom) {
+                priceFilter.push($scope.priceTo);
+            }
+            urlBuilderOptions.price = priceFilter;
+        }
+        if (_.isNumber($scope.ratingFrom)) {
+            var ratingFilter = [$scope.ratingFrom];
+            if (_.isNumber($scope.ratingTo) && $scope.ratingTo > $scope.ratingFrom) {
+                ratingFilter.push($scope.ratingTo);
+            }
+            urlBuilderOptions.rating = ratingFilter;
+        }
         var url = _urlBuilder.catalogService(urlBuilderOptions);
 
         $scope.products = null;
@@ -49,8 +65,12 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.selectedRegion = "";
         $scope.selectedAppellation = "";
         $scope.searchTerm = "";
-        $scope.state = "CA"; // temp value
-        $scope.instock = true; // temp value
+        $scope.state = "";
+        $scope.instock = false;
+        $scope.priceFrom = "";
+        $scope.priceTo = "";
+        $scope.ratingFrom = "";
+        $scope.ratingTo = "";
         $scope.products = null;
         _initialiseMenus();
     };

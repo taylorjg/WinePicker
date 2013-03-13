@@ -23,11 +23,8 @@ angular.module("WinePickerApp", [/* requires */])
         var directiveDefinitionObject = {
             restrict: "A",
             replace: true,
-            template: "<span>&nbsp;(at wine.com&nbsp;<img src='/Content/Images/Icon_External_Link.png' title='External link' alt='External link' />)</span>",
-            link: function(scope, element, attrs) {
-                console.log("jtExternalLink postLink()");
-                console.dir(arguments);
-            }
+            //template: "<span>&nbsp;(at wine.com&nbsp;<img src='/Content/Images/Icon_External_Link.png' title='External link' alt='External link' />)</span>",
+            template: "<span>&nbsp;<img src='/Content/Images/Icon_External_Link.png' title='External link' alt='External link' /></span>"
         };
         return directiveDefinitionObject;
     })

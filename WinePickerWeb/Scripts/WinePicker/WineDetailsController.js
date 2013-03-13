@@ -25,13 +25,15 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
         $scope.product = null;
 
         var urlBuilderOptions = {
-            products: $scope.id,
-            state: $scope.state,
-            instock: $scope.instock
+            products: $scope.id
         };
+        if ($scope.state != "") {
+            urlBuilderOptions.state = $scope.state;
+            urlBuilderOptions.instock = $scope.instock;
+        }
         var url = _urlBuilder.catalogService(urlBuilderOptions);
 
-        $scope.invokeWineApi(url, function(data) {
+        $scope.invokeWineApi(url, function (data) {
             if (data.Products.List.length === 1) {
                 $scope.product = data.Products.List[0];
                 var filteredProductAttributes = _.filter($scope.product.ProductAttributes, $scope.productAttributeHasImageUrl);
