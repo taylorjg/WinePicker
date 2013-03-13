@@ -48,6 +48,13 @@ describe("wineApi.UrlBuilder", function () {
         expect(urlBuilder.affiliateId()).toBe("MyAffiliateId2");
     });
 
+//    it("allows multiple instance to behave independently", function() {
+//        var urlBuilder1 = new wineApi.UrlBuilder("MyApiKeyValue1");
+//        var urlBuilder2 = new wineApi.UrlBuilder("MyApiKeyValue2");
+//        expect(urlBuilder1.apiKey()).toBe("MyApiKeyValue1");
+//        expect(urlBuilder2.apiKey()).toBe("MyApiKeyValue2");
+//    });
+
     describe("catalogService method", function () {
 
         describe("when called with no options", function () {

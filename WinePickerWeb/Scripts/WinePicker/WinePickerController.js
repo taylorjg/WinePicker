@@ -1,6 +1,8 @@
 ﻿/// <reference path="WineApi.js" />
+/// <reference path="WineApi.js" />
 /// <reference path="WineApiMenuData.js" />
 /// <reference path="../underscore.js" />
+/// <reference path="../angular.js" />
 
 // ReSharper disable InconsistentNaming
 
@@ -28,16 +30,16 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
             urlBuilderOptions.state = $scope.state;
             urlBuilderOptions.instock = $scope.instock;
         }
-        if (_.isNumber($scope.priceFrom)) {
+        if (angular.isNumber($scope.priceFrom)) {
             var priceFilter = [$scope.priceFrom];
-            if (_.isNumber($scope.priceTo) && $scope.priceTo > $scope.priceFrom) {
+            if (angular.isNumber($scope.priceTo) && $scope.priceTo > $scope.priceFrom) {
                 priceFilter.push($scope.priceTo);
             }
             urlBuilderOptions.price = priceFilter;
         }
-        if (_.isNumber($scope.ratingFrom)) {
+        if (angular.isNumber($scope.ratingFrom)) {
             var ratingFilter = [$scope.ratingFrom];
-            if (_.isNumber($scope.ratingTo) && $scope.ratingTo > $scope.ratingFrom) {
+            if (angular.isNumber($scope.ratingTo) && $scope.ratingTo > $scope.ratingFrom) {
                 ratingFilter.push($scope.ratingTo);
             }
             urlBuilderOptions.rating = ratingFilter;
@@ -95,7 +97,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         var errorMessagesArray = [];
 
         if (arguments.length === 1) {
-            if (_.isArray(errorMessages)) {
+            if (angular.isArray(errorMessages)) {
                 errorMessagesArray = errorMessages;
             }
             else {
