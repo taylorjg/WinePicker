@@ -322,6 +322,9 @@
     <Content Include="Scripts\jstd-scenario-adapter.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\WinePicker\WinePickerAppFactory.js" />
+    <Content Include="Scripts\WinePicker\WinePickerAppConfig.js" />
+    <Content Include="Scripts\WinePicker\WinePickerAppDirective.js" />
     <Content Include="Scripts\WinePicker\WineApiMenuData.js" />
     <Content Include="Scripts\WinePicker\SearchResultsController.js" />
     <Content Include="Scripts\WinePicker\JasmineTests\SearchResultsControllerSpec.js" />
