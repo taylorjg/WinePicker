@@ -60,11 +60,12 @@
                 <br />
 
                 <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-show="moreSearchCriteriaCollapsed">More search criteria</a>
-                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-hide="moreSearchCriteriaCollapsed">Less search criteria</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-show="moreSearchCriteriaCollapsed">More search criteria...</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-hide="moreSearchCriteriaCollapsed">Less search criteria...</a>
                 </div>
                 <div id="moreSearchCriteria" class="accordion-body collapse out">
                     <div class="accordion-inner">
+                        <div class="span2">Shipping to:</div>
                         <select class="span3" id="state" data-ng-model="state" data-ng-change="onStateChanged()">
                             <option value="">Select a US state</option>
                             <option value="AL">Alabama</option>
@@ -122,20 +123,20 @@
                         <br />
                         <br />
                         
-                        <span class="span1" style="margin-right: 20px;">In stock:</span>
+                        <span class="span2">In stock:</span>
                         <label class="radio" style="margin-right: 20px;">
-                            <input type="radio" name="instockRadios" id="instockRadiosOption2" value="1" data-ng-model="instock" data-ng-disabled="!state">
+                            <input type="radio" name="instockRadios" value="1" data-ng-model="instock" data-ng-disabled="!state">
                             Yes
                         </label>
                         <label class="radio" style="margin-right: 20px;">
-                            <input type="radio" name="instockRadios" id="instockRadiosOption1" value="" data-ng-model="instock" data-ng-disabled="!state">
+                            <input type="radio" name="instockRadios" value="" data-ng-model="instock" data-ng-disabled="!state">
                             Unspecified
                         </label>
                         
                         <br />
                         <br />
 
-                        <span class="span1">Price:</span>
+                        <span class="span2">Price:</span>
                         <label>
                             <input class="span1" type="number" data-ng-model="priceFrom" />
                         </label>
@@ -146,7 +147,7 @@
                         <br />
                         <br />
 
-                        <span class="span1">Rating:</span>
+                        <span class="span2">Rating:</span>
                         <label>
                             <input class="span1" type="number" data-ng-model="ratingFrom" />
                         </label>
@@ -159,6 +160,34 @@
                     </div>
                 </div>
 
+                <hr />
+
+                <div class="span2">Sort order:</div>
+                <select class="span2" id="sortOrderMenu" data-ng-model="sortOrder">
+                    <option value="popularity">Popularity</option>
+                    <option value="rating">Rating</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="winery">Winery</option>
+                    <option value="name">Name</option>
+                    <option value="price">Price</option>
+                    <option value="saving">Saving</option>
+                    <option value="justin">Just in</option>
+                </select>
+
+                <br />
+                <br />
+
+                <div class="span2">Sort direction:</div>
+                <label class="radio" style="margin-right: 20px;">
+                    <input type="radio" name="sortDirectionRadios" value="ascending" data-ng-model="sortDirection">
+                    Ascending
+                </label>
+                <label class="radio" style="margin-right: 20px;">
+                    <input type="radio" name="sortDirectionRadios" value="descending" data-ng-model="sortDirection">
+                    Descending
+                </label>
+
+                <br />
                 <br />
 
                 <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" data-ng-model="searchTerm">

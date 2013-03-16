@@ -24,7 +24,8 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
 
         var urlBuilderOptions = {
             categories: categoryIds,
-            search: $scope.searchTerm
+            search: $scope.searchTerm,
+            sort: [$scope.sortOrder, $scope.sortDirection]
         };
         if ($scope.state != "") {
             urlBuilderOptions.state = $scope.state;
@@ -74,6 +75,8 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.priceTo = "";
         $scope.ratingFrom = "";
         $scope.ratingTo = "";
+        $scope.sortOrder = "popularity";
+        $scope.sortDirection = "ascending";
         $scope.products = null;
         _initialiseMenus();
     };

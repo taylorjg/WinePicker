@@ -58,6 +58,8 @@ describe("WinePickerController", function () {
         expect(_scope.priceTo).toBe("");
         expect(_scope.ratingFrom).toBe("");
         expect(_scope.ratingTo).toBe("");
+        expect(_scope.sortOrder).toBe("popularity");
+        expect(_scope.sortDirection).toBe("ascending");
         expect(_scope.products).toBeNull();
     });
 
