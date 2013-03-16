@@ -20,8 +20,6 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
 
     var _populateData = function () {
 
-        console.log("WineDetailsController _populateData()");
-
         $scope.product = null;
 
         var urlBuilderOptions = {

@@ -294,7 +294,9 @@ wineApi.UrlBuilder = (function () {
     };
 
     var Constructor = function (apiKey, affiliateId) {
-        _apiKey(apiKey);
+        if (arguments.length >= 1) {
+            _apiKey(apiKey);
+        }
         if (arguments.length === 2) {
             _affiliateId(affiliateId);
         }
