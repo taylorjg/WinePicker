@@ -60,7 +60,8 @@
                 <br />
 
                 <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria">More search criteria</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-show="moreSearchCriteriaCollapsed">More search criteria</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-hide="moreSearchCriteriaCollapsed">Less search criteria</a>
                 </div>
                 <div id="moreSearchCriteria" class="accordion-body collapse out">
                     <div class="accordion-inner">

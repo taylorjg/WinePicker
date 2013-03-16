@@ -51,6 +51,7 @@ describe("WinePickerController", function () {
         expect(_scope.selectedRegion).toBe("");
         expect(_scope.selectedAppellation).toBe("");
         expect(_scope.searchTerm).toBe("");
+        expect(_scope.moreSearchCriteriaCollapsed).toBe(true);
         expect(_scope.state).toBe("");
         expect(_scope.instock).toBe(false);
         expect(_scope.priceFrom).toBe("");
