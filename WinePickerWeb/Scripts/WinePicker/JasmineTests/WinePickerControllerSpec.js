@@ -18,7 +18,10 @@ describe("WinePickerController", function () {
     beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
         _$httpBackend = _$httpBackend_;
         _scope = $rootScope.$new();
-        _controller = $controller(WinePickerController, { $scope: _scope, urlBuilder: _urlBuilder });
+        _controller = $controller(WinePickerController, {
+            $scope: _scope,
+            urlBuilder: _urlBuilder
+        });
     }));
 
     afterEach(function () {
@@ -59,7 +62,7 @@ describe("WinePickerController", function () {
         expect(_scope.ratingFrom).toBe("");
         expect(_scope.ratingTo).toBe("");
         expect(_scope.sortOrder).toBe("popularity");
-        expect(_scope.sortDirection).toBe("ascending");
+        expect(_scope.sortDirection).toBe("descending");
         expect(_scope.products).toBeNull();
     });
 

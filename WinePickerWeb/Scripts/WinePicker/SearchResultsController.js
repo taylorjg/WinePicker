@@ -2,13 +2,13 @@
 
 // ReSharper disable InconsistentNaming
 
-function SearchResultsController($scope, $location, urlBuilder) {
+function SearchResultsController($scope, $location, searchResultsModel) {
 
     "use strict";
 
     console.log("SearchResultsController - $location.path(): " + $location.path());
 
-    var _urlBuilder = urlBuilder;
+    $scope.model = searchResultsModel;
 }
 
-SearchResultsController.$inject = ["$scope", "$location", "urlBuilder"];
+SearchResultsController.$inject = ["$scope", "$location", "searchResultsModel"];

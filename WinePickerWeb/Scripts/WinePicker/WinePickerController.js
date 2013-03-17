@@ -76,7 +76,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.ratingFrom = "";
         $scope.ratingTo = "";
         $scope.sortOrder = "popularity";
-        $scope.sortDirection = "ascending";
+        $scope.sortDirection = "descending";
         $scope.products = null;
         _initialiseMenus();
     };
