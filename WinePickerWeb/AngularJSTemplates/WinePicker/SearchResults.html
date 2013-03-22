@@ -1,9 +1,13 @@
 <div data-ng-show="products != null">
+    
     <hr />
+
     <div>
         Total number of matching products found: {{products.Total}}
     </div>
+
     <br />
+
     <div id="myCarousel" class="carousel slide" data-ng-show="products.Total > 0" data-jt-carousel-cycle="products != null && products.List.length > 1" data-jt-carousel-tracker="model.currentSlideNumber">
         <div class="carousel-inner">
             <div data-ng-repeat="product in products.List" class="item" data-ng-class="{active: $index == model.currentSlideNumber}">
@@ -27,9 +31,21 @@
         <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
         <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
     </div>
+
+    <div class="pagination" data-ng-show="model.pages.length > 1">
+        <ul>
+            <li><a href="#">Prev</a></li>
+            <li data-ng-repeat="page in model.pages"><a href="#">{{page}}</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+    </div>
+    
+    <!-- For troubleshooting -->
     <pre>
 $scope.model.currentSlideNumber: {{model.currentSlideNumber}}
 $scope.model.offset: {{model.offset}}
 $scope.model.size: {{model.size}}
+$scope.model.pages: {{model.pages}}
     </pre>
+
 </div>
