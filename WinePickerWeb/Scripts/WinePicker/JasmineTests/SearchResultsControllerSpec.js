@@ -34,6 +34,12 @@ describe("SearchResultsController", function () {
 
         // Now create a new scope based on parentScope that we can use when constructing a SearchResultsController.
         _scope = parentScope.$new();
+
+        // Set some dummy results...
+        _scope.products = {
+            Total: 35
+        };
+
         _controller = $controller(SearchResultsController, {
             $scope: _scope,
             searchResultsModel: _searchResultsModel
@@ -45,5 +51,13 @@ describe("SearchResultsController", function () {
 
     it("scope.model is set correctly", function () {
         expect(_scope.model).toBe(_searchResultsModel);
+    });
+
+    it("scope.model.pages array is set correctly", function () {
+        expect(_scope.model.pages.length).toBe(4);
+        expect(_scope.model.pages[0]).toBe(1);
+        expect(_scope.model.pages[1]).toBe(2);
+        expect(_scope.model.pages[2]).toBe(3);
+        expect(_scope.model.pages[3]).toBe(4);
     });
 });
