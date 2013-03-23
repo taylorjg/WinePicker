@@ -27,7 +27,7 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
             search: $scope.searchTerm,
             sort: [$scope.sortOrder, $scope.sortDirection]
         };
-        if ($scope.state != "") {
+        if ($scope.state !== "") {
             urlBuilderOptions.state = $scope.state;
             urlBuilderOptions.instock = $scope.instock;
         }

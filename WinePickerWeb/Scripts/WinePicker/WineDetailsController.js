@@ -15,7 +15,7 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
     $scope.hasProductAttributes = false;
 
     $scope.productAttributeHasImageUrl = function (productAttribute) {
-        return productAttribute && productAttribute.ImageUrl != "";
+        return productAttribute && productAttribute.ImageUrl !== "";
     };
 
     var _populateData = function () {
@@ -25,7 +25,7 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
         var urlBuilderOptions = {
             products: $scope.id
         };
-        if ($scope.state != "") {
+        if ($scope.state !== "") {
             urlBuilderOptions.state = $scope.state;
             urlBuilderOptions.instock = $scope.instock;
         }

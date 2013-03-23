@@ -55,9 +55,9 @@ wineApi.UrlBuilder = (function () {
     var _filterIds = function (ids) {
         var filteredIds = [];
         if (_.isArray(ids)) {
-            filteredIds = _.filter(ids, function (id) { return id != ""; });
+            filteredIds = _.filter(ids, function (id) { return id !== ""; });
         } else {
-            if (ids != "") {
+            if (ids !== "") {
                 filteredIds.push(ids);
             }
         }
@@ -199,52 +199,52 @@ wineApi.UrlBuilder = (function () {
         var url = _buildBaseUrl("catalog");
         options = options || {};
 
-        var offset = options['offset'] || null;
+        var offset = options.offset || null;
         if (offset !== null) {
             url = url + _buildOffsetQueryParam(offset);
         }
 
-        var size = options['size'] || null;
+        var size = options.size || null;
         if (size !== null) {
             url = url + _buildSizeQueryParam(size);
         }
 
-        var categoryIds = options['categories'] || null;
+        var categoryIds = options.categories || null;
         if (categoryIds !== null) {
             url = url + _buildFilterCategoriesQueryStringParam(categoryIds);
         }
 
-        var rating = options['rating'] || null;
+        var rating = options.rating || null;
         if (rating !== null) {
             url = url + _buildFilterRatingQueryStringParam(rating);
         }
 
-        var price = options['price'] || null;
+        var price = options.price || null;
         if (price !== null) {
             url = url + _buildFilterPriceQueryStringParam(price);
         }
 
-        var search = options['search'] || null;
+        var search = options.search || null;
         if (search !== null) {
             url = url + _buildSearchQueryStringParam(search);
         }
 
-        var productIds = options['products'] || null;
+        var productIds = options.products || null;
         if (productIds !== null) {
             url = url + _buildFilterProductQueryStringParam(productIds);
         }
 
-        var state = options['state'] || null;
+        var state = options.state || null;
         if (state !== null) {
             url = url + _buildStateQueryParam(state);
         }
 
-        var instock = options['instock'] || null;
+        var instock = options.instock || null;
         if (instock !== null && state !== null) {
             url = url + _buildInstockQueryStringParam(instock);
         }
 
-        var sort = options['sort'] || null;
+        var sort = options.sort || null;
         if (sort !== null) {
             url = url + _buildSortQueryStringParam(sort);
         }
@@ -257,22 +257,22 @@ wineApi.UrlBuilder = (function () {
         var url = _buildBaseUrl("categorymap");
         options = options || {};
 
-        var categoryIds = options['categories'] || null;
+        var categoryIds = options.categories || null;
         if (categoryIds !== null) {
             url = url + _buildFilterCategoriesQueryStringParam(categoryIds);
         }
 
-        var search = options['search'] || null;
+        var search = options.search || null;
         if (search !== null) {
             url = url + _buildSearchQueryStringParam(search);
         }
 
-        var rating = options['rating'] || null;
+        var rating = options.rating || null;
         if (rating !== null) {
             url = url + _buildFilterRatingQueryStringParam(rating);
         }
 
-        var showIds = options['show'] || null;
+        var showIds = options.show || null;
         if (showIds !== null) {
             url = url + _buildShowQueryStringParam(showIds);
         }
@@ -285,7 +285,7 @@ wineApi.UrlBuilder = (function () {
         var url = _buildBaseUrl("reference");
         options = options || {};
 
-        var categoryIds = options['categories'] || null;
+        var categoryIds = options.categories || null;
         if (categoryIds !== null) {
             url = url + _buildFilterCategoriesQueryStringParam(categoryIds);
         }
