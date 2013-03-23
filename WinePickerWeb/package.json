@@ -1,0 +1,16 @@
+{
+  "name": "WinePicker",
+  "author": "Jonathan Taylor",
+  "description": "WinePicker - browse through wines using wine.com's API. Vehicle for exploring AngularJS and Twitter Bootstrap.",
+  "homepage": "https://github.com/taylorjg/WinePicker",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/taylorjg/WinePicker.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-watch": "~0.3.1"
+  }
+}

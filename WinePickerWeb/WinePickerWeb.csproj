@@ -141,7 +141,7 @@
     <Content Include="Content\jasmine\jasmine.css" />
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="Global.asax" />
-    <Content Include="Grunt\Gruntfile.js" />
+    <Content Include="Gruntfile.js" />
     <Content Include="Notes\WineApi_angularjs_bootstrap.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
@@ -358,7 +358,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Grunt\package.json" />
+    <None Include="package.json" />
     <None Include="Scripts\jasmine\MIT.LICENSE" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\_MyLayout.cshtml" />
