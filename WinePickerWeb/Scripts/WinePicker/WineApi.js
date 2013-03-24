@@ -184,14 +184,14 @@ wineApi.UrlBuilder = (function () {
     var _buildSortQueryStringParam = function (values) {
         if (_.isArray(values)) {
             if (values.length === 1) {
-                return _buildSortQueryStringParamHelper(values[0], "ascending");
+                return _buildSortQueryStringParamHelper(values[0], "descending");
             }
             if (values.length === 2) {
                 return _buildSortQueryStringParamHelper(values[0], values[1]);
             }
             return "";
         }
-        return _buildSortQueryStringParamHelper(values, "ascending");
+        return _buildSortQueryStringParamHelper(values, "descending");
     };
 
     var _catalogService = function (options) {

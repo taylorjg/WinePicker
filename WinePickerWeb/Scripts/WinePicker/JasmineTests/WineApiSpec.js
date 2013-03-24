@@ -370,7 +370,7 @@ describe("wineApi.UrlBuilder", function () {
                     var url = urlBuilder.catalogService({
                         sort: ["rating"]
                     });
-                    expect(url).toContain("&sort=rating|ascending");
+                    expect(url).toContain("&sort=rating|descending");
                 });
             });
 
@@ -382,7 +382,7 @@ describe("wineApi.UrlBuilder", function () {
                     var url = urlBuilder.catalogService({
                         sort: "rating"
                     });
-                    expect(url).toContain("&sort=rating|ascending");
+                    expect(url).toContain("&sort=rating|descending");
                 });
             });
 
