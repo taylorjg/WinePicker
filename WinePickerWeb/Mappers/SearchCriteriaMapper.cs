@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using WineApi;
 
 namespace WinePickerWeb.Mappers
 {
     public static class SearchCriteriaMapper
     {
-        public static void ConfigureCatalogService(CatalogService catalogService, string searchCriteria)
+        public static void ConfigureCatalogServiceWithSearchCriteria(CatalogService catalogService, string searchCriteria)
         {
             var bits = searchCriteria.Split('|');
             var offset = ExtractIntValue(bits, "o");
@@ -57,7 +58,7 @@ namespace WinePickerWeb.Mappers
 
             if (!string.IsNullOrEmpty(search))
             {
-                catalogService.Search(search);
+                catalogService.Search(Words(search));
             }
 
             if (priceFrom.HasValue)
@@ -110,6 +111,29 @@ namespace WinePickerWeb.Mappers
                     }
 
                     catalogService.SortBy(eSortOption, eSortDirection);
+                }
+            }
+        }
+
+        public static void ConfigureCatalogServiceWithProductCriteria(CatalogService catalogService, string productCriteria)
+        {
+            var bits = productCriteria.Split('|');
+            var productId = ExtractIntValue(bits, "id");
+            var state = ExtractStringValue(bits, "st");
+            var instock = ExtractBoolValue(bits, "is");
+
+            if (productId.HasValue)
+            {
+                catalogService.ProductFilter(productId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(state))
+            {
+                catalogService.State(state);
+
+                if (instock.HasValue && instock.Value)
+                {
+                    catalogService.InStock(true);
                 }
             }
         }
@@ -169,6 +193,16 @@ namespace WinePickerWeb.Mappers
                 }
             }
             return null;
+        }
+
+        private static string[] Words(string inputString)
+        {
+            const char spaceCharacter = ' ';
+            var spaceString = new string(spaceCharacter, 1);
+            var inputStringWithCollapsedWhitespace = Regex.Replace(inputString.Trim(), @"\s+", spaceString);
+            var words = inputStringWithCollapsedWhitespace.Split(spaceCharacter);
+            var trimmedWords = from w in words select w.Trim();
+            return trimmedWords.ToArray();
         }
     }
 }

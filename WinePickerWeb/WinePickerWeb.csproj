@@ -147,7 +147,7 @@
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
-    <Content Include="Notes\WineApi_angularjs_bootstrap.txt" />
+    <Content Include="Notes\WinePicker_AngularJS_Bootstrap.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
@@ -328,6 +328,8 @@
     <Content Include="Scripts\jstd-scenario-adapter.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\WinePicker\JasmineTests\SearchCriteriaControllerSpec.js" />
+    <Content Include="Scripts\WinePicker\SearchCriteriaController.js" />
     <Content Include="Scripts\WinePicker\Models.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppFactory.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppConfig.js" />

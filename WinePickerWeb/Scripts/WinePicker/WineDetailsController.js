@@ -1,15 +1,14 @@
 ﻿/// <reference path="WineApi.js" />
+/// <reference path="../WinePicker/WinePickerController.js" />
 /// <reference path="../underscore.js" />
 
 // ReSharper disable InconsistentNaming
 
-function WineDetailsController($scope, $http, $location, $routeParams, urlBuilder) {
+function WineDetailsController($scope, $http, $location, $routeParams) {
 
     "use strict";
 
     console.log("WineDetailsController - $location.path(): " + $location.path());
-
-    var _urlBuilder = urlBuilder;
 
     $scope.id = $routeParams.id;
     $scope.hasProductAttributes = false;
@@ -22,16 +21,9 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
 
         $scope.product = null;
 
-        var urlBuilderOptions = {
-            products: $scope.id
-        };
-        if ($scope.state !== "") {
-            urlBuilderOptions.state = $scope.state;
-            urlBuilderOptions.instock = $scope.instock;
-        }
-        var url = _urlBuilder.catalogService(urlBuilderOptions);
+        var productCriteria = _buildProductCriteria();
 
-        $scope.invokeWineApi(url, function (data) {
+        $scope.invokeWineApiViaProxy(productCriteria, function (data) {
             if (data.Products.List.length === 1) {
                 $scope.product = data.Products.List[0];
                 var filteredProductAttributes = _.filter($scope.product.ProductAttributes, $scope.productAttributeHasImageUrl);
@@ -42,7 +34,27 @@ function WineDetailsController($scope, $http, $location, $routeParams, urlBuilde
         });
     };
 
+    var _addCriteriaComponent = function (criteria, name, value) {
+        if (criteria !== "") {
+            criteria = criteria + "|";
+        }
+        criteria = criteria + name + ":" + value;
+        return criteria;
+    };
+
+    var _buildProductCriteria = function () {
+        var productCriteria = "";
+        productCriteria = _addCriteriaComponent(productCriteria, "id", $scope.id);
+        if ($scope.state !== "") {
+            productCriteria = _addCriteriaComponent(productCriteria, "st", $scope.state);
+            if ($scope.instock === "1") {
+                productCriteria = _addCriteriaComponent(productCriteria, "is", $scope.instock);
+            }
+        }
+        return "productCriteria=" + productCriteria;
+    };
+
     _populateData();
 }
 
-WineDetailsController.$inject = ["$scope", "$http", "$location", "$routeParams", "urlBuilder"];
+WineDetailsController.$inject = ["$scope", "$http", "$location", "$routeParams"];

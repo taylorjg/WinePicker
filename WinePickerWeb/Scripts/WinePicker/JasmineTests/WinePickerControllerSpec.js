@@ -13,15 +13,11 @@ describe("WinePickerController", function () {
     var _scope;
     var _controller;
     var _$httpBackend;
-    var _urlBuilder = new wineApi.UrlBuilder("2fd879a5765785c043cc992b550d2bda");
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
         _$httpBackend = _$httpBackend_;
         _scope = $rootScope.$new();
-        _controller = $controller(WinePickerController, {
-            $scope: _scope,
-            urlBuilder: _urlBuilder
-        });
+        _controller = $controller(WinePickerController, { $scope: _scope });
     }));
 
     afterEach(function () {

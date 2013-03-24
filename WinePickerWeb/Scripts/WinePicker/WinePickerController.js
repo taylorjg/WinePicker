@@ -1,55 +1,19 @@
 ﻿/// <reference path="WineApi.js" />
-/// <reference path="WineApi.js" />
 /// <reference path="WineApiMenuData.js" />
 /// <reference path="../underscore.js" />
 /// <reference path="../angular.js" />
 
 // ReSharper disable InconsistentNaming
 
-function WinePickerController($scope, $http, $location, urlBuilder) {
+function WinePickerController($scope, $http, $location) {
 
     "use strict";
 
     console.log("WinePickerController - $location.path(): " + $location.path());
 
-    var _urlBuilder = urlBuilder;
-
     $scope.onSearch = function () {
-
-        var categoryIds = [];
-        categoryIds.push($scope.selectedWineType);
-        categoryIds.push($scope.selectedVarietal);
-        categoryIds.push($scope.selectedRegion);
-        categoryIds.push($scope.selectedAppellation);
-
-        var urlBuilderOptions = {
-            categories: categoryIds,
-            search: $scope.searchTerm,
-            sort: [$scope.sortOrder, $scope.sortDirection]
-        };
-        if ($scope.state !== "") {
-            urlBuilderOptions.state = $scope.state;
-            urlBuilderOptions.instock = $scope.instock;
-        }
-        if (angular.isNumber($scope.priceFrom)) {
-            var priceFilter = [$scope.priceFrom];
-            if (angular.isNumber($scope.priceTo) && $scope.priceTo > $scope.priceFrom) {
-                priceFilter.push($scope.priceTo);
-            }
-            urlBuilderOptions.price = priceFilter;
-        }
-        if (angular.isNumber($scope.ratingFrom)) {
-            var ratingFilter = [$scope.ratingFrom];
-            if (angular.isNumber($scope.ratingTo) && $scope.ratingTo > $scope.ratingFrom) {
-                ratingFilter.push($scope.ratingTo);
-            }
-            urlBuilderOptions.rating = ratingFilter;
-        }
-        var url = _urlBuilder.catalogService(urlBuilderOptions);
-
-        $scope.products = null;
-
-        $scope.invokeWineApi(url, function (data) {
+        var searchCriteria = _buildSearchCriteria();
+        $scope.invokeWineApiViaProxy(searchCriteria, function (data) {
             $scope.products = data.Products;
             $location.path("/searchResults");
         });
@@ -128,11 +92,10 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.errorMessagesVisible = false;
     };
 
-    $scope.invokeWineApi = function (url, fn) {
+    $scope.invokeWineApiViaProxy = function(queryString, fn) {
         $scope.beginWineApiCall();
-        var originalUrl = url;
-        url = url + "&callback=JSON_CALLBACK";
-        $http.jsonp(url)
+        var url = "api/wineapi?" + queryString;
+        $http.get(url)
             .success(function (data) {
                 if (data && data.Status && data.Status.ReturnCode === 0) {
                     $scope.hideErrorMessages();
@@ -142,14 +105,17 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
                 }
                 $scope.endWineApiCall();
             })
-            .error(function (/* data, status, headers, config */) {
-                // The status parameter seems to always be 0.
-                // Is this because we did a jsonp request (as opposed to, say, a get request) ?
-                $scope.showErrorMessages("Failed to invoke wine.com API call.", "url: " + originalUrl);
+            .error(function (data, status) {
+                // http://www.asp.net/web-api/overview/web-api-routing-and-actions/exception-handling
+                if (data.Message && data.MessageDetail) {
+                    $scope.showErrorMessages("Failed to invoke wine.com API via server proxy - HTTP status code: " + status, data.Message, data.MessageDetail);
+                } else {
+                    $scope.showErrorMessages(data);
+                }
                 $scope.endWineApiCall();
             });
     };
-
+    
     var _getCategoryRefinements = function (data, categoryId) {
         var result = [];
         var filteredCategories = _.filter(data.Categories, function (c) { return c.Id === categoryId; });
@@ -166,33 +132,13 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
         $scope.appellations = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_APPELLATION);
     };
 
-    var _getMenuData = function (categoryIdToShow, categoryIdToFilterBy, fn) {
-
-        var urlBuilderOptions = {
-            categories: [wineApi.constants.SHOP_WINE_ONLY, categoryIdToFilterBy],
-            show: categoryIdToShow
-        };
-        var url = _urlBuilder.categoryMapService(urlBuilderOptions);
-
-        $scope.invokeWineApi(url, function(data) {
-            var refinements = _getCategoryRefinements(data, categoryIdToShow);
-            fn(refinements);
-        });
-    };
-
     $scope.onWineTypeChanged = function () {
-        _getMenuData(wineApi.constants.CATEGORY_ID_VARIETAL, $scope.selectedWineType, function (refinements) {
-            $scope.varietals = refinements;
-        });
     };
 
     $scope.onVarietalChanged = function() {
     };
     
     $scope.onRegionChanged = function () {
-        _getMenuData(wineApi.constants.CATEGORY_ID_APPELLATION, $scope.selectedRegion, function (refinements) {
-            $scope.appellations = refinements;
-        });
     };
 
     $scope.onAppellationChanged = function () {
@@ -202,6 +148,65 @@ function WinePickerController($scope, $http, $location, urlBuilder) {
     };
 
     $scope.onReset();
+
+    var _addCriteriaComponent = function (criteria, name, value) {
+        if (criteria !== "") {
+            criteria = criteria + "|";
+        }
+        criteria = criteria + name + ":" + value;
+        return criteria;
+    };
+
+    var _buildSearchCriteria = function () {
+
+        var searchCriteria = "";
+
+        if ($scope.selectedWineType !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "wt", $scope.selectedWineType);
+        }
+
+        if ($scope.selectedVarietal !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "v", $scope.selectedVarietal);
+        }
+
+        if ($scope.selectedRegion !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "r", $scope.selectedRegion);
+        }
+
+        if ($scope.selectedAppellation !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "a", $scope.selectedAppellation);
+        }
+
+        if ($scope.searchTerm !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "s", $scope.searchTerm);
+        }
+
+        if ($scope.state !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "st", $scope.state);
+            if ($scope.instock === "1") {
+                searchCriteria = _addCriteriaComponent(searchCriteria, "is", $scope.instock);
+            }
+        }
+
+        if ($scope.priceFrom !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "pf", $scope.priceFrom);
+            if ($scope.priceTo !== "") {
+                searchCriteria = _addCriteriaComponent(searchCriteria, "pt", $scope.priceTo);
+            }
+        }
+
+        if ($scope.ratingFrom !== "") {
+            searchCriteria = _addCriteriaComponent(searchCriteria, "rf", $scope.ratingFrom);
+            if ($scope.ratingTo !== "") {
+                searchCriteria = _addCriteriaComponent(searchCriteria, "rt", $scope.ratingTo);
+            }
+        }
+
+        searchCriteria = _addCriteriaComponent(searchCriteria, "so", $scope.sortOrder);
+        searchCriteria = _addCriteriaComponent(searchCriteria, "sd", $scope.sortDirection);
+
+        return "searchCriteria=" + searchCriteria;
+    };
 }
 
-WinePickerController.$inject = ["$scope", "$http", "$location", "urlBuilder"];
+WinePickerController.$inject = ["$scope", "$http", "$location"];

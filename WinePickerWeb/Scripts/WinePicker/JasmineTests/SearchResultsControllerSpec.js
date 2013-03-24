@@ -3,7 +3,6 @@
 /// <reference path="../../angular-mocks.js" />
 /// <reference path="../WinePickerController.js" />
 /// <reference path="../SearchResultsController.js" />
-/// <reference path="../WineApi.js" />
 /// <reference path="../Models.js" />
 
 // ReSharper disable InconsistentNaming
@@ -15,7 +14,6 @@ describe("SearchResultsController", function () {
     var _searchResultsModel;
     var _routeParams;
     var _controller;
-    var _urlBuilder = new wineApi.UrlBuilder("2fd879a5765785c043cc992b550d2bda");
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
 
@@ -26,10 +24,7 @@ describe("SearchResultsController", function () {
         // Create a parent scope and initialise it by constructing a WinePickerController.
         var parentScope = $rootScope.$new();
         // ReSharper disable UnusedLocals
-        var unusedWinePickerController = $controller(WinePickerController, {
-            $scope: parentScope,
-            urlBuilder: _urlBuilder
-        });
+        var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope });
         // ReSharper restore UnusedLocals
 
         // Now create a new scope based on parentScope that we can use when constructing a SearchResultsController.

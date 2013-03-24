@@ -11,10 +11,17 @@ namespace WinePickerWeb.Controllers
             Config.ApiKey = "2fd879a5765785c043cc992b550d2bda";
         }
 
-        public object Get(string searchCriteria)
+        public object GetProductsThatMatchSearchCriteria(string searchCriteria)
         {
             var catalogService = new CatalogService();
-            SearchCriteriaMapper.ConfigureCatalogService(catalogService, searchCriteria);
+            SearchCriteriaMapper.ConfigureCatalogServiceWithSearchCriteria(catalogService, searchCriteria);
+            return catalogService.Execute();
+        }
+
+        public object GetProductDetails(string productCriteria)
+        {
+            var catalogService = new CatalogService();
+            SearchCriteriaMapper.ConfigureCatalogServiceWithProductCriteria(catalogService, productCriteria);
             return catalogService.Execute();
         }
     }

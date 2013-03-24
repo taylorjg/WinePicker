@@ -3,7 +3,6 @@
 /// <reference path="../../angular-mocks.js" />
 /// <reference path="../WinePickerController.js" />
 /// <reference path="../WineDetailsController.js" />
-/// <reference path="../WineApi.js" />
 
 // ReSharper disable InconsistentNaming
 
@@ -13,7 +12,6 @@ describe("WineDetailsController", function () {
     var _scope;
     var _routeParams;
     var _controller;
-    var _urlBuilder = new wineApi.UrlBuilder("2fd879a5765785c043cc992b550d2bda");
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
         
@@ -21,7 +19,7 @@ describe("WineDetailsController", function () {
         _routeParams = $routeParams;
         $routeParams.id = "91856";
         
-        _$httpBackend.expectJSONP("http://services.wine.com/api/beta2/service.svc/json/catalog?apikey=2fd879a5765785c043cc992b550d2bda&filter=product(91856)&callback=JSON_CALLBACK").respond({
+        _$httpBackend.expectGET("api/wineapi?productCriteria=id:91856").respond({
             "Status": {
                 "Messages": [],
                 "ReturnCode": 0
@@ -115,12 +113,12 @@ describe("WineDetailsController", function () {
         // Create a parent scope and initialise it by constructing a WinePickerController.
         var parentScope = $rootScope.$new();
         // ReSharper disable UnusedLocals
-        var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope, urlBuilder: _urlBuilder });
+        var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope });
         // ReSharper restore UnusedLocals
         
         // Now create a new scope based on parentScope that we can use when constructing a WineDetailsController.
         _scope = parentScope.$new();
-        _controller = $controller(WineDetailsController, { $scope: _scope, urlBuilder: _urlBuilder });
+        _controller = $controller(WineDetailsController, { $scope: _scope });
     }));
 
     afterEach(function () {

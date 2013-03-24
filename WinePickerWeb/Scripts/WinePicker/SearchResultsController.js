@@ -1,6 +1,4 @@
-﻿/// <reference path="WineApi.js" />
-
-// ReSharper disable InconsistentNaming
+﻿// ReSharper disable InconsistentNaming
 
 function SearchResultsController($scope, $location, searchResultsModel) {
 
