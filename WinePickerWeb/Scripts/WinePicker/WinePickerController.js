@@ -1,4 +1,5 @@
 ﻿/// <reference path="WineApi.js" />
+/// <reference path="Utils.js" />
 /// <reference path="WineApiMenuData.js" />
 /// <reference path="../underscore.js" />
 /// <reference path="../angular.js" />
@@ -149,63 +150,55 @@ function WinePickerController($scope, $http, $location) {
 
     $scope.onReset();
 
-    var _addCriteriaComponent = function (criteria, name, value) {
-        if (criteria !== "") {
-            criteria = criteria + "|";
-        }
-        criteria = criteria + name + ":" + value;
-        return criteria;
-    };
-
     var _buildSearchCriteria = function () {
 
-        var searchCriteria = "";
+        var criteriaBuilder = new CriteriaBuilder("searchCriteria");
 
         if ($scope.selectedWineType !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "wt", $scope.selectedWineType);
+            criteriaBuilder.addComponent("wt", $scope.selectedWineType);
         }
 
         if ($scope.selectedVarietal !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "v", $scope.selectedVarietal);
+            criteriaBuilder.addComponent("v", $scope.selectedVarietal);
         }
 
         if ($scope.selectedRegion !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "r", $scope.selectedRegion);
+            criteriaBuilder.addComponent("r", $scope.selectedRegion);
         }
 
         if ($scope.selectedAppellation !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "a", $scope.selectedAppellation);
+            criteriaBuilder.addComponent("a", $scope.selectedAppellation);
         }
 
         if ($scope.searchTerm !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "s", $scope.searchTerm);
+            criteriaBuilder.addComponent("s", $scope.searchTerm);
         }
 
         if ($scope.state !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "st", $scope.state);
+            criteriaBuilder.addComponent("st", $scope.state);
             if ($scope.instock === "1") {
-                searchCriteria = _addCriteriaComponent(searchCriteria, "is", $scope.instock);
+                criteriaBuilder.addComponent("is", $scope.instock);
             }
         }
 
         if ($scope.priceFrom !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "pf", $scope.priceFrom);
+            criteriaBuilder.addComponent("pf", $scope.priceFrom);
             if ($scope.priceTo !== "") {
-                searchCriteria = _addCriteriaComponent(searchCriteria, "pt", $scope.priceTo);
+                criteriaBuilder.addComponent("pt", $scope.priceTo);
             }
         }
 
         if ($scope.ratingFrom !== "") {
-            searchCriteria = _addCriteriaComponent(searchCriteria, "rf", $scope.ratingFrom);
+            criteriaBuilder.addComponent("rf", $scope.ratingFrom);
             if ($scope.ratingTo !== "") {
-                searchCriteria = _addCriteriaComponent(searchCriteria, "rt", $scope.ratingTo);
+                criteriaBuilder.addComponent("rt", $scope.ratingTo);
             }
         }
 
-        searchCriteria = _addCriteriaComponent(searchCriteria, "so", $scope.sortOrder);
-        searchCriteria = _addCriteriaComponent(searchCriteria, "sd", $scope.sortDirection);
+        criteriaBuilder.addComponent("so", $scope.sortOrder);
+        criteriaBuilder.addComponent("sd", $scope.sortDirection);
 
-        return "searchCriteria=" + searchCriteria;
+        return criteriaBuilder.criteria();
     };
 }
 

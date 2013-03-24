@@ -1,4 +1,5 @@
 ﻿/// <reference path="WineApi.js" />
+/// <reference path="Utils.js" />
 /// <reference path="../WinePicker/WinePickerController.js" />
 /// <reference path="../underscore.js" />
 
@@ -34,24 +35,16 @@ function WineDetailsController($scope, $http, $location, $routeParams) {
         });
     };
 
-    var _addCriteriaComponent = function (criteria, name, value) {
-        if (criteria !== "") {
-            criteria = criteria + "|";
-        }
-        criteria = criteria + name + ":" + value;
-        return criteria;
-    };
-
     var _buildProductCriteria = function () {
-        var productCriteria = "";
-        productCriteria = _addCriteriaComponent(productCriteria, "id", $scope.id);
+        var criteriaBuilder = new CriteriaBuilder("productCriteria");
+        criteriaBuilder.addComponent("id", $scope.id);
         if ($scope.state !== "") {
-            productCriteria = _addCriteriaComponent(productCriteria, "st", $scope.state);
+            criteriaBuilder.addComponent("st", $scope.state);
             if ($scope.instock === "1") {
-                productCriteria = _addCriteriaComponent(productCriteria, "is", $scope.instock);
+                criteriaBuilder.addComponent("is", $scope.instock);
             }
         }
-        return "productCriteria=" + productCriteria;
+        return criteriaBuilder.criteria();
     };
 
     _populateData();
