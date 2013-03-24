@@ -124,7 +124,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\SearchCriteriaMapper.cs" />
+    <Compile Include="Mappers\CatalogServiceMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -328,9 +328,11 @@
     <Content Include="Scripts\jstd-scenario-adapter.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\WinePicker\JasmineTests\UtilsSpec.js" />
     <Content Include="Scripts\WinePicker\JasmineTests\SearchCriteriaControllerSpec.js" />
     <Content Include="Scripts\WinePicker\SearchCriteriaController.js" />
     <Content Include="Scripts\WinePicker\Models.js" />
+    <Content Include="Scripts\WinePicker\Utils.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppFactory.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppConfig.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppDirective.js" />

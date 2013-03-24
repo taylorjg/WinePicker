@@ -6,9 +6,9 @@ using WineApi;
 
 namespace WinePickerWeb.Mappers
 {
-    public static class SearchCriteriaMapper
+    public static class CatalogServiceMapper
     {
-        public static void ConfigureCatalogServiceWithSearchCriteria(CatalogService catalogService, string searchCriteria)
+        public static void ConfigureWithSearchCriteria(CatalogService catalogService, string searchCriteria)
         {
             var bits = searchCriteria.Split('|');
             var offset = ExtractIntValue(bits, "o");
@@ -54,7 +54,10 @@ namespace WinePickerWeb.Mappers
             {
                 categoryIds.Add(region.Value);
             }
-            catalogService.CategoriesFilter(categoryIds.ToArray());
+            if (categoryIds.Any())
+            {
+                catalogService.CategoriesFilter(categoryIds.ToArray());
+            }
 
             if (!string.IsNullOrEmpty(search))
             {
@@ -115,7 +118,7 @@ namespace WinePickerWeb.Mappers
             }
         }
 
-        public static void ConfigureCatalogServiceWithProductCriteria(CatalogService catalogService, string productCriteria)
+        public static void ConfigureWithProductCriteria(CatalogService catalogService, string productCriteria)
         {
             var bits = productCriteria.Split('|');
             var productId = ExtractIntValue(bits, "id");

@@ -14,14 +14,14 @@ namespace WinePickerWeb.Controllers
         public object GetProductsThatMatchSearchCriteria(string searchCriteria)
         {
             var catalogService = new CatalogService();
-            SearchCriteriaMapper.ConfigureCatalogServiceWithSearchCriteria(catalogService, searchCriteria);
+            CatalogServiceMapper.ConfigureWithSearchCriteria(catalogService, searchCriteria);
             return catalogService.Execute();
         }
 
         public object GetProductDetails(string productCriteria)
         {
             var catalogService = new CatalogService();
-            SearchCriteriaMapper.ConfigureCatalogServiceWithProductCriteria(catalogService, productCriteria);
+            CatalogServiceMapper.ConfigureWithProductCriteria(catalogService, productCriteria);
             return catalogService.Execute();
         }
     }
