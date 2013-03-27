@@ -1,16 +1,16 @@
-<div data-ng-show="products != null">
+<div data-ng-show="searchResultsModel.products != null">
     
     <hr />
 
     <div>
-        Total number of matching products found: {{products.Total}}
+        Total number of matching products found: {{searchResultsModel.products.Total}}
     </div>
 
     <br />
 
-    <div id="myCarousel" class="carousel slide" data-ng-show="products.Total > 0" data-jt-carousel-cycle="products != null && products.List.length > 1" data-jt-carousel-tracker="model.currentSlideNumber">
+    <div id="myCarousel" class="carousel slide" data-ng-show="searchResultsModel.products.Total > 0" data-jt-carousel-cycle="searchResultsModel.products != null && searchResultsModel.products.List.length > 1" data-jt-carousel-tracker="searchResultsModel.currentSlideNumber">
         <div class="carousel-inner">
-            <div data-ng-repeat="product in products.List" class="item" data-ng-class="{active: $index == model.currentSlideNumber}">
+            <div data-ng-repeat="product in searchResultsModel.products.List" class="item" data-ng-class="{active: $index == searchResultsModel.currentSlideNumber}">
                 <div style="margin-left: 70px; margin-right: 70px; height: 200px;">
                     <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" title="Label for {{product.Name}}" alt="Label for {{product.Name}}" style="float: left;" />
                     <div style="float: left;">
@@ -32,20 +32,20 @@
         <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
     </div>
 
-    <div class="pagination" data-ng-show="model.pages.length > 1">
+    <div class="pagination" data-ng-show="searchResultsModel.pages.length > 1">
         <ul>
             <li><a href="#">Prev</a></li>
-            <li data-ng-repeat="page in model.pages"><a href="#">{{page}}</a></li>
+            <li data-ng-repeat="page in searchResultsModel.pages"><a href="#">{{page}}</a></li>
             <li><a href="#">Next</a></li>
         </ul>
     </div>
     
     <!-- For troubleshooting -->
     <pre>
-$scope.model.currentSlideNumber: {{model.currentSlideNumber}}
-$scope.model.offset: {{model.offset}}
-$scope.model.size: {{model.size}}
-$scope.model.pages: {{model.pages}}
+$scope.searchResultsModel.currentSlideNumber: {{searchResultsModel.currentSlideNumber}}
+$scope.searchResultsModel.offset: {{searchResultsModel.offset}}
+$scope.searchResultsModel.size: {{searchResultsModel.size}}
+$scope.searchResultsModel.pages: {{searchResultsModel.pages}}
     </pre>
 
 </div>

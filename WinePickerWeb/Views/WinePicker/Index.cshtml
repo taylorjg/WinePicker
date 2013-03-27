@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <div class="span8">
+        <div class="span8" data-ng-controller="SearchCriteriaController">
             
             <br />
             <br />
@@ -27,7 +27,7 @@
 
             <form class="form-search" action="">
                 
-                <select id="wineTypeMenu" data-ng-model="selectedWineType" data-ng-change="onWineTypeChanged()">
+                <select id="wineTypeMenu" data-ng-model="searchCriteriaModel.wineType" data-ng-change="onWineTypeChanged()">
                     <option value="">Any Wine Type</option>
                     <option data-ng-repeat="wineType in wineTypes" value="{{wineType.Id}}">{{wineType.Name}}</option>
                 </select>
@@ -35,7 +35,7 @@
                 <br />
                 <br />
 
-                <select id="varietalMenu" data-ng-model="selectedVarietal" data-ng-change="onVarietalChanged()">
+                <select id="varietalMenu" data-ng-model="searchCriteriaModel.varietal" data-ng-change="onVarietalChanged()">
                     <option value="">Any Varietal</option>
                     <option data-ng-repeat="varietal in varietals" value="{{varietal.Id}}">{{varietal.Name}}</option>
                 </select>
@@ -43,7 +43,7 @@
                 <br />
                 <br />
 
-                <select id="regionMenu" data-ng-model="selectedRegion" data-ng-change="onRegionChanged()">
+                <select id="regionMenu" data-ng-model="searchCriteriaModel.region" data-ng-change="onRegionChanged()">
                     <option value="">Any Region</option>
                     <option data-ng-repeat="region in regions" value="{{region.Id}}">{{region.Name}}</option>
                 </select>
@@ -51,7 +51,7 @@
                 <br />
                 <br />
 
-                <select id="appellationMenu" data-ng-model="selectedAppellation" data-ng-change="onAppellationChanged()">
+                <select id="appellationMenu" data-ng-model="searchCriteriaModel.appellation" data-ng-change="onAppellationChanged()">
                     <option value="">Any Appellation</option>
                     <option data-ng-repeat="appellation in appellations" value="{{appellation.Id}}">{{appellation.Name}}</option>
                 </select>
@@ -66,7 +66,7 @@
                 <div id="moreSearchCriteria" class="accordion-body collapse out">
                     <div class="accordion-inner">
                         <div class="span2">Shipping to:</div>
-                        <select class="span3" id="state" data-ng-model="state" data-ng-change="onStateChanged()">
+                        <select class="span3" id="state" data-ng-model="searchCriteriaModel.state">
                             <option value="">Select a US state</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -125,11 +125,11 @@
                         
                         <span class="span2">In stock:</span>
                         <label class="radio" style="margin-right: 20px;">
-                            <input type="radio" name="instockRadios" value="1" data-ng-model="instock" data-ng-disabled="!state">
+                            <input type="radio" name="instockRadios" value="1" data-ng-model="searchCriteriaModel.instock" data-ng-disabled="!searchCriteriaModel.state">
                             Yes
                         </label>
                         <label class="radio" style="margin-right: 20px;">
-                            <input type="radio" name="instockRadios" value="" data-ng-model="instock" data-ng-disabled="!state">
+                            <input type="radio" name="instockRadios" value="" data-ng-model="searchCriteriaModel.instock" data-ng-disabled="!searchCriteriaModel.state">
                             Unspecified
                         </label>
                         
@@ -138,10 +138,10 @@
 
                         <span class="span2">Price:</span>
                         <label>
-                            <input class="span1" type="number" data-ng-model="priceFrom" />
+                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.priceFrom" />
                         </label>
                         <label>
-                            <input class="span1" type="number" data-ng-model="priceTo" data-ng-disabled="!priceFrom" />
+                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.priceTo" data-ng-disabled="!searchCriteriaModel.priceFrom" />
                         </label>
                         
                         <br />
@@ -149,10 +149,10 @@
 
                         <span class="span2">Rating:</span>
                         <label>
-                            <input class="span1" type="number" data-ng-model="ratingFrom" />
+                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.ratingFrom" />
                         </label>
                         <label>
-                            <input class="span1" type="number" data-ng-model="ratingTo" data-ng-disabled="!ratingFrom" />
+                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.ratingTo" data-ng-disabled="!searchCriteriaModel.ratingFrom" />
                         </label>
                         
                         <br />
@@ -163,7 +163,7 @@
                 <hr />
 
                 <div class="span2">Sort order:</div>
-                <select class="span2" id="sortOrderMenu" data-ng-model="sortOrder">
+                <select class="span2" id="sortOrderMenu" data-ng-model="searchCriteriaModel.sortOrder">
                     <option value="popularity">Popularity</option>
                     <option value="rating">Rating</option>
                     <option value="vintage">Vintage</option>
@@ -179,18 +179,18 @@
 
                 <div class="span2">Sort direction:</div>
                 <label class="radio" style="margin-right: 20px;">
-                    <input type="radio" name="sortDirectionRadios" value="ascending" data-ng-model="sortDirection">
+                    <input type="radio" name="sortDirectionRadios" value="ascending" data-ng-model="searchCriteriaModel.sortDirection">
                     Ascending
                 </label>
                 <label class="radio" style="margin-right: 20px;">
-                    <input type="radio" name="sortDirectionRadios" value="descending" data-ng-model="sortDirection">
+                    <input type="radio" name="sortDirectionRadios" value="descending" data-ng-model="searchCriteriaModel.sortDirection">
                     Descending
                 </label>
 
                 <br />
                 <br />
 
-                <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" data-ng-model="searchTerm">
+                <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" data-ng-model="searchCriteriaModel.searchTerm">
                 <button id="searchButton" class="btn btn-primary" type="submit" data-ng-click="onSearch()" data-ng-disabled="wineApiCallInProgress"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
                 <button id="resetButton" class="btn " type="button" data-ng-click="onReset()" data-ng-disabled="wineApiCallInProgress"><i class="icon-remove"></i>&nbsp;Reset</button>
 

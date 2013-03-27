@@ -12,9 +12,9 @@ describe("WinePicker End-to-End Tests", function () {
 
     it("can search for 'dom perignon'", function () {
         browser().navigateTo(url);
-        input("searchTerm").enter("dom perignon");
+        input("searchCriteriaModel.searchTerm").enter("dom perignon");
         element("#searchButton").click();
-        expect(window.binding("products.Total")).toBeGreaterThan(0);
+        expect(window.binding("searchResultsModel.products.Total")).toBeGreaterThan(0);
         expect(window.binding("product.Name")).toContain("Dom Perignon");
     });
 

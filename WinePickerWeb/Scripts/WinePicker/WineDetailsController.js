@@ -38,10 +38,10 @@ function WineDetailsController($scope, $http, $location, $routeParams) {
     var _buildProductCriteria = function () {
         var criteriaBuilder = new CriteriaBuilder("productCriteria");
         criteriaBuilder.addComponent("id", $scope.id);
-        if ($scope.state !== "") {
-            criteriaBuilder.addComponent("st", $scope.state);
-            if ($scope.instock === "1") {
-                criteriaBuilder.addComponent("is", $scope.instock);
+        if ($scope.searchCriteriaModel.state !== "") {
+            criteriaBuilder.addComponent("st", $scope.searchCriteriaModel.state);
+            if ($scope.searchCriteriaModel.instock === "1") {
+                criteriaBuilder.addComponent("is", $scope.searchCriteriaModel.instock);
             }
         }
         return criteriaBuilder.criteria();
