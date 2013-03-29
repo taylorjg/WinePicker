@@ -1,12 +1,9 @@
-﻿/// <reference path="WineApi.js" />
-/// <reference path="Utils.js" />
-/// <reference path="WineApiMenuData.js" />
-/// <reference path="../underscore.js" />
+﻿/// <reference path="WineApiProxy.js" />
 /// <reference path="../angular.js" />
 
 // ReSharper disable InconsistentNaming
 
-function WinePickerController($scope, $http, $location) {
+function WinePickerController($scope, $http, $location, wineApiProxy) {
 
     "use strict";
 
@@ -15,46 +12,19 @@ function WinePickerController($scope, $http, $location) {
     $scope.wineApiCallInProgress = false;
     $scope.errorMessages = null;
     $scope.errorMessagesVisible = false;
-    
-    $scope.beginWineApiCall = function () {
+
+    wineApiProxy.start(function() {
         $scope.wineApiCallInProgress = true;
-    };
+    });
 
-    $scope.endWineApiCall = function () {
+    wineApiProxy.end(function() {
         $scope.wineApiCallInProgress = false;
-    };
+    });
 
-    $scope.showErrorMessages = function (errorMessages) {
-
-        var errorMessagesArray = [];
-
-        if (arguments.length === 1) {
-            if (angular.isArray(errorMessages)) {
-                errorMessagesArray = errorMessages;
-            }
-            else {
-                errorMessagesArray.push(errorMessages);
-            }
-        }
-        else {
-            for (var i = 0; i < arguments.length; i++) {
-                errorMessagesArray.push(arguments[i]);
-            }
-        }
-
-        if (errorMessagesArray.length === 0) {
-            $scope.hideErrorMessages();
-            return;
-        }
-
-        $scope.errorMessages = errorMessagesArray;
-        $scope.errorMessagesVisible = true;
-    };
-
-    $scope.hideErrorMessages = function () {
-        $scope.errorMessages = null;
-        $scope.errorMessagesVisible = false;
-    };
+    wineApiProxy.error(function (errorMessages) {
+        $scope.errorMessages = errorMessages;
+        $scope.errorMessagesVisible = errorMessages.length > 0;
+    });
 }
 
-WinePickerController.$inject = ["$scope", "$http", "$location"];
+WinePickerController.$inject = ["$scope", "$http", "$location", "wineApiProxy"];

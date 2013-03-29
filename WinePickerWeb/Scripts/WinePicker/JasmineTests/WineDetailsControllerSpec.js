@@ -12,7 +12,7 @@ describe("WineDetailsController", function () {
     var _scope;
     var _controller;
 
-    beforeEach(inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
+    beforeEach(angular.mock.inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
 
         _$httpBackend = _$httpBackend_;
         $routeParams.encodedProductCriteria = "id:91856";

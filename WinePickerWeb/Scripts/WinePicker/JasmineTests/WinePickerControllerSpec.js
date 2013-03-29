@@ -13,7 +13,7 @@ describe("WinePickerController", function () {
     var _scope;
     var _controller;
 
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(angular.mock.inject(function ($rootScope, $controller) {
         _scope = $rootScope.$new();
         _controller = $controller(WinePickerController, { $scope: _scope });
     }));

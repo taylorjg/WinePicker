@@ -12,7 +12,7 @@ describe("SearchCriteriaController", function () {
     var _scope;
     var _controller;
 
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(angular.mock.inject(function ($rootScope, $controller) {
 
         // Create a parent scope and initialise it by constructing a WinePickerController.
         var parentScope = $rootScope.$new();
