@@ -1,4 +1,4 @@
-﻿CriteriaBuilder = function (prefix) {
+﻿CriteriaFormatter = function (prefix) {
 
     this._criteria = "";
     this._prefix = prefix || "";

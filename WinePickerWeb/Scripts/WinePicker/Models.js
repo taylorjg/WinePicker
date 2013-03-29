@@ -17,21 +17,21 @@ SearchCriteriaModel = function () {
     this.sortDirection = "descending";
 
     this.encode = function () {
-        var criteriaBuilder = new CriteriaBuilder();
-        criteriaBuilder.addComponent("wt", this.wineType);
-        criteriaBuilder.addComponent("v", this.varietal);
-        criteriaBuilder.addComponent("r", this.region);
-        criteriaBuilder.addComponent("a", this.appellation);
-        criteriaBuilder.addComponent("s", this.searchTerm);
-        criteriaBuilder.addComponent("pf", this.priceFrom);
-        criteriaBuilder.addComponent("pt", this.priceTo);
-        criteriaBuilder.addComponent("rf", this.ratingFrom);
-        criteriaBuilder.addComponent("rt", this.ratingTo);
-        criteriaBuilder.addComponent("st", this.state);
-        criteriaBuilder.addComponent("is", this.instock);
-        criteriaBuilder.addComponent("so", this.sortOrder);
-        criteriaBuilder.addComponent("sd", this.sortDirection);
-        return criteriaBuilder.criteria();
+        var criteriaFormatter = new CriteriaFormatter();
+        criteriaFormatter.addComponent("wt", this.wineType);
+        criteriaFormatter.addComponent("v", this.varietal);
+        criteriaFormatter.addComponent("r", this.region);
+        criteriaFormatter.addComponent("a", this.appellation);
+        criteriaFormatter.addComponent("s", this.searchTerm);
+        criteriaFormatter.addComponent("pf", this.priceFrom);
+        criteriaFormatter.addComponent("pt", this.priceTo);
+        criteriaFormatter.addComponent("rf", this.ratingFrom);
+        criteriaFormatter.addComponent("rt", this.ratingTo);
+        criteriaFormatter.addComponent("st", this.state);
+        criteriaFormatter.addComponent("is", this.instock);
+        criteriaFormatter.addComponent("so", this.sortOrder);
+        criteriaFormatter.addComponent("sd", this.sortDirection);
+        return criteriaFormatter.criteria();
     };
     
     this.decode = function (s) {
@@ -76,11 +76,11 @@ SearchResultsModel = function () {
     this.instock = "";
 
     this.buildWineDetailsPath = function (product) {
-        var criteriaBuilder = new CriteriaBuilder();
-        criteriaBuilder.addComponent("id", product.Id);
-        criteriaBuilder.addComponent("st", this.state);
-        criteriaBuilder.addComponent("is", this.instock);
-        return "#/wineDetails/" + criteriaBuilder.criteria();
+        var criteriaFormatter = new CriteriaFormatter();
+        criteriaFormatter.addComponent("id", product.Id);
+        criteriaFormatter.addComponent("st", this.state);
+        criteriaFormatter.addComponent("is", this.instock);
+        return "#/wineDetails/" + criteriaFormatter.criteria();
     };
 };
 
