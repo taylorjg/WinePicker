@@ -17,3 +17,21 @@
         return result + this._criteria;
     };
 };
+
+CriteriaParser = function (criteria) {
+
+    this._criteria = criteria || "";
+    this._bits = this._criteria.split("|");
+
+    this.getComponent = function (name) {
+        var value = "";
+        for (var i = 0; i < this._bits.length; i++) {
+            var bit = this._bits[i];
+            var prefix = name + ":";
+            if (bit.substring(0, prefix.length) === prefix) {
+                value = bit.substring(prefix.length);
+            }
+        }
+        return value;
+    };
+};

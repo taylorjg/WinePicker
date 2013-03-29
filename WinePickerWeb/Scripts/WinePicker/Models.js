@@ -33,35 +33,22 @@ SearchCriteriaModel = function () {
         criteriaFormatter.addComponent("sd", this.sortDirection);
         return criteriaFormatter.criteria();
     };
-    
-    this.decode = function (s) {
-        var bits = s.split("|");
-        this.wineType = findBit(bits, "wt");
-        this.varietal = findBit(bits, "v");
-        this.region = findBit(bits, "r");
-        this.appellation = findBit(bits, "a");
-        this.searchTerm = findBit(bits, "s");
-        this.priceFrom = findBit(bits, "pf");
-        this.priceTo = findBit(bits, "pt");
-        this.ratingFrom = findBit(bits, "rf");
-        this.ratingTo = findBit(bits, "rt");
-        this.state = findBit(bits, "st");
-        this.instock = findBit(bits, "is");
-        this.sortOrder = findBit(bits, "so");
-        this.sortDirection = findBit(bits, "sd");
-    };
 
-    var findBit = function (bits, name) {
-        var result = "";
-        for (var i = 0; i < bits.length; i++) {
-            var bit = bits[i];
-            var prefix = name + ":";
-            var x = bit.substring(0, prefix.length);
-            if (x === prefix) {
-                result = bit.substring(prefix.length);
-            }
-        }
-        return result;
+    this.decode = function (s) {
+        var criteriaParser = new CriteriaParser(s);
+        this.wineType = criteriaParser.getComponent("wt");
+        this.varietal = criteriaParser.getComponent("v");
+        this.region = criteriaParser.getComponent("r");
+        this.appellation = criteriaParser.getComponent("a");
+        this.searchTerm = criteriaParser.getComponent("s");
+        this.priceFrom = criteriaParser.getComponent("pf");
+        this.priceTo = criteriaParser.getComponent("pt");
+        this.ratingFrom = criteriaParser.getComponent("rf");
+        this.ratingTo = criteriaParser.getComponent("rt");
+        this.state = criteriaParser.getComponent("st");
+        this.instock = criteriaParser.getComponent("is");
+        this.sortOrder = criteriaParser.getComponent("so");
+        this.sortDirection = criteriaParser.getComponent("sd");
     };
 };
 
