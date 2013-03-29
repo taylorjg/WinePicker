@@ -19,7 +19,7 @@
             <br />
             <br />
             
-            <div class="alert alert-error" data-ng-show="errorMessagesVisible">
+            <div class="alert alert-error" data-ng-cloak data-ng-show="errorMessagesVisible">
                 <button type="button" class="close" data-ng-click="errorMessagesVisible = false">&times;</button>
                 <strong>Error!</strong>&nbsp;<span data-ng-repeat="errorMessage in errorMessages">{{errorMessage}}<br data-ng-hide="$last" /></span>
                 <br />
@@ -196,7 +196,7 @@
 
             </form>
 
-            <div class="progress progress-striped active" data-ng-show="wineApiCallInProgress">
+            <div class="progress progress-striped active" data-ng-cloak data-ng-show="wineApiCallInProgress">
                 <div class="bar" style="width: 100%;"></div>
             </div>
 
