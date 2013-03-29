@@ -1,8 +1,9 @@
-﻿/// <reference path="Models.js" />
+﻿/// <reference path="WineApiProxy.js" />
+/// <reference path="Models.js" />
 
 // ReSharper disable InconsistentNaming
 
-function SearchResultsController($scope, $location, $routeParams, searchResultsModel) {
+function SearchResultsController($scope, $location, $routeParams, wineApiProxy, searchResultsModel) {
 
     "use strict";
 
@@ -18,7 +19,7 @@ function SearchResultsController($scope, $location, $routeParams, searchResultsM
     $scope.searchResultsModel.state = searchCriteriaModel.state;
     $scope.searchResultsModel.instock = searchCriteriaModel.instock;
 
-    $scope.invokeWineApiViaProxy("searchCriteria=" + $routeParams.encodedSearchCriteria, function (data) {
+    wineApiProxy.callWineApi("searchCriteria=" + $routeParams.encodedSearchCriteria, function (data) {
         $scope.searchResultsModel.products = data.Products;
         var page = 1;
         for (var i = 0; i < $scope.searchResultsModel.products.Total; i = i + $scope.searchResultsModel.size) {
@@ -31,4 +32,4 @@ function SearchResultsController($scope, $location, $routeParams, searchResultsM
     });
 }
 
-SearchResultsController.$inject = ["$scope", "$location", "$routeParams", "searchResultsModel"];
+SearchResultsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy", "searchResultsModel"];

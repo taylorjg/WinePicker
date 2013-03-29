@@ -3,12 +3,6 @@
 
 describe("wineApi.UrlBuilder", function () {
 
-    beforeEach(function () {
-    });
-
-    afterEach(function () {
-    });
-
     it("should provide a constructor", function () {
         var urlBuilder = new wineApi.UrlBuilder();
         expect(urlBuilder).not.toBeNull();

@@ -10,13 +10,11 @@ describe("WineDetailsController", function () {
 
     var _$httpBackend;
     var _scope;
-    var _routeParams;
     var _controller;
 
-    beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
+    beforeEach(inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
 
         _$httpBackend = _$httpBackend_;
-        _routeParams = $routeParams;
         $routeParams.encodedProductCriteria = "id:91856";
 
         _$httpBackend.expectGET("api/wineapi?productCriteria=id:91856").respond({
@@ -118,7 +116,10 @@ describe("WineDetailsController", function () {
 
         // Now create a new scope based on parentScope that we can use when constructing a WineDetailsController.
         _scope = parentScope.$new();
-        _controller = $controller(WineDetailsController, { $scope: _scope });
+        _controller = $controller(WineDetailsController, {
+            $scope: _scope,
+            wineApiProxy: new WineApiProxy($http)
+        });
     }));
 
     it("$scope.wineDetailsModel should be correctly initialised", function () {

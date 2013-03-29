@@ -55,30 +55,6 @@ function WinePickerController($scope, $http, $location) {
         $scope.errorMessages = null;
         $scope.errorMessagesVisible = false;
     };
-
-    $scope.invokeWineApiViaProxy = function (queryString, fn) {
-        $scope.beginWineApiCall();
-        var url = "api/wineapi?" + queryString;
-        $http.get(url)
-            .success(function (data) {
-                if (data && data.Status && data.Status.ReturnCode === 0) {
-                    $scope.hideErrorMessages();
-                    fn(data);
-                } else {
-                    $scope.showErrorMessages(data.Status.Messages);
-                }
-                $scope.endWineApiCall();
-            })
-            .error(function (data, status) {
-                // http://www.asp.net/web-api/overview/web-api-routing-and-actions/exception-handling
-                if (data.Message && data.MessageDetail) {
-                    $scope.showErrorMessages("Failed to invoke wine.com API via server proxy - HTTP status code: " + status, data.Message, data.MessageDetail);
-                } else {
-                    $scope.showErrorMessages(data);
-                }
-                $scope.endWineApiCall();
-            });
-    };
 }
 
 WinePickerController.$inject = ["$scope", "$http", "$location"];

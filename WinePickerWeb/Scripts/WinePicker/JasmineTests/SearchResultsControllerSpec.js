@@ -3,6 +3,7 @@
 /// <reference path="../../angular-mocks.js" />
 /// <reference path="../WinePickerController.js" />
 /// <reference path="../SearchResultsController.js" />
+/// <reference path="../WineApiProxy.js" />
 /// <reference path="../Models.js" />
 
 // ReSharper disable InconsistentNaming
@@ -12,14 +13,13 @@ describe("SearchResultsController", function () {
     var _$httpBackend;
     var _scope;
     var _searchResultsModel;
-    var _routeParams;
     var _controller;
 
-    beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
+    beforeEach(angular.mock.inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
 
         _$httpBackend = _$httpBackend_;
-        _routeParams = $routeParams;
         $routeParams.encodedSearchCriteria = "wt:124|s:gamay";
+
         _searchResultsModel = new SearchResultsModel();
 
         _$httpBackend.expectGET("api/wineapi?searchCriteria=wt:124|s:gamay").respond({
@@ -44,12 +44,10 @@ describe("SearchResultsController", function () {
 
         _controller = $controller(SearchResultsController, {
             $scope: _scope,
+            wineApiProxy: new WineApiProxy($http),
             searchResultsModel: _searchResultsModel
         });
     }));
-
-    afterEach(function () {
-    });
 
     it("scope.searchResultsModel is initialised correctly", function () {
         expect(_scope.searchResultsModel).toBe(_searchResultsModel);

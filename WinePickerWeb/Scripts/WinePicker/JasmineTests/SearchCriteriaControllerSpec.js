@@ -9,15 +9,10 @@
 
 describe("SearchCriteriaController", function () {
 
-    var _$httpBackend;
     var _scope;
-    var _routeParams;
     var _controller;
 
-    beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
-
-        _$httpBackend = _$httpBackend_;
-        _routeParams = $routeParams;
+    beforeEach(inject(function ($rootScope, $controller) {
 
         // Create a parent scope and initialise it by constructing a WinePickerController.
         var parentScope = $rootScope.$new();
@@ -28,13 +23,8 @@ describe("SearchCriteriaController", function () {
         // Now create a new scope based on parentScope that we can use when constructing a SearchCriteriaController.
         _scope = parentScope.$new();
 
-        _controller = $controller(SearchCriteriaController, {
-            $scope: _scope
-        });
+        _controller = $controller(SearchCriteriaController, { $scope: _scope });
     }));
-
-    afterEach(function () {
-    });
 
     var numRefinements = function (categoryId) {
         var filteredCategories = _.filter(wineApi.menuData.Categories, function (c) { return c.Id === categoryId; });

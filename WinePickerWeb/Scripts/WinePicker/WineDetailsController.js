@@ -1,10 +1,10 @@
-﻿/// <reference path="Models.js" />
-/// <reference path="../WinePicker/WinePickerController.js" />
+﻿/// <reference path="WineApiProxy.js" />
+/// <reference path="Models.js" />
 /// <reference path="../underscore.js" />
 
 // ReSharper disable InconsistentNaming
 
-function WineDetailsController($scope, $location, $routeParams) {
+function WineDetailsController($scope, $location, $routeParams, wineApiProxy) {
 
     "use strict";
 
@@ -12,7 +12,7 @@ function WineDetailsController($scope, $location, $routeParams) {
 
     $scope.wineDetailsModel = new WineDetailsModel();
 
-    $scope.invokeWineApiViaProxy("productCriteria=" + $routeParams.encodedProductCriteria, function (data) {
+    wineApiProxy.callWineApi("productCriteria=" + $routeParams.encodedProductCriteria, function (data) {
         if (data.Products.List.length === 1) {
             var product = data.Products.List[0];
             $scope.wineDetailsModel.product = product;
@@ -23,4 +23,4 @@ function WineDetailsController($scope, $location, $routeParams) {
     });
 }
 
-WineDetailsController.$inject = ["$scope", "$location", "$routeParams"];
+WineDetailsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy"];

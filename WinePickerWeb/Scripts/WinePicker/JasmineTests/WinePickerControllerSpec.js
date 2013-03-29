@@ -12,10 +12,8 @@ describe("WinePickerController", function () {
 
     var _scope;
     var _controller;
-    var _$httpBackend;
 
-    beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
-        _$httpBackend = _$httpBackend_;
+    beforeEach(inject(function ($rootScope, $controller) {
         _scope = $rootScope.$new();
         _controller = $controller(WinePickerController, { $scope: _scope });
     }));
