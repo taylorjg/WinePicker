@@ -66,12 +66,25 @@ SearchCriteriaModel = function () {
 };
 
 SearchResultsModel = function () {
+
     this.currentSlideNumber = 0;
     this.offset = 0;
     this.size = 10;
     this.products = null;
     this.pages = [];
+    this.state = "";
+    this.instock = "";
+
+    this.buildWineDetailsPath = function (product) {
+        var criteriaBuilder = new CriteriaBuilder();
+        criteriaBuilder.addComponent("id", product.Id);
+        criteriaBuilder.addComponent("st", this.state);
+        criteriaBuilder.addComponent("is", this.instock);
+        return "#/wineDetails/" + criteriaBuilder.criteria();
+    };
 };
 
-WineDetailsModel = function() {
+WineDetailsModel = function () {
+    this.product = null;
+    this.productAttributesWithImageUrl = [];
 };

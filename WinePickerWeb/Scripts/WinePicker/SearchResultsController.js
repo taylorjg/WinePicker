@@ -1,4 +1,6 @@
-﻿// ReSharper disable InconsistentNaming
+﻿/// <reference path="Models.js" />
+
+// ReSharper disable InconsistentNaming
 
 function SearchResultsController($scope, $location, $routeParams, searchResultsModel) {
 
@@ -6,10 +8,15 @@ function SearchResultsController($scope, $location, $routeParams, searchResultsM
 
     console.log("SearchResultsController - $location.path(): " + $location.path());
 
+    var searchCriteriaModel = new SearchCriteriaModel();
+    searchCriteriaModel.decode($routeParams.encodedSearchCriteria);
+    
     $scope.searchResultsModel = searchResultsModel;
     
     $scope.searchResultsModel.products = null;
     $scope.searchResultsModel.pages = [];
+    $scope.searchResultsModel.state = searchCriteriaModel.state;
+    $scope.searchResultsModel.instock = searchCriteriaModel.instock;
 
     $scope.invokeWineApiViaProxy("searchCriteria=" + $routeParams.encodedSearchCriteria, function (data) {
         $scope.searchResultsModel.products = data.Products;

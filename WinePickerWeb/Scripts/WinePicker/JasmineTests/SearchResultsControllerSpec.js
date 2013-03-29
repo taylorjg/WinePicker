@@ -19,7 +19,19 @@ describe("SearchResultsController", function () {
 
         _$httpBackend = _$httpBackend_;
         _routeParams = $routeParams;
+        $routeParams.encodedSearchCriteria = "wt:124|s:gamay";
         _searchResultsModel = new SearchResultsModel();
+
+        _$httpBackend.expectGET("api/wineapi?searchCriteria=wt:124|s:gamay").respond({
+            "Status": {
+                "Messages": [],
+                "ReturnCode": 0
+            },
+            "Products": {
+                "List": [],
+                "Total": 35
+            }
+        });
 
         // Create a parent scope and initialise it by constructing a WinePickerController.
         var parentScope = $rootScope.$new();
@@ -30,11 +42,6 @@ describe("SearchResultsController", function () {
         // Now create a new scope based on parentScope that we can use when constructing a SearchResultsController.
         _scope = parentScope.$new();
 
-        // Set some dummy results...
-        _scope.products = {
-            Total: 35
-        };
-
         _controller = $controller(SearchResultsController, {
             $scope: _scope,
             searchResultsModel: _searchResultsModel
@@ -44,15 +51,16 @@ describe("SearchResultsController", function () {
     afterEach(function () {
     });
 
-    it("scope.model is set correctly", function () {
-        expect(_scope.model).toBe(_searchResultsModel);
+    it("scope.searchResultsModel is initialised correctly", function () {
+        expect(_scope.searchResultsModel).toBe(_searchResultsModel);
     });
 
-    it("scope.model.pages array is set correctly", function () {
-        expect(_scope.model.pages.length).toBe(4);
-        expect(_scope.model.pages[0]).toBe(1);
-        expect(_scope.model.pages[1]).toBe(2);
-        expect(_scope.model.pages[2]).toBe(3);
-        expect(_scope.model.pages[3]).toBe(4);
+    it("scope.searchResultsModel.pages array is set correctly", function () {
+        _$httpBackend.flush();
+        expect(_scope.searchResultsModel.pages.length).toBe(4);
+        expect(_scope.searchResultsModel.pages[0]).toBe(1);
+        expect(_scope.searchResultsModel.pages[1]).toBe(2);
+        expect(_scope.searchResultsModel.pages[2]).toBe(3);
+        expect(_scope.searchResultsModel.pages[3]).toBe(4);
     });
 });

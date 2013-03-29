@@ -1,4 +1,4 @@
-<div data-ng-show="product != null">
+<div data-ng-show="wineDetailsModel.product != null">
     
     <hr />
 
@@ -13,16 +13,16 @@
         <div class="tab-pane fade in active" id="mainDetailsTab">
             <table class="span4 table table-striped table-condensed table-bordered">
                 <tbody>
-                    <tr><td>Name</td><td><a data-ng-href="{{product.Url}}" target="_blank">{{product.Name}}</a><span data-jt-external-link /></td></tr>
-                    <tr><td>Price</td><td>{{product.PriceRetail | currency}}</td></tr>
+                    <tr><td>Name</td><td><a data-ng-href="{{wineDetailsModel.product.Url}}" target="_blank">{{wineDetailsModel.product.Name}}</a><span data-jt-external-link /></td></tr>
+                    <tr><td>Price</td><td>{{wineDetailsModel.product.PriceRetail | currency}}</td></tr>
                 </tbody>
             </table>
-            <img data-ng-src="{{getLargeLabelImageUrlForProduct(product)}}" title="Label for {{product.Name}}" alt="Label for {{product.Name}}" style="float: right;" />
+            <img data-ng-src="{{getLargeLabelImageUrlForProduct(wineDetailsModel.product)}}" title="Label for {{wineDetailsModel.product.Name}}" alt="Label for {{wineDetailsModel.product.Name}}" style="float: right;" />
             <br />
-            <div class="span4" data-ng-show="hasProductAttributes">
+            <div class="span4" data-ng-show="wineDetailsModel.productAttributesWithImageUrl.length > 0">
                 <p>Product attributes:</p>
                 <ul style="list-style-type: none; margin: 0;">
-                    <li data-ng-repeat="productAttribute in product.ProductAttributes | filter:productAttributeHasImageUrl" style="display: inline; margin-right: 5px;">
+                    <li data-ng-repeat="productAttribute in wineDetailsModel.productAttributesWithImageUrl" style="display: inline; margin-right: 5px;">
                         <img data-ng-src="{{productAttribute.ImageUrl}}" title="{{productAttribute.Name}}" alt="{{productAttribute.Name}}" />
                     </li>
                 </ul>
@@ -32,9 +32,9 @@
         <div class="tab-pane fade" id="varietalTab">
             <table class="span4 table table-striped table-condensed table-bordered">
                 <tbody>
-                    <tr><td>Wine Type</td><td><a data-ng-href="{{product.Varietal.WineType.Url}}" target="_blank">{{product.Varietal.WineType.Name}}</a><span data-jt-external-link /></td></tr>
-                    <tr><td>Varietal</td><td><a data-ng-href="{{product.Varietal.Url}}" target="_blank">{{product.Varietal.Name}}</a><span data-jt-external-link /></td></tr>
-                    <tr><td>Vineyard</td><td><a data-ng-href="{{product.Vineyard.Url}}" target="_blank">{{product.Vineyard.Name}}</a><span data-jt-external-link /></td></tr>
+                    <tr><td>Wine Type</td><td><a data-ng-href="{{wineDetailsModel.product.Varietal.WineType.Url}}" target="_blank">{{wineDetailsModel.product.Varietal.WineType.Name}}</a><span data-jt-external-link /></td></tr>
+                    <tr><td>Varietal</td><td><a data-ng-href="{{wineDetailsModel.product.Varietal.Url}}" target="_blank">{{wineDetailsModel.product.Varietal.Name}}</a><span data-jt-external-link /></td></tr>
+                    <tr><td>Vineyard</td><td><a data-ng-href="{{wineDetailsModel.product.Vineyard.Url}}" target="_blank">{{wineDetailsModel.product.Vineyard.Name}}</a><span data-jt-external-link /></td></tr>
                 </tbody>
             </table>
         </div>
@@ -42,8 +42,8 @@
         <div class="tab-pane fade" id="appellationTab">
             <table class="span4 table table-striped table-condensed table-bordered">
                 <tbody>
-                    <tr><td>Region</td><td><a data-ng-href="{{product.Appellation.Region.Url}}" target="_blank">{{product.Appellation.Region.Name}}</a><span data-jt-external-link /></td></tr>
-                    <tr><td>Appellation</td><td><a data-ng-href="{{product.Appellation.Url}}" target="_blank">{{product.Appellation.Name}}</a><span data-jt-external-link /></td></tr>
+                    <tr><td>Region</td><td><a data-ng-href="{{wineDetailsModel.product.Appellation.Region.Url}}" target="_blank">{{wineDetailsModel.product.Appellation.Region.Name}}</a><span data-jt-external-link /></td></tr>
+                    <tr><td>Appellation</td><td><a data-ng-href="{{wineDetailsModel.product.Appellation.Url}}" target="_blank">{{wineDetailsModel.product.Appellation.Name}}</a><span data-jt-external-link /></td></tr>
                 </tbody>
             </table>
         </div>

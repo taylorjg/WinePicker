@@ -18,9 +18,9 @@ describe("WinePicker End-to-End Tests", function () {
         expect(window.binding("product.Name")).toContain("Dom Perignon");
     });
 
-    it("can browse directly to /wines/112875", function () {
-        var path = "/wines/112875";
+    it("can browse directly to /wineDetails/id:112875", function () {
+        var path = "/wineDetails/id:112875";
         browser().navigateTo(url + "#" + path);
-        expect(window.binding("product.Varietal.Name")).toContain("Tempranillo");
+        expect(window.binding("wineDetailsModel.product.Varietal.Name")).toContain("Tempranillo");
     });
 });

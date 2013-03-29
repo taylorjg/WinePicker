@@ -14,11 +14,11 @@ describe("WineDetailsController", function () {
     var _controller;
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
-        
+
         _$httpBackend = _$httpBackend_;
         _routeParams = $routeParams;
-        $routeParams.id = "91856";
-        
+        $routeParams.encodedProductCriteria = "id:91856";
+
         _$httpBackend.expectGET("api/wineapi?productCriteria=id:91856").respond({
             "Status": {
                 "Messages": [],
@@ -115,16 +115,13 @@ describe("WineDetailsController", function () {
         // ReSharper disable UnusedLocals
         var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope });
         // ReSharper restore UnusedLocals
-        
+
         // Now create a new scope based on parentScope that we can use when constructing a WineDetailsController.
         _scope = parentScope.$new();
         _controller = $controller(WineDetailsController, { $scope: _scope });
     }));
 
-    afterEach(function () {
-    });
-
-    it("$scope.id should be correctly initialised from $routeParams.id", function () {
-        expect(_scope.id).toBe("91856");
+    it("$scope.wineDetailsModel should be correctly initialised", function () {
+        expect(_scope.wineDetailsModel).not.toBeNull();
     });
 });
