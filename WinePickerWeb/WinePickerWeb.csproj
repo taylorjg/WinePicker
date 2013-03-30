@@ -335,6 +335,7 @@
     <Content Include="Scripts\WinePicker\SearchCriteriaController.js" />
     <Content Include="Scripts\WinePicker\Models.js" />
     <Content Include="Scripts\WinePicker\Utils.js" />
+    <Content Include="Scripts\WinePicker\WineApiConstants.js" />
     <Content Include="Scripts\WinePicker\WineApiProxy.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppFactory.js" />
     <Content Include="Scripts\WinePicker\WinePickerAppConfig.js" />
@@ -342,9 +343,9 @@
     <Content Include="Scripts\WinePicker\WineApiMenuData.js" />
     <Content Include="Scripts\WinePicker\SearchResultsController.js" />
     <Content Include="Scripts\WinePicker\JasmineTests\SearchResultsControllerSpec.js" />
-    <Content Include="Scripts\WinePicker\WineApi.js" />
-    <Content Include="Scripts\WinePicker\JasmineTests\WineApiSpec.js" />
-    <Content Include="Scripts\WinePicker\JasmineTests\WineApiSpecRunner.html" />
+    <Content Include="Scripts\WineApi\WineApi.js" />
+    <Content Include="Scripts\WineApi\JasmineTests\WineApiSpec.js" />
+    <Content Include="Scripts\WineApi\JasmineTests\WineApiSpecRunner.html" />
     <Content Include="Scripts\WinePicker\WineDetailsController.js" />
     <Content Include="Scripts\WinePicker\JasmineTests\WineDetailsControllerSpec.js" />
     <Content Include="Scripts\WinePicker\WinePickerApp.js" />

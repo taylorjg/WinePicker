@@ -1,5 +1,11 @@
 ﻿/// <reference path="Utils.js" />
 
+WinePickerModel = function() {
+    this.wineApiCallInProgress = false;
+    this.errorMessages = null;
+    this.errorMessagesVisible = false;
+};
+
 SearchCriteriaModel = function () {
 
     this.wineType = "";

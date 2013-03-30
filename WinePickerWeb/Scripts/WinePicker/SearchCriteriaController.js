@@ -1,6 +1,7 @@
 ﻿/// <reference path="WineApi.js" />
 /// <reference path="WineApiMenuData.js" />
 /// <reference path="Models.js" />
+/// <reference path="WineApiConstants.js" />
 
 // ReSharper disable InconsistentNaming
 

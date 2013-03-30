@@ -1,7 +1,6 @@
 ﻿/// <reference path="../../jasmine/jasmine.js" />
 /// <reference path="../../angular.js" />
 /// <reference path="../../angular-mocks.js" />
-/// <reference path="../WinePickerController.js" />
 /// <reference path="../SearchResultsController.js" />
 /// <reference path="../WineApiProxy.js" />
 /// <reference path="../Models.js" />
@@ -14,34 +13,28 @@ describe("SearchResultsController", function () {
     var _scope;
     var _searchResultsModel;
     var _controller;
-
+    var _successfulWineApiResponse = {
+        "Status": {
+            "Messages": [],
+            "ReturnCode": 0
+        },
+        "Products": {
+            "List": [],
+            "Total": 35
+        }
+    };
+    
     beforeEach(angular.mock.inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
 
         _$httpBackend = _$httpBackend_;
-        $routeParams.encodedSearchCriteria = "wt:124|s:gamay";
 
+        _scope = $rootScope.$new();
         _searchResultsModel = new SearchResultsModel();
 
-        _$httpBackend.expectGET("api/wineapi?searchCriteria=wt:124|s:gamay").respond({
-            "Status": {
-                "Messages": [],
-                "ReturnCode": 0
-            },
-            "Products": {
-                "List": [],
-                "Total": 35
-            }
-        });
-
-        // Create a parent scope and initialise it by constructing a WinePickerController.
-        var parentScope = $rootScope.$new();
-        // ReSharper disable UnusedLocals
-        var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope });
-        // ReSharper restore UnusedLocals
-
-        // Now create a new scope based on parentScope that we can use when constructing a SearchResultsController.
-        _scope = parentScope.$new();
-
+        _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1").respond(_successfulWineApiResponse);
+        
+        $routeParams.encodedSearchCriteria = "wt:124|s:gamay|st:WA|is:1";
+        
         _controller = $controller(SearchResultsController, {
             $scope: _scope,
             wineApiProxy: new WineApiProxy($http),
@@ -50,7 +43,13 @@ describe("SearchResultsController", function () {
     }));
 
     it("scope.searchResultsModel is initialised correctly", function () {
+        _$httpBackend.flush();
         expect(_scope.searchResultsModel).toBe(_searchResultsModel);
+        expect(_scope.searchResultsModel.products).toBe(_successfulWineApiResponse.Products);
+        expect(_scope.searchResultsModel.state).toBe("WA");
+        expect(_scope.searchResultsModel.instock).toBe("1");
+        _$httpBackend.verifyNoOutstandingRequest();
+        _$httpBackend.verifyNoOutstandingExpectation();
     });
 
     it("scope.searchResultsModel.pages array is set correctly", function () {

@@ -1,4 +1,5 @@
 ﻿/// <reference path="WineApiProxy.js" />
+/// <reference path="Models.js" />
 /// <reference path="../angular.js" />
 
 // ReSharper disable InconsistentNaming
@@ -9,21 +10,19 @@ function WinePickerController($scope, $http, $location, wineApiProxy) {
 
     console.log("WinePickerController - $location.path(): " + $location.path());
 
-    $scope.wineApiCallInProgress = false;
-    $scope.errorMessages = null;
-    $scope.errorMessagesVisible = false;
+    $scope.winePickerModel = new WinePickerModel();
 
     wineApiProxy.start(function() {
-        $scope.wineApiCallInProgress = true;
+        $scope.winePickerModel.wineApiCallInProgress = true;
     });
 
     wineApiProxy.end(function() {
-        $scope.wineApiCallInProgress = false;
+        $scope.winePickerModel.wineApiCallInProgress = false;
     });
 
     wineApiProxy.error(function (errorMessages) {
-        $scope.errorMessages = errorMessages;
-        $scope.errorMessagesVisible = errorMessages.length > 0;
+        $scope.winePickerModel.errorMessages = errorMessages;
+        $scope.winePickerModel.errorMessagesVisible = errorMessages.length > 0;
     });
 }
 

@@ -1,7 +1,6 @@
 ﻿/// <reference path="../../jasmine/jasmine.js" />
 /// <reference path="../../angular.js" />
 /// <reference path="../../angular-mocks.js" />
-/// <reference path="../WinePickerController.js" />
 /// <reference path="../WineDetailsController.js" />
 
 // ReSharper disable InconsistentNaming
@@ -108,17 +107,12 @@ describe("WineDetailsController", function () {
             }
         });
 
-        // Create a parent scope and initialise it by constructing a WinePickerController.
-        var parentScope = $rootScope.$new();
-        // ReSharper disable UnusedLocals
-        var unusedWinePickerController = $controller(WinePickerController, { $scope: parentScope });
-        // ReSharper restore UnusedLocals
+        var wineApiProxy = new WineApiProxy($http);
 
-        // Now create a new scope based on parentScope that we can use when constructing a WineDetailsController.
-        _scope = parentScope.$new();
+        _scope = $rootScope.$new();
         _controller = $controller(WineDetailsController, {
             $scope: _scope,
-            wineApiProxy: new WineApiProxy($http)
+            wineApiProxy: wineApiProxy
         });
     }));
 

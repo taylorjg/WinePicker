@@ -1,4 +1,6 @@
-﻿wineApi.menuData = {
+﻿wineApi = window.wineApi || {};
+
+wineApi.menuData = {
     "Status": {
         "Messages": [],
         "ReturnCode": 0

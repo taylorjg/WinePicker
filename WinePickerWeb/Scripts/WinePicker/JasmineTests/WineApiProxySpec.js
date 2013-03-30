@@ -159,7 +159,6 @@ describe("WineApiProxy", function () {
         _$httpBackend.flush();
         _$httpBackend.verifyNoOutstandingExpectation();
         expect(reportedErrorMessages.length).toBe(3);
-        expect(reportedErrorMessages[0]).toContain("400");
         expect(reportedErrorMessages[1]).toBe("my-message");
         expect(reportedErrorMessages[2]).toBe("my-message-detail");
     });
