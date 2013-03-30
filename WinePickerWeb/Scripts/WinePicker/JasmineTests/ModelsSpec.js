@@ -5,6 +5,21 @@
 
 describe("Models", function () {
 
+    describe("WinePickerModel", function () {
+
+        it("can construct instance", function () {
+            var model = new WinePickerModel();
+            expect(model).not.toBeNull();
+        });
+
+        it("constructs object with correct initial values", function () {
+            var model = new WinePickerModel();
+            expect(model.wineApiCallInProgress).toBe(false);
+            expect(model.errorMessages).toBeNull();
+            expect(model.errorMessagesVisible).toBe(false);
+        });
+    });
+
     describe("SearchCriteriaModel", function () {
 
         it("can construct instance", function () {
@@ -73,13 +88,45 @@ describe("Models", function () {
             var model = new SearchResultsModel();
             expect(model).not.toBeNull();
         });
+
+        it("constructs object with correct initial values", function () {
+            var model = new SearchResultsModel();
+            expect(model.currentSlideNumber).toBe(0);
+            expect(model.offset).toBe(0);
+            expect(model.size).toBe(10);
+            expect(model.pages).toEqual([]);
+            expect(model.state).toBe("");
+            expect(model.instock).toBe("");
+        });
+
+        it("buildWineDetailsPath formats the path correctly with no state and no instock", function () {
+            var model = new SearchResultsModel();
+            var product = { Id: 123 };
+            var actual = model.buildWineDetailsPath(product);
+            expect(actual).toBe("#/wineDetails/id:123");
+        });
+
+        it("buildWineDetailsPath formats the path correctly with state and instock", function () {
+            var model = new SearchResultsModel();
+            model.state = "CA";
+            model.instock = "1";
+            var product = { Id: 123 };
+            var actual = model.buildWineDetailsPath(product);
+            expect(actual).toBe("#/wineDetails/id:123|st:CA|is:1");
+        });
     });
 
-    describe("WineDetaisModel", function () {
+    describe("WineDetailsModel", function () {
 
         it("can construct instance", function () {
             var model = new WineDetailsModel();
             expect(model).not.toBeNull();
+        });
+
+        it("constructs object with correct initial values", function () {
+            var model = new WineDetailsModel();
+            expect(model.product).toBeNull();
+            expect(model.productAttributesWithImageUrl).toEqual([]);
         });
     });
 });
