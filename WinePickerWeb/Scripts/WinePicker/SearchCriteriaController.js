@@ -2,27 +2,29 @@
 /// <reference path="WineApiMenuData.js" />
 /// <reference path="Models.js" />
 /// <reference path="WineApiConstants.js" />
+/// <reference path="../underscore.js" />
 
 // ReSharper disable InconsistentNaming
 
-function SearchCriteriaController($scope, $location, $routeParams) {
+function SearchCriteriaController($scope, $location) {
 
     "use strict";
 
     console.log("SearchCriteriaController - $location.path(): " + $location.path());
 
+    $scope.searchCriteriaModel = new SearchCriteriaModel();
+    
     $scope.onSearch = function () {
         var encodedSearchCriteria = $scope.searchCriteriaModel.encode();
         $location.path("/searchResults/" + encodedSearchCriteria);
     };
 
     $scope.onReset = function (suppressPathChange) {
-        $scope.wineTypes = [];
-        $scope.varietals = [];
-        $scope.regions = [];
-        $scope.appellations = [];
-        $scope.moreSearchCriteriaCollapsed = true;
-        $scope.searchCriteriaModel = new SearchCriteriaModel();
+        $scope.searchCriteriaModel.wineTypes = [];
+        $scope.searchCriteriaModel.varietals = [];
+        $scope.searchCriteriaModel.regions = [];
+        $scope.searchCriteriaModel.appellations = [];
+        $scope.searchCriteriaModel.moreSearchCriteriaCollapsed = true;
         _initialiseMenus();
         if (arguments.length === 0 || suppressPathChange === false) {
             $location.path("/search");
@@ -49,10 +51,10 @@ function SearchCriteriaController($scope, $location, $routeParams) {
     };
 
     var _initialiseMenus = function () {
-        $scope.wineTypes = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_WINETYPE);
-        $scope.varietals = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_VARIETAL);
-        $scope.regions = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_REGION);
-        $scope.appellations = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_APPELLATION);
+        $scope.searchCriteriaModel.wineTypes = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_WINETYPE);
+        $scope.searchCriteriaModel.varietals = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_VARIETAL);
+        $scope.searchCriteriaModel.regions = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_REGION);
+        $scope.searchCriteriaModel.appellations = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_APPELLATION);
     };
 
     var _getCategoryRefinements = function (data, categoryId) {
@@ -67,4 +69,4 @@ function SearchCriteriaController($scope, $location, $routeParams) {
     $scope.onReset(true /* suppressPathChange */);
 }
 
-SearchCriteriaController.$inject = ["$scope", "$location", "$routeParams"];
+SearchCriteriaController.$inject = ["$scope", "$location"];

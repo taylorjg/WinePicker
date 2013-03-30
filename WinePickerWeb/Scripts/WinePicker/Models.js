@@ -8,6 +8,12 @@ WinePickerModel = function() {
 
 SearchCriteriaModel = function () {
 
+    this.wineTypes = [];
+    this.varietals = [];
+    this.regions = [];
+    this.appellations = [];
+    this.moreSearchCriteriaCollapsed = true;
+
     this.wineType = "";
     this.varietal = "";
     this.region = "";
@@ -55,6 +61,14 @@ SearchCriteriaModel = function () {
         this.instock = criteriaParser.getComponent("is");
         this.sortOrder = criteriaParser.getComponent("so");
         this.sortDirection = criteriaParser.getComponent("sd");
+    };
+
+    this.showMoreSearchCriteria = function () {
+        this.moreSearchCriteriaCollapsed = false;
+    };
+
+    this.hideMoreSearchCriteria = function () {
+        this.moreSearchCriteriaCollapsed = true;
     };
 };
 

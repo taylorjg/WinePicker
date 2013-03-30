@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <div class="span8" data-ng-controller="SearchCriteriaController">
+        <div class="span8">
             
             <br />
             <br />
@@ -29,11 +29,11 @@
                 <br />
             </div>
 
-            <form class="form-search" action="">
+            <form class="form-search" action="" data-ng-controller="SearchCriteriaController">
                 
                 <select id="wineTypeMenu" data-ng-model="searchCriteriaModel.wineType" data-ng-change="onWineTypeChanged()">
                     <option value="">Any Wine Type</option>
-                    <option data-ng-repeat="wineType in wineTypes" value="{{wineType.Id}}">{{wineType.Name}}</option>
+                    <option data-ng-repeat="wineType in searchCriteriaModel.wineTypes" value="{{wineType.Id}}">{{wineType.Name}}</option>
                 </select>
 
                 <br />
@@ -41,7 +41,7 @@
 
                 <select id="varietalMenu" data-ng-model="searchCriteriaModel.varietal" data-ng-change="onVarietalChanged()">
                     <option value="">Any Varietal</option>
-                    <option data-ng-repeat="varietal in varietals" value="{{varietal.Id}}">{{varietal.Name}}</option>
+                    <option data-ng-repeat="varietal in searchCriteriaModel.varietals" value="{{varietal.Id}}">{{varietal.Name}}</option>
                 </select>
 
                 <br />
@@ -49,7 +49,7 @@
 
                 <select id="regionMenu" data-ng-model="searchCriteriaModel.region" data-ng-change="onRegionChanged()">
                     <option value="">Any Region</option>
-                    <option data-ng-repeat="region in regions" value="{{region.Id}}">{{region.Name}}</option>
+                    <option data-ng-repeat="region in searchCriteriaModel.regions" value="{{region.Id}}">{{region.Name}}</option>
                 </select>
 
                 <br />
@@ -57,16 +57,17 @@
 
                 <select id="appellationMenu" data-ng-model="searchCriteriaModel.appellation" data-ng-change="onAppellationChanged()">
                     <option value="">Any Appellation</option>
-                    <option data-ng-repeat="appellation in appellations" value="{{appellation.Id}}">{{appellation.Name}}</option>
+                    <option data-ng-repeat="appellation in searchCriteriaModel.appellations" value="{{appellation.Id}}">{{appellation.Name}}</option>
                 </select>
 
                 <br />
                 <br />
 
                 <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-show="moreSearchCriteriaCollapsed">More search criteria...</a>
-                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="moreSearchCriteriaCollapsed = !moreSearchCriteriaCollapsed" data-ng-hide="moreSearchCriteriaCollapsed">Less search criteria...</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="searchCriteriaModel.showMoreSearchCriteria()" data-ng-show="searchCriteriaModel.moreSearchCriteriaCollapsed">More search criteria...</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#moreSearchCriteria" data-ng-click="searchCriteriaModel.hideMoreSearchCriteria()" data-ng-hide="searchCriteriaModel.moreSearchCriteriaCollapsed">Less search criteria...</a>
                 </div>
+
                 <div id="moreSearchCriteria" class="accordion-body collapse out">
                     <div class="accordion-inner">
                         <div class="span2">Shipping to:</div>

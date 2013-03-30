@@ -13,9 +13,6 @@ function SearchResultsController($scope, $location, $routeParams, wineApiProxy, 
     searchCriteriaModel.decode($routeParams.encodedSearchCriteria);
     
     $scope.searchResultsModel = searchResultsModel;
-    
-    $scope.searchResultsModel.products = null;
-    $scope.searchResultsModel.pages = [];
     $scope.searchResultsModel.state = searchCriteriaModel.state;
     $scope.searchResultsModel.instock = searchCriteriaModel.instock;
 

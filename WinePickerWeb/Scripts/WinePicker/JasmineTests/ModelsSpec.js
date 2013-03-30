@@ -29,6 +29,11 @@ describe("Models", function () {
 
         it("constructs object with correct initial values", function () {
             var model = new SearchCriteriaModel();
+            expect(model.wineTypes).toEqual([]);
+            expect(model.varietals).toEqual([]);
+            expect(model.regions).toEqual([]);
+            expect(model.appellations).toEqual([]);
+            expect(model.moreSearchCriteriaCollapsed).toBe(true);
             expect(model.wineType).toBe("");
             expect(model.varietal).toBe("");
             expect(model.region).toBe("");

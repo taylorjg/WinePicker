@@ -24,18 +24,20 @@ describe("SearchCriteriaController", function () {
 
     it("initial model values are correct", function () {
 
-        expect(_.isArray(_scope.wineTypes)).toBe(true);
-        expect(_scope.wineTypes.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_WINETYPE));
+        expect(_.isArray(_scope.searchCriteriaModel.wineTypes)).toBe(true);
+        expect(_scope.searchCriteriaModel.wineTypes.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_WINETYPE));
 
-        expect(_.isArray(_scope.varietals)).toBe(true);
-        expect(_scope.varietals.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_VARIETAL));
+        expect(_.isArray(_scope.searchCriteriaModel.varietals)).toBe(true);
+        expect(_scope.searchCriteriaModel.varietals.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_VARIETAL));
 
-        expect(_.isArray(_scope.regions)).toBe(true);
-        expect(_scope.regions.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_REGION));
+        expect(_.isArray(_scope.searchCriteriaModel.regions)).toBe(true);
+        expect(_scope.searchCriteriaModel.regions.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_REGION));
 
-        expect(_.isArray(_scope.appellations)).toBe(true);
-        expect(_scope.appellations.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_APPELLATION));
+        expect(_.isArray(_scope.searchCriteriaModel.appellations)).toBe(true);
+        expect(_scope.searchCriteriaModel.appellations.length).toBe(_numRefinements(wineApi.constants.CATEGORY_ID_APPELLATION));
 
+        expect(_scope.searchCriteriaModel.moreSearchCriteriaCollapsed).toBe(true);
+        
         expect(_scope.searchCriteriaModel.wineType).toBe("");
         expect(_scope.searchCriteriaModel.varietal).toBe("");
         expect(_scope.searchCriteriaModel.region).toBe("");
@@ -49,8 +51,6 @@ describe("SearchCriteriaController", function () {
         expect(_scope.searchCriteriaModel.ratingTo).toBe("");
         expect(_scope.searchCriteriaModel.sortOrder).toBe("popularity");
         expect(_scope.searchCriteriaModel.sortDirection).toBe("descending");
-        
-        expect(_scope.moreSearchCriteriaCollapsed).toBe(true);
     });
 
     describe("getLargeLabelImageUrlForProduct method", function () {
