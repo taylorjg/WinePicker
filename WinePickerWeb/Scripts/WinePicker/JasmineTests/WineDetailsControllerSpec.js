@@ -119,4 +119,8 @@ describe("WineDetailsController", function () {
     it("$scope.wineDetailsModel should be correctly initialised", function () {
         expect(_scope.wineDetailsModel).not.toBeNull();
     });
+
+    it("scope has a getLargeLabelImageUrlForProduct method", function () {
+        expect(_scope.getLargeLabelImageUrlForProduct).toBeDefined();
+    });
 });

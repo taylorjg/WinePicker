@@ -162,4 +162,41 @@ describe("WineApiProxy", function () {
         expect(reportedErrorMessages[1]).toBe("my-message");
         expect(reportedErrorMessages[2]).toBe("my-message-detail");
     });
+
+    describe("getLargeLabelImageUrlForProduct method", function () {
+
+        it("given a product with an image URL ending with m.jpg returns a URL ending with l.jpg", function () {
+            var product = {
+                Labels: [{
+                    Url: "http://cache.wine.com/12345m.jpg"
+                }]
+            };
+            var url = _wineApiProxy.getLargeLabelImageUrlForProduct(product);
+            expect(url).toBe("http://cache.wine.com/12345l.jpg");
+        });
+
+        it("given a product with an image URL not ending with m.jpg returns the image URL unchanged", function () {
+            var product = {
+                Labels: [{
+                    Url: "http://cache.wine.com/12345.jpg"
+                }]
+            };
+            var url = _wineApiProxy.getLargeLabelImageUrlForProduct(product);
+            expect(url).toBe(product.Labels[0].Url);
+        });
+
+        it("given a product with thumbnail and large labels returns the image URL of the large label", function () {
+            var product = {
+                "Labels": [{
+                        "Name": "thumbnail",
+                        "Url": "http://cache.wine.com/thumbnail.jpg"
+                    }, {
+                        "Name": "large",
+                        "Url": "http://cache.wine.com/large.jpg"
+                    }]
+            };
+            var url = _wineApiProxy.getLargeLabelImageUrlForProduct(product);
+            expect(url).toBe("http://cache.wine.com/large.jpg");
+        });
+    });
 });

@@ -8,6 +8,20 @@ describe("wineApi.UrlBuilder", function () {
         expect(urlBuilder).not.toBeNull();
     });
 
+    it("object created via the constructor should have the correct constructor property", function () {
+        var urlBuilder = new wineApi.UrlBuilder();
+        expect(urlBuilder.constructor).toBe(wineApi.UrlBuilder);
+    });
+
+    it("object created via the constructor should have the correct public methods defined", function () {
+        var urlBuilder = new wineApi.UrlBuilder();
+        expect(urlBuilder.apiKey).toBeDefined();
+        expect(urlBuilder.affiliateId).toBeDefined();
+        expect(urlBuilder.catalogService).toBeDefined();
+        expect(urlBuilder.categoryMapService).toBeDefined();
+        expect(urlBuilder.referenceService).toBeDefined();
+    });
+
     it("should provide a constructor that takes an apikey parameter", function () {
         var urlBuilder = new wineApi.UrlBuilder("MyApiKeyValue");
         expect(urlBuilder).not.toBeNull();
@@ -42,12 +56,12 @@ describe("wineApi.UrlBuilder", function () {
         expect(urlBuilder.affiliateId()).toBe("MyAffiliateId2");
     });
 
-//    it("allows multiple instance to behave independently", function() {
-//        var urlBuilder1 = new wineApi.UrlBuilder("MyApiKeyValue1");
-//        var urlBuilder2 = new wineApi.UrlBuilder("MyApiKeyValue2");
-//        expect(urlBuilder1.apiKey()).toBe("MyApiKeyValue1");
-//        expect(urlBuilder2.apiKey()).toBe("MyApiKeyValue2");
-//    });
+    //    it("allows multiple instance to behave independently", function() {
+    //        var urlBuilder1 = new wineApi.UrlBuilder("MyApiKeyValue1");
+    //        var urlBuilder2 = new wineApi.UrlBuilder("MyApiKeyValue2");
+    //        expect(urlBuilder1.apiKey()).toBe("MyApiKeyValue1");
+    //        expect(urlBuilder2.apiKey()).toBe("MyApiKeyValue2");
+    //    });
 
     describe("catalogService method", function () {
 

@@ -27,6 +27,10 @@ function SearchResultsController($scope, $location, $routeParams, wineApiProxy, 
             }
         }
     });
+
+    $scope.getLargeLabelImageUrlForProduct = function (product) {
+        return wineApiProxy.getLargeLabelImageUrlForProduct(product);
+    };
 }
 
 SearchResultsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy", "searchResultsModel"];

@@ -52,27 +52,4 @@ describe("SearchCriteriaController", function () {
         expect(_scope.searchCriteriaModel.sortOrder).toBe("popularity");
         expect(_scope.searchCriteriaModel.sortDirection).toBe("descending");
     });
-
-    describe("getLargeLabelImageUrlForProduct method", function () {
-
-        it("given a product with an image URL ending with m.jpg returns a URL ending with l.jpg", function () {
-            var product = {
-                Labels: [{
-                    Url: "http://cache.wine.com/12345m.jpg"
-                }]
-            };
-            var url = _scope.getLargeLabelImageUrlForProduct(product);
-            expect(url).toBe("http://cache.wine.com/12345l.jpg");
-        });
-
-        it("given a product with an image URL not ending with m.jpg returns the image URL unchanged", function () {
-            var product = {
-                Labels: [{
-                    Url: "http://cache.wine.com/12345.jpg"
-                }]
-            };
-            var url = _scope.getLargeLabelImageUrlForProduct(product);
-            expect(url).toBe(product.Labels[0].Url);
-        });
-    });
 });

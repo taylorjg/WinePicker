@@ -31,13 +31,6 @@ function SearchCriteriaController($scope, $location) {
         }
     };
 
-    $scope.getLargeLabelImageUrlForProduct = function (product) {
-        if (!product) {
-            return "";
-        }
-        return product.Labels[0].Url.replace("m.jpg", "l.jpg");
-    };
-
     $scope.onWineTypeChanged = function () {
     };
 

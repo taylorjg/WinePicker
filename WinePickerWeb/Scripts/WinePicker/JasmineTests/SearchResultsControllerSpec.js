@@ -23,7 +23,7 @@ describe("SearchResultsController", function () {
             "Total": 35
         }
     };
-    
+
     beforeEach(angular.mock.inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
 
         _$httpBackend = _$httpBackend_;
@@ -32,9 +32,9 @@ describe("SearchResultsController", function () {
         _searchResultsModel = new SearchResultsModel();
 
         _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1").respond(_successfulWineApiResponse);
-        
+
         $routeParams.encodedSearchCriteria = "wt:124|s:gamay|st:WA|is:1";
-        
+
         _controller = $controller(SearchResultsController, {
             $scope: _scope,
             wineApiProxy: new WineApiProxy($http),
@@ -59,5 +59,9 @@ describe("SearchResultsController", function () {
         expect(_scope.searchResultsModel.pages[1]).toBe(2);
         expect(_scope.searchResultsModel.pages[2]).toBe(3);
         expect(_scope.searchResultsModel.pages[3]).toBe(4);
+    });
+
+    it("scope has a getLargeLabelImageUrlForProduct method", function () {
+        expect(_scope.getLargeLabelImageUrlForProduct).toBeDefined();
     });
 });

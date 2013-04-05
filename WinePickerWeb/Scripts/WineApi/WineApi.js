@@ -295,7 +295,7 @@ wineApi.UrlBuilder = (function () {
     };
 
     Constructor.prototype = {
-        constructor: wineApi.UrlBuilder,
+        constructor: Constructor,
         apiKey: _apiKey,
         affiliateId: _affiliateId,
         catalogService: _catalogService,

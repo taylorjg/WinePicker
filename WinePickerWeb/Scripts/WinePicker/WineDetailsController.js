@@ -21,6 +21,10 @@ function WineDetailsController($scope, $location, $routeParams, wineApiProxy) {
             });
         }
     });
+
+    $scope.getLargeLabelImageUrlForProduct = function (product) {
+        return wineApiProxy.getLargeLabelImageUrlForProduct(product);
+    };
 }
 
 WineDetailsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy"];

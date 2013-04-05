@@ -104,6 +104,24 @@ WineApiProxy = function ($http) {
             this._error(errorMessagesArray);
         }
     };
+
+    this.getLargeLabelImageUrlForProduct = function (product) {
+
+        var result = "";
+
+        if (product && product.Labels && _.isArray(product.Labels) && product.Labels.length > 0) {
+            var largeLabels = _.filter(product.Labels, function (label) {
+                return label && label.Name && label.Name === "large";
+            });
+            if (largeLabels.length > 0) {
+                result = largeLabels[0].Url;
+            } else {
+                result = product.Labels[0].Url.replace(/m.jpg$/, "l.jpg");
+            }
+        }
+
+        return result;
+    };
 };
 
 WineApiProxy.$inject = ["$http"];
