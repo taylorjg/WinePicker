@@ -20,9 +20,8 @@ angular.module("WinePickerApp")
                 scope.$watch(expr, function (value) {
                     console.log("jtCarouselCycle $watch function for '" + expr + "' - value: " + value);
                     var carouselAction = (value) ? "cycle" : "pause";
-                    console.log("calling $element.carousel('" + carouselAction + "')");
-                    var $element = $(element);
-                    $element.carousel(carouselAction);
+                    console.log("calling element.carousel('" + carouselAction + "')");
+                    element.carousel(carouselAction);
                 });
             }
         };
@@ -35,10 +34,9 @@ angular.module("WinePickerApp")
             link: function (scope, element, attrs) {
                 var expr = attrs.jtCarouselTracker;
                 console.log("jtCarouselTracker postLink() - expr: '" + expr + "'");
-                var $element = $(element);
-                $element.on("slid", function () {
+                element.on("slid", function () {
                     console.log("jtCarouselTracker on slid");
-                    var currentSlideNumber = $(".carousel-inner .active", $element).index();
+                    var currentSlideNumber = $(".carousel-inner .active", element).index();
                     console.log("currentSlideNumber: " + currentSlideNumber);
                     scope.$apply(function () {
                         scope.$eval(expr + "=" + currentSlideNumber);
