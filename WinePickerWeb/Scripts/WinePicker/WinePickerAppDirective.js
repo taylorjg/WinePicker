@@ -45,4 +45,21 @@ angular.module("WinePickerApp")
             }
         };
         return directiveDefinitionObject;
+    } ])
+    .directive("jtModalShowHide", [function () {
+        console.log(".directive() function for jtModalShowHide");
+        var directiveDefinitionObject = {
+            restrict: "A",
+            link: function (scope, element, attrs) {
+                var expr = attrs.jtModalShowHide;
+                console.log("jtModalShowHide postLink() - expr: '" + expr + "'");
+                scope.$watch(expr, function (value) {
+                    console.log("jtModalShowHide $watch function for '" + expr + "' - value: " + value);
+                    var modalAction = (value) ? "show" : "hide";
+                    console.log("calling element.modal('" + modalAction + "')");
+                    element.modal(modalAction);
+                });
+            }
+        };
+        return directiveDefinitionObject;
     } ]);
