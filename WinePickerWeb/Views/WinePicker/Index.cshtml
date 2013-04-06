@@ -71,7 +71,7 @@
                 <div id="moreSearchCriteria" class="accordion-body collapse out">
                     <div class="accordion-inner">
                         <div class="span2">Shipping to:</div>
-                        <select class="span3" id="state" data-ng-model="searchCriteriaModel.state">
+                        <select class="span3" id="stateMenu" data-ng-model="searchCriteriaModel.state">
                             <option value="">Select a US state</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -143,10 +143,10 @@
 
                         <span class="span2">Price:</span>
                         <label>
-                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.priceFrom" />
+                            <input id="priceFrom" class="span1" type="number" data-ng-model="searchCriteriaModel.priceFrom" />
                         </label>
                         <label>
-                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.priceTo" data-ng-disabled="!searchCriteriaModel.priceFrom" />
+                            <input id="priceTo" class="span1" type="number" data-ng-model="searchCriteriaModel.priceTo" data-ng-disabled="!searchCriteriaModel.priceFrom" />
                         </label>
                         
                         <br />
@@ -154,10 +154,10 @@
 
                         <span class="span2">Rating:</span>
                         <label>
-                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.ratingFrom" />
+                            <input id="ratingFrom" class="span1" type="number" data-ng-model="searchCriteriaModel.ratingFrom" />
                         </label>
                         <label>
-                            <input class="span1" type="number" data-ng-model="searchCriteriaModel.ratingTo" data-ng-disabled="!searchCriteriaModel.ratingFrom" />
+                            <input id="ratingTo" class="span1" type="number" data-ng-model="searchCriteriaModel.ratingTo" data-ng-disabled="!searchCriteriaModel.ratingFrom" />
                         </label>
                         
                         <br />
@@ -196,8 +196,8 @@
                 <br />
 
                 <input id="searchTerm" type="text" class="search-query span4" placeholder="Search" data-ng-model="searchCriteriaModel.searchTerm">
-                <button id="searchButton" class="btn btn-primary" type="submit" data-ng-click="onSearch()" data-ng-disabled="wineApiCallInProgress"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
-                <button id="resetButton" class="btn " type="button" data-ng-click="onReset()" data-ng-disabled="wineApiCallInProgress"><i class="icon-remove"></i>&nbsp;Reset</button>
+                <button id="searchButton" class="btn btn-primary" type="submit" data-ng-click="onSearch()" data-ng-disabled="winePickerModel.wineApiCallInProgress"><i class="icon-search icon-white"></i>&nbsp;Search for wines</button>
+                <button id="resetButton" class="btn" type="button" data-ng-click="onReset()" data-ng-disabled="winePickerModel.wineApiCallInProgress"><i class="icon-remove"></i>&nbsp;Reset</button>
 
             </form>
 

@@ -20,12 +20,11 @@ function SearchCriteriaController($scope, $location) {
     };
 
     $scope.onReset = function (suppressPathChange) {
-        $scope.searchCriteriaModel.wineTypes = [];
-        $scope.searchCriteriaModel.varietals = [];
-        $scope.searchCriteriaModel.regions = [];
-        $scope.searchCriteriaModel.appellations = [];
-        $scope.searchCriteriaModel.moreSearchCriteriaCollapsed = true;
+
+        $scope.searchCriteriaModel.reset();
+
         _initialiseMenus();
+        
         if (arguments.length === 0 || suppressPathChange === false) {
             $location.path("/search");
         }

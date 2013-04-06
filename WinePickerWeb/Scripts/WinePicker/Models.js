@@ -8,25 +8,26 @@ WinePickerModel = function() {
 
 SearchCriteriaModel = function () {
 
-    this.wineTypes = [];
-    this.varietals = [];
-    this.regions = [];
-    this.appellations = [];
-    this.moreSearchCriteriaCollapsed = true;
-
-    this.wineType = "";
-    this.varietal = "";
-    this.region = "";
-    this.appellation = "";
-    this.searchTerm = "";
-    this.priceFrom = "";
-    this.priceTo = "";
-    this.ratingFrom = "";
-    this.ratingTo = "";
-    this.state = "";
-    this.instock = "";
-    this.sortOrder = "popularity";
-    this.sortDirection = "descending";
+    this.reset = function () {
+        this.wineTypes = [];
+        this.varietals = [];
+        this.regions = [];
+        this.appellations = [];
+        this.moreSearchCriteriaCollapsed = true;
+        this.wineType = "";
+        this.varietal = "";
+        this.region = "";
+        this.appellation = "";
+        this.searchTerm = "";
+        this.priceFrom = "";
+        this.priceTo = "";
+        this.ratingFrom = "";
+        this.ratingTo = "";
+        this.state = "";
+        this.instock = "";
+        this.sortOrder = "popularity";
+        this.sortDirection = "descending";
+    };
 
     this.encode = function () {
         var criteriaFormatter = new CriteriaFormatter();
@@ -70,6 +71,8 @@ SearchCriteriaModel = function () {
     this.hideMoreSearchCriteria = function () {
         this.moreSearchCriteriaCollapsed = true;
     };
+
+    this.reset();
 };
 
 SearchResultsModel = function () {
