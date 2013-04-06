@@ -1,5 +1,6 @@
 ﻿/// <reference path="WineApiProxy.js" />
 /// <reference path="Models.js" />
+/// <reference path="../underscore.js" />
 
 // ReSharper disable InconsistentNaming
 
@@ -31,9 +32,23 @@ function SearchResultsController($scope, $location, $routeParams, wineApiProxy, 
 
     var _displayPageIndex = function (pageIndex) {
 
+        if (pageIndex < 0 || pageIndex > $scope.searchResultsModel.lastPageIndex) {
+            return;
+        }
+
+        var offset = pageIndex * $scope.searchResultsModel.size;
+        var size = $scope.searchResultsModel.size;
+
+        var cacheMatch = _findCachedProducts(offset);
+        if (cacheMatch) {
+            $scope.searchResultsModel.products = cacheMatch;
+            $scope.searchResultsModel.currentPageIndex = pageIndex;
+            return;
+        }
+
         var searchCriteria = "searchCriteria=" + $routeParams.encodedSearchCriteria;
-        searchCriteria = searchCriteria + "|o:" + (pageIndex * $scope.searchResultsModel.size);
-        searchCriteria = searchCriteria + "|sz:" + $scope.searchResultsModel.size;
+        searchCriteria = searchCriteria + "|o:" + offset;
+        searchCriteria = searchCriteria + "|sz:" + size;
         console.log(searchCriteria);
 
         wineApiProxy.callWineApi(searchCriteria, function (data) {
@@ -54,6 +69,27 @@ function SearchResultsController($scope, $location, $routeParams, wineApiProxy, 
             }
 
             $scope.searchResultsModel.currentPageIndex = pageIndex;
+
+            _addCachedProducts(offset, $scope.searchResultsModel.products);
+        });
+    };
+
+    var _findCachedProducts = function (offset) {
+        var result = null;
+        var cacheMatches = _.filter($scope.searchResultsModel.cachedProducts, function (cp) {
+            return cp.offset === offset;
+        });
+        if (cacheMatches.length === 1) {
+            console.log("Cache match for offset " + offset);
+            result = cacheMatches[0].products;
+        }
+        return result;
+    };
+
+    var _addCachedProducts = function(offset, products) {
+        $scope.searchResultsModel.cachedProducts.push({
+            offset: offset,
+            products: products
         });
     };
 
