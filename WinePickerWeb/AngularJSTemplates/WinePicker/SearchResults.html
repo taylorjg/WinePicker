@@ -3,7 +3,7 @@
     <hr />
 
     <div>
-        Total number of matching products found: {{searchResultsModel.products.Total}}
+        Displaying {{searchResultsModel.products.Offset + 1}} through {{searchResultsModel.products.Offset + searchResultsModel.products.List.length}} of {{searchResultsModel.products.Total}}.
     </div>
 
     <br />
@@ -34,9 +34,11 @@
 
     <div class="pagination" data-ng-show="searchResultsModel.pages.length > 1">
         <ul>
-            <li><a href="#">Prev</a></li>
-            <li data-ng-repeat="page in searchResultsModel.pages"><a href="#">{{page}}</a></li>
-            <li><a href="#">Next</a></li>
+            <li><a data-ng-click="setAbsolutePage(0)"><!-- <i class="icon-step-backward"></i>&nbsp; -->First</a></li>
+            <li><a data-ng-click="setRelativePage(-1)"><!-- <i class="icon-chevron-left"></i>&nbsp; -->Prev</a></li>
+            <li data-ng-repeat="page in searchResultsModel.pages"><a data-ng-click="setAbsolutePage($index)">{{page}}</a></li>
+            <li><a data-ng-click="setRelativePage(+1)">Next<!-- &nbsp;<i class="icon-chevron-right"></i> --></a></li>
+            <li><a data-ng-click="setAbsolutePage(searchResultsModel.lastPageIndex)">Last<!-- &nbsp;<i class="icon-step-forward"></i> --></a></li>
         </ul>
     </div>
     
@@ -46,6 +48,8 @@ $scope.searchResultsModel.currentSlideNumber: {{searchResultsModel.currentSlideN
 $scope.searchResultsModel.offset: {{searchResultsModel.offset}}
 $scope.searchResultsModel.size: {{searchResultsModel.size}}
 $scope.searchResultsModel.pages: {{searchResultsModel.pages}}
+$scope.searchResultsModel.lastPageIndex: {{searchResultsModel.lastPageIndex}}
+$scope.searchResultsModel.currentPageIndex: {{searchResultsModel.currentPageIndex}}
     </pre>
 
 </div>

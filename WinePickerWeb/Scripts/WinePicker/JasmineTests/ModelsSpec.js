@@ -97,7 +97,6 @@ describe("Models", function () {
         it("constructs object with correct initial values", function () {
             var model = new SearchResultsModel();
             expect(model.currentSlideNumber).toBe(0);
-            expect(model.offset).toBe(0);
             expect(model.size).toBe(10);
             expect(model.pages).toEqual([]);
             expect(model.state).toBe("");

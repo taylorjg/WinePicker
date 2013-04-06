@@ -31,7 +31,7 @@ describe("SearchResultsController", function () {
         _scope = $rootScope.$new();
         _searchResultsModel = new SearchResultsModel();
 
-        _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1").respond(_successfulWineApiResponse);
+        _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1|o:0|sz:10").respond(_successfulWineApiResponse);
 
         $routeParams.encodedSearchCriteria = "wt:124|s:gamay|st:WA|is:1";
 
@@ -59,6 +59,9 @@ describe("SearchResultsController", function () {
         expect(_scope.searchResultsModel.pages[1]).toBe(2);
         expect(_scope.searchResultsModel.pages[2]).toBe(3);
         expect(_scope.searchResultsModel.pages[3]).toBe(4);
+        expect(_scope.searchResultsModel.lastPageIndex).toBe(3);
+        expect(_scope.searchResultsModel.currentPageIndex).toBe(0);
+        expect(_scope.searchResultsModel.currentSlideNumber).toBe(0);
     });
 
     it("scope has a getLargeLabelImageUrlForProduct method", function () {

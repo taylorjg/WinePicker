@@ -77,13 +77,22 @@ SearchCriteriaModel = function () {
 
 SearchResultsModel = function () {
 
-    this.currentSlideNumber = 0;
-    this.offset = 0;
+    this.state = "";
+    this.instock = "";
     this.size = 10;
     this.products = null;
     this.pages = [];
-    this.state = "";
-    this.instock = "";
+    this.lastPageIndex = 0;
+    this.currentPageIndex = 0;
+    this.currentSlideNumber = 0;
+
+    this.resetForNewSearch = function () {
+        this.products = null;
+        this.pages = [];
+        this.lastPageIndex = 0;
+        this.currentPageIndex = 0;
+        this.currentSlideNumber = 0;
+    };
 
     this.buildWineDetailsPath = function (product) {
         var criteriaFormatter = new CriteriaFormatter();
