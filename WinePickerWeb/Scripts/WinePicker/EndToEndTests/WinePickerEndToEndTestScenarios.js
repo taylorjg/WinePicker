@@ -23,7 +23,7 @@ describe("WinePicker End-to-End Tests", function () {
         browser().navigateTo(url);
 
         select("searchCriteriaModel.wineType").option("Red Wine");
-        select("searchCriteriaModel.varietal").option("Merlot");
+        select("searchCriteriaModel.varietal").option("Cabernet Sauvignon");
         select("searchCriteriaModel.region").option("California");
         select("searchCriteriaModel.appellation").option("Napa Valley");
         input("searchCriteriaModel.searchTerm").enter("Cakebread");
@@ -36,10 +36,14 @@ describe("WinePicker End-to-End Tests", function () {
         select("searchCriteriaModel.sortOrder").option("Name");
         input("searchCriteriaModel.sortDirection").select("ascending");
 
-        expect(element("#wineTypeMenu").val()).toBe("124");
-        expect(element("#varietalMenu").val()).toBe("138");
-        expect(element("#regionMenu").val()).toBe("101");
-        expect(element("#appellationMenu").val()).toBe("2398");
+        expect(element("#wineTypeMenu").val()).not().toBe("");
+        expect(element("#wineTypeMenu").val()).toBe("0");
+        expect(element("#varietalMenu").val()).not().toBe("");
+        expect(element("#varietalMenu").val()).toBe("0");
+        expect(element("#regionMenu").val()).not().toBe("");
+        expect(element("#regionMenu").val()).toBe("0");
+        expect(element("#appellationMenu").val()).not().toBe("");
+        expect(element("#appellationMenu").val()).toBe("0");
         expect(element("#searchTerm").val()).toBe("Cakebread");
         expect(element("#stateMenu").val()).toBe("CA");
         expect(element("input[name='instockRadios']:checked").val()).toBe("1");
@@ -67,26 +71,50 @@ describe("WinePicker End-to-End Tests", function () {
         expect(element("input[name='sortDirectionRadios']:checked").val()).toBe("descending");
     });
 
-    it("selecting Wine Type of 'Red Wine' should filter the Varietals menu", function () {
+    it("selecting Wine Type 'Red Wine' should filter the Varietals menu", function () {
 
         browser().navigateTo(url);
-        
+
         // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
         var beforeCountFuture = element("#varietalMenu option").count();
         beforeCountFuture.execute(function () { });
         var beforeCount = beforeCountFuture.value;
 
         select("searchCriteriaModel.wineType").option("Red Wine");
-        
+
         var afterCountFuture = element("#varietalMenu option").count();
         expect(afterCountFuture).toBeLessThan(beforeCount);
     });
 
-    it("selecting Varietal of 'Merlot' should select Wine Type of 'Red Wine'", function () {
+    it("selecting Varietal 'Chardonnay' should select Wine Type 'White Wine'", function () {
         browser().navigateTo(url);
         expect(element("#wineTypeMenu").val()).toBe("");
-        select("searchCriteriaModel.varietal").option("Merlot");
-        expect(element("#wineTypeMenu").val()).toBe("124");
+        select("searchCriteriaModel.varietal").option("Chardonnay");
+        expect(element("#wineTypeMenu").val()).not().toBe("");
+        expect(element("#wineTypeMenu").val()).toBe("1");
+    });
+
+    it("selecting Region 'California' should filter the Appellations menu", function () {
+
+        browser().navigateTo(url);
+
+        // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
+        var beforeCountFuture = element("#appellationMenu option").count();
+        beforeCountFuture.execute(function () { });
+        var beforeCount = beforeCountFuture.value;
+
+        select("searchCriteriaModel.region").option("California");
+
+        var afterCountFuture = element("#appellationMenu option").count();
+        expect(afterCountFuture).toBeLessThan(beforeCount);
+    });
+
+    it("selecting Appellation 'Chile' should select Region 'South America'", function () {
+        browser().navigateTo(url);
+        expect(element("#regionMenu").val()).toBe("");
+        select("searchCriteriaModel.appellation").option("Chile");
+        expect(element("#regionMenu").val()).not().toBe("");
+        expect(element("#regionMenu").val()).toBe("16");
     });
 
     it("can browse directly to /wineDetails/id:112875", function () {
