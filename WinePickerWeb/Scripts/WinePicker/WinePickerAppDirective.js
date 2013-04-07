@@ -18,7 +18,7 @@ angular.module("WinePickerApp")
                 var expr = attrs.jtCarouselCycle;
                 console.log("jtCarouselCycle postLink() - expr: '" + expr + "'");
                 scope.$watch(expr, function (value) {
-                    console.log("jtCarouselCycle $watch function for '" + expr + "' - value: " + value);
+                    console.log("jtCarouselCycle watch action function for '" + expr + "' - value: " + value);
                     var carouselAction = (value) ? "cycle" : "pause";
                     console.log("calling element.carousel('" + carouselAction + "')");
                     element.carousel(carouselAction);
@@ -54,7 +54,7 @@ angular.module("WinePickerApp")
                 var expr = attrs.jtModalShowHide;
                 console.log("jtModalShowHide postLink() - expr: '" + expr + "'");
                 scope.$watch(expr, function (value) {
-                    console.log("jtModalShowHide $watch function for '" + expr + "' - value: " + value);
+                    console.log("jtModalShowHide watch action function for '" + expr + "' - value: " + value);
                     var modalAction = (value) ? "show" : "hide";
                     console.log("calling element.modal('" + modalAction + "')");
                     element.modal(modalAction);

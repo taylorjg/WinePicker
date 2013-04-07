@@ -1,4 +1,5 @@
 ﻿/// <reference path="Utils.js" />
+/// <reference path="../underscore.js" />
 
 WinePickerModel = function() {
     this.wineApiCallInProgress = false;
@@ -8,11 +9,16 @@ WinePickerModel = function() {
 
 SearchCriteriaModel = function () {
 
+    this.allWineTypes = [];
+    this.allVarietals = [];
+    this.allRegions = [];
+    this.allAppellations = [];
+
     this.reset = function () {
-        this.wineTypes = [];
-        this.varietals = [];
-        this.regions = [];
-        this.appellations = [];
+        this.wineTypes = this.allWineTypes;
+        this.varietals = this.allVarietals;
+        this.regions = this.allRegions;
+        this.appellations = this.allAppellations;
         this.moreSearchCriteriaCollapsed = true;
         this.wineType = "";
         this.varietal = "";
@@ -31,10 +37,10 @@ SearchCriteriaModel = function () {
 
     this.encode = function () {
         var criteriaFormatter = new CriteriaFormatter();
-        criteriaFormatter.addComponent("wt", this.wineType);
-        criteriaFormatter.addComponent("v", this.varietal);
-        criteriaFormatter.addComponent("r", this.region);
-        criteriaFormatter.addComponent("a", this.appellation);
+        criteriaFormatter.addComponent("wt", this.wineType.Id || "");
+        criteriaFormatter.addComponent("v", this.varietal.Id || "");
+        criteriaFormatter.addComponent("r", this.region.Id || "");
+        criteriaFormatter.addComponent("a", this.appellation.Id || "");
         criteriaFormatter.addComponent("s", this.searchTerm);
         criteriaFormatter.addComponent("pf", this.priceFrom);
         criteriaFormatter.addComponent("pt", this.priceTo);
@@ -49,10 +55,10 @@ SearchCriteriaModel = function () {
 
     this.decode = function (s) {
         var criteriaParser = new CriteriaParser(s);
-        this.wineType = criteriaParser.getComponent("wt");
-        this.varietal = criteriaParser.getComponent("v");
-        this.region = criteriaParser.getComponent("r");
-        this.appellation = criteriaParser.getComponent("a");
+        this.wineType = this.findWineTypeById(criteriaParser.getComponent("wt"));
+        this.varietal = this.findVarietalById(criteriaParser.getComponent("v"));
+        this.region = this.findRegionById(criteriaParser.getComponent("r"));
+        this.appellation = this.findAppellationById(criteriaParser.getComponent("a"));
         this.searchTerm = criteriaParser.getComponent("s");
         this.priceFrom = criteriaParser.getComponent("pf");
         this.priceTo = criteriaParser.getComponent("pt");
@@ -70,6 +76,32 @@ SearchCriteriaModel = function () {
 
     this.hideMoreSearchCriteria = function () {
         this.moreSearchCriteriaCollapsed = true;
+    };
+
+    this.findWineTypeById = function (wineTypeId) {
+        return this.findRefinementById(this.allWineTypes, wineTypeId);
+    };
+
+    this.findVarietalById = function (varietalId) {
+        return this.findRefinementById(this.allVarietals, varietalId);
+    };
+
+    this.findRegionById = function (regionId) {
+        return this.findRefinementById(this.allRegions, regionId);
+    };
+
+    this.findAppellationById = function (appellationId) {
+        return this.findRefinementById(this.allAppellations, appellationId);
+    };
+
+    this.findRefinementById = function (refinements, id) {
+        var matchingRefinements = _.filter(refinements, function (r) {
+            return r.Id === Number(id);
+        });
+        if (matchingRefinements.length === 1) {
+            return matchingRefinements[0];
+        }
+        return null;
     };
 
     this.reset();

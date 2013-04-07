@@ -29,6 +29,10 @@ describe("Models", function () {
 
         it("constructs object with correct initial values", function () {
             var model = new SearchCriteriaModel();
+            expect(model.allWineTypes).toEqual([]);
+            expect(model.allVarietals).toEqual([]);
+            expect(model.allRegions).toEqual([]);
+            expect(model.allAppellations).toEqual([]);
             expect(model.wineTypes).toEqual([]);
             expect(model.varietals).toEqual([]);
             expect(model.regions).toEqual([]);
@@ -49,41 +53,69 @@ describe("Models", function () {
             expect(model.sortDirection).toBe("descending");
         });
 
-        it("can encode string correctly", function () {
-            var model = new SearchCriteriaModel();
-            model.wineType = 123;
-            model.varietal = 234;
-            model.region = 345;
-            model.appellation = 456;
-            model.searchTerm = "word1 word2";
-            model.priceFrom = 100;
-            model.priceTo = 200;
-            model.ratingFrom = 92;
-            model.ratingTo = 96;
-            model.state = "CA";
-            model.instock = "1";
-            model.sortOrder = "name";
-            model.sortDirection = "ascending";
-            var actual = model.encode();
-            expect(actual).toBe("wt:123|v:234|r:345|a:456|s:word1 word2|pf:100|pt:200|rf:92|rt:96|st:CA|is:1|so:name|sd:ascending");
-        });
+        describe("encoding and decoding", function () {
 
-        it("can decode string correctly", function () {
-            var model = new SearchCriteriaModel();
-            model.decode("wt:123|v:234|r:345|a:456|s:word1 word2|pf:100|pt:200|rf:92|rt:96|st:CA|is:1|so:name|sd:ascending");
-            expect(model.wineType).toBe("123");
-            expect(model.varietal).toBe("234");
-            expect(model.region).toBe("345");
-            expect(model.appellation).toBe("456");
-            expect(model.searchTerm).toBe("word1 word2");
-            expect(model.priceFrom).toBe("100");
-            expect(model.priceTo).toBe("200");
-            expect(model.ratingFrom).toBe("92");
-            expect(model.ratingTo).toBe("96");
-            expect(model.state).toBe("CA");
-            expect(model.instock).toBe("1");
-            expect(model.sortOrder).toBe("name");
-            expect(model.sortDirection).toBe("ascending");
+            var _model;
+
+            beforeEach(function () {
+
+                _model = new SearchCriteriaModel();
+                
+                _model.allWineTypes = [{
+                    Id: 123,
+                    Name: "Wine Type 1"
+                }];
+                
+                _model.allVarietals = [{
+                    Id: 234,
+                    Name: "Varietal 1"
+                }];
+                
+                _model.allRegions = [{
+                    Id: 345,
+                    Name: "Region 1"
+                }];
+                
+                _model.allAppellations = [{
+                    Id: 456,
+                    Name: "Appellation 1"
+                }];
+            });
+            
+            it("can encode string correctly", function () {
+                _model.wineType = _model.allWineTypes[0];
+                _model.varietal = _model.allVarietals[0];
+                _model.region = _model.allRegions[0];
+                _model.appellation = _model.allAppellations[0];
+                _model.searchTerm = "word1 word2";
+                _model.priceFrom = 100;
+                _model.priceTo = 200;
+                _model.ratingFrom = 92;
+                _model.ratingTo = 96;
+                _model.state = "CA";
+                _model.instock = "1";
+                _model.sortOrder = "name";
+                _model.sortDirection = "ascending";
+                var actual = _model.encode();
+                expect(actual).toBe("wt:123|v:234|r:345|a:456|s:word1 word2|pf:100|pt:200|rf:92|rt:96|st:CA|is:1|so:name|sd:ascending");
+            });
+
+            it("can decode string correctly", function () {
+                _model.decode("wt:123|v:234|r:345|a:456|s:word1 word2|pf:100|pt:200|rf:92|rt:96|st:CA|is:1|so:name|sd:ascending");
+                expect(_model.wineType).toBe(_model.allWineTypes[0]);
+                expect(_model.varietal).toBe(_model.allVarietals[0]);
+                expect(_model.region).toBe(_model.allRegions[0]);
+                expect(_model.appellation).toBe(_model.allAppellations[0]);
+                expect(_model.searchTerm).toBe("word1 word2");
+                expect(_model.priceFrom).toBe("100");
+                expect(_model.priceTo).toBe("200");
+                expect(_model.ratingFrom).toBe("92");
+                expect(_model.ratingTo).toBe("96");
+                expect(_model.state).toBe("CA");
+                expect(_model.instock).toBe("1");
+                expect(_model.sortOrder).toBe("name");
+                expect(_model.sortDirection).toBe("ascending");
+            });
         });
     });
 

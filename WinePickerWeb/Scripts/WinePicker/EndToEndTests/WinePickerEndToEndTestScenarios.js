@@ -67,6 +67,28 @@ describe("WinePicker End-to-End Tests", function () {
         expect(element("input[name='sortDirectionRadios']:checked").val()).toBe("descending");
     });
 
+    it("selecting Wine Type of 'Red Wine' should filter the Varietals menu", function () {
+
+        browser().navigateTo(url);
+        
+        // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
+        var beforeCountFuture = element("#varietalMenu option").count();
+        beforeCountFuture.execute(function () { });
+        var beforeCount = beforeCountFuture.value;
+
+        select("searchCriteriaModel.wineType").option("Red Wine");
+        
+        var afterCountFuture = element("#varietalMenu option").count();
+        expect(afterCountFuture).toBeLessThan(beforeCount);
+    });
+
+    it("selecting Varietal of 'Merlot' should select Wine Type of 'Red Wine'", function () {
+        browser().navigateTo(url);
+        expect(element("#wineTypeMenu").val()).toBe("");
+        select("searchCriteriaModel.varietal").option("Merlot");
+        expect(element("#wineTypeMenu").val()).toBe("124");
+    });
+
     it("can browse directly to /wineDetails/id:112875", function () {
         var path = "/wineDetails/id:112875";
         browser().navigateTo(url + "#" + path);

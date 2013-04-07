@@ -31,33 +31,49 @@
 
             <form class="form-search" action="" data-ng-controller="SearchCriteriaController">
                 
-                <select id="wineTypeMenu" data-ng-model="searchCriteriaModel.wineType" data-ng-change="onWineTypeChanged()">
-                    <option value="">Any Wine Type</option>
-                    <option data-ng-repeat="wineType in searchCriteriaModel.wineTypes" value="{{wineType.Id}}">{{wineType.Name}}</option>
+                <select
+                    id="wineTypeMenu"
+                    data-ng-model="searchCriteriaModel.wineType"
+                    data-ng-options="wineType.Name for wineType in searchCriteriaModel.wineTypes"
+                    data-ng-change="onWineTypeChanged()"
+                >
+                    <option value="">All Wine Types</option>
                 </select>
 
                 <br />
                 <br />
 
-                <select id="varietalMenu" data-ng-model="searchCriteriaModel.varietal" data-ng-change="onVarietalChanged()">
-                    <option value="">Any Varietal</option>
-                    <option data-ng-repeat="varietal in searchCriteriaModel.varietals" value="{{varietal.Id}}">{{varietal.Name}}</option>
+                <select 
+                    id="varietalMenu"
+                    data-ng-model="searchCriteriaModel.varietal"
+                    data-ng-options="varietal.Name for varietal in searchCriteriaModel.varietals"
+                    data-ng-change="onVarietalChanged()"
+                >
+                    <option value="">All Varietals</option>
                 </select>
 
                 <br />
                 <br />
 
-                <select id="regionMenu" data-ng-model="searchCriteriaModel.region" data-ng-change="onRegionChanged()">
-                    <option value="">Any Region</option>
-                    <option data-ng-repeat="region in searchCriteriaModel.regions" value="{{region.Id}}">{{region.Name}}</option>
+                <select 
+                    id="regionMenu"
+                    data-ng-model="searchCriteriaModel.region"
+                    data-ng-options="region.Name for region in searchCriteriaModel.regions"
+                    data-ng-change="onRegionChanged()"
+                >
+                    <option value="">All Regions</option>
                 </select>
 
                 <br />
                 <br />
 
-                <select id="appellationMenu" data-ng-model="searchCriteriaModel.appellation" data-ng-change="onAppellationChanged()">
-                    <option value="">Any Appellation</option>
-                    <option data-ng-repeat="appellation in searchCriteriaModel.appellations" value="{{appellation.Id}}">{{appellation.Name}}</option>
+                <select 
+                    id="appellationMenu"
+                    data-ng-model="searchCriteriaModel.appellation"
+                    data-ng-options="appellation.Name for appellation in searchCriteriaModel.appellations"
+                    data-ng-change="onAppellationChanged()"
+                >
+                    <option value="">All Appellations</option>
                 </select>
 
                 <br />
