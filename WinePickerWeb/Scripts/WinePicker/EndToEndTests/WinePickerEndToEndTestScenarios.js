@@ -77,7 +77,7 @@ describe("WinePicker End-to-End Tests", function () {
 
         // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
         var beforeCountFuture = element("#varietalMenu option").count();
-        beforeCountFuture.execute(function () { });
+        beforeCountFuture.execute(angular.noop);
         var beforeCount = beforeCountFuture.value;
 
         select("searchCriteriaModel.wineType").option("Red Wine");
@@ -100,7 +100,7 @@ describe("WinePicker End-to-End Tests", function () {
 
         // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
         var beforeCountFuture = element("#appellationMenu option").count();
-        beforeCountFuture.execute(function () { });
+        beforeCountFuture.execute(angular.noop);
         var beforeCount = beforeCountFuture.value;
 
         select("searchCriteriaModel.region").option("California");
