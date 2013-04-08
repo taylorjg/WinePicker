@@ -1,30 +1,34 @@
-﻿/// <reference path="WineApiProxy.js" />
-/// <reference path="Models.js" />
+﻿/// <reference path="../angular.js" />
 /// <reference path="../underscore.js" />
+/// <reference path="WineApiProxy.js" />
+/// <reference path="Models.js" />
 
 // ReSharper disable InconsistentNaming
 
-function WineDetailsController($scope, $location, $routeParams, wineApiProxy) {
+(function () {
 
     "use strict";
 
-    console.log("WineDetailsController - $location.path(): " + $location.path());
+    window.WineDetailsController = function WineDetailsController($scope, $location, $routeParams, wineApiProxy) {
 
-    $scope.wineDetailsModel = new WineDetailsModel();
+        console.log("WineDetailsController - $location.path(): " + $location.path());
 
-    wineApiProxy.callWineApi("productCriteria=" + $routeParams.encodedProductCriteria, function (data) {
-        if (data.Products.List.length === 1) {
-            var product = data.Products.List[0];
-            $scope.wineDetailsModel.product = product;
-            $scope.wineDetailsModel.productAttributesWithImageUrl = _.filter(product.ProductAttributes, function (pa) {
-                return pa && pa.ImageUrl !== "";
-            });
-        }
-    });
+        $scope.wineDetailsModel = new WineDetailsModel();
 
-    $scope.getLargeLabelImageUrlForProduct = function (product) {
-        return wineApiProxy.getLargeLabelImageUrlForProduct(product);
+        wineApiProxy.callWineApi("productCriteria=" + $routeParams.encodedProductCriteria, function(data) {
+            if (data.Products.List.length === 1) {
+                var product = data.Products.List[0];
+                $scope.wineDetailsModel.product = product;
+                $scope.wineDetailsModel.productAttributesWithImageUrl = _.filter(product.ProductAttributes, function(pa) {
+                    return pa && pa.ImageUrl !== "";
+                });
+            }
+        });
+
+        $scope.getLargeLabelImageUrlForProduct = function(product) {
+            return wineApiProxy.getLargeLabelImageUrlForProduct(product);
+        };
     };
-}
 
-WineDetailsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy"];
+    WineDetailsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy"];
+} ());

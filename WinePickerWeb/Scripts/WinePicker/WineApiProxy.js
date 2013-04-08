@@ -2,35 +2,39 @@
 
 // ReSharper disable InconsistentNaming
 
-WineApiProxy = function ($http) {
+(function () {
 
-    this._$http = $http;
-    this._start = null;
-    this._end = null;
-    this._error = null;
+    "use strict";
 
-    this.start = function (fn) {
-        this._start = fn;
-    };
+    window.WineApiProxy = function ($http) {
 
-    this.end = function (fn) {
-        this._end = fn;
-    };
+        this._$http = $http;
+        this._start = null;
+        this._end = null;
+        this._error = null;
 
-    this.error = function (fn) {
-        this._error = fn;
-    };
+        this.start = function (fn) {
+            this._start = fn;
+        };
 
-    this.callWineApi = function (queryString, fn) {
+        this.end = function (fn) {
+            this._end = fn;
+        };
 
-        var self = this;
-        var url = "api/wineapi?" + queryString;
+        this.error = function (fn) {
+            this._error = fn;
+        };
 
-        if (_.isFunction(this._start)) {
-            this._start();
-        }
+        this.callWineApi = function (queryString, fn) {
 
-        this._$http.get(url)
+            var self = this;
+            var url = "api/wineapi?" + queryString;
+
+            if (_.isFunction(this._start)) {
+                this._start();
+            }
+
+            this._$http.get(url)
             .success(function (data) {
                 try {
                     if (data && data.Status && data.Status.ReturnCode === 0) {
@@ -76,52 +80,53 @@ WineApiProxy = function ($http) {
                     }
                 }
             });
-    };
+        };
 
-    this.clearErrors = function () {
-        this.reportErrors();
-    };
+        this.clearErrors = function () {
+            this.reportErrors();
+        };
 
-    this.reportErrors = function (errorMessages) {
+        this.reportErrors = function (errorMessages) {
 
-        var errorMessagesArray = [];
+            var errorMessagesArray = [];
 
-        if (arguments.length === 1) {
-            if (_.isArray(errorMessages)) {
-                errorMessagesArray = errorMessages;
+            if (arguments.length === 1) {
+                if (_.isArray(errorMessages)) {
+                    errorMessagesArray = errorMessages;
+                }
+                else {
+                    errorMessagesArray.push(errorMessages);
+                }
             }
             else {
-                errorMessagesArray.push(errorMessages);
+                for (var i = 0; i < arguments.length; i++) {
+                    errorMessagesArray.push(arguments[i]);
+                }
             }
-        }
-        else {
-            for (var i = 0; i < arguments.length; i++) {
-                errorMessagesArray.push(arguments[i]);
-            }
-        }
 
-        if (_.isFunction(this._error)) {
-            this._error(errorMessagesArray);
-        }
+            if (_.isFunction(this._error)) {
+                this._error(errorMessagesArray);
+            }
+        };
+
+        this.getLargeLabelImageUrlForProduct = function (product) {
+
+            var result = "";
+
+            if (product && product.Labels && _.isArray(product.Labels) && product.Labels.length > 0) {
+                var largeLabels = _.filter(product.Labels, function (label) {
+                    return label && label.Name && label.Name === "large";
+                });
+                if (largeLabels.length > 0) {
+                    result = largeLabels[0].Url;
+                } else {
+                    result = product.Labels[0].Url.replace(/m.jpg$/, "l.jpg");
+                }
+            }
+
+            return result;
+        };
     };
 
-    this.getLargeLabelImageUrlForProduct = function (product) {
-
-        var result = "";
-
-        if (product && product.Labels && _.isArray(product.Labels) && product.Labels.length > 0) {
-            var largeLabels = _.filter(product.Labels, function (label) {
-                return label && label.Name && label.Name === "large";
-            });
-            if (largeLabels.length > 0) {
-                result = largeLabels[0].Url;
-            } else {
-                result = product.Labels[0].Url.replace(/m.jpg$/, "l.jpg");
-            }
-        }
-
-        return result;
-    };
-};
-
-WineApiProxy.$inject = ["$http"];
+    window.WineApiProxy.$inject = ["$http"];
+} ());

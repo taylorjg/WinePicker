@@ -1,1 +1,6 @@
-﻿angular.module("WinePickerApp", [/* requires */]);
+﻿(function () {
+
+    "use strict";
+
+    angular.module("WinePickerApp", [/* requires */]);
+} ());

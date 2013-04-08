@@ -7,64 +7,69 @@
 
 // ReSharper disable InconsistentNaming
 
-describe("SearchResultsController", function () {
+(function () {
 
-    var _$httpBackend;
-    var _scope;
-    var _searchResultsModel;
-    var _controller;
-    var _successfulWineApiResponse = {
-        "Status": {
-            "Messages": [],
-            "ReturnCode": 0
-        },
-        "Products": {
-            "List": [],
-            "Total": 35
-        }
-    };
+    "use strict";
 
-    beforeEach(angular.mock.inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
+    describe("SearchResultsController", function () {
 
-        _$httpBackend = _$httpBackend_;
+        var _$httpBackend;
+        var _scope;
+        var _searchResultsModel;
+        var _controller;
+        var _successfulWineApiResponse = {
+            "Status": {
+                "Messages": [],
+                "ReturnCode": 0
+            },
+            "Products": {
+                "List": [],
+                "Total": 35
+            }
+        };
 
-        _scope = $rootScope.$new();
-        _searchResultsModel = new SearchResultsModel();
+        beforeEach(angular.mock.inject(function (_$httpBackend_, $http, $rootScope, $routeParams, $controller) {
 
-        _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1|o:0|sz:10").respond(_successfulWineApiResponse);
+            _$httpBackend = _$httpBackend_;
 
-        $routeParams.encodedSearchCriteria = "wt:124|s:gamay|st:WA|is:1";
+            _scope = $rootScope.$new();
+            _searchResultsModel = new SearchResultsModel();
 
-        _controller = $controller(SearchResultsController, {
-            $scope: _scope,
-            wineApiProxy: new WineApiProxy($http),
-            searchResultsModel: _searchResultsModel
+            _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1|o:0|sz:10").respond(_successfulWineApiResponse);
+
+            $routeParams.encodedSearchCriteria = "wt:124|s:gamay|st:WA|is:1";
+
+            _controller = $controller(SearchResultsController, {
+                $scope: _scope,
+                wineApiProxy: new WineApiProxy($http),
+                searchResultsModel: _searchResultsModel
+            });
+        }));
+
+        it("scope.searchResultsModel is initialised correctly", function () {
+            _$httpBackend.flush();
+            expect(_scope.searchResultsModel).toBe(_searchResultsModel);
+            expect(_scope.searchResultsModel.products).toBe(_successfulWineApiResponse.Products);
+            expect(_scope.searchResultsModel.state).toBe("WA");
+            expect(_scope.searchResultsModel.instock).toBe("1");
+            _$httpBackend.verifyNoOutstandingRequest();
+            _$httpBackend.verifyNoOutstandingExpectation();
         });
-    }));
 
-    it("scope.searchResultsModel is initialised correctly", function () {
-        _$httpBackend.flush();
-        expect(_scope.searchResultsModel).toBe(_searchResultsModel);
-        expect(_scope.searchResultsModel.products).toBe(_successfulWineApiResponse.Products);
-        expect(_scope.searchResultsModel.state).toBe("WA");
-        expect(_scope.searchResultsModel.instock).toBe("1");
-        _$httpBackend.verifyNoOutstandingRequest();
-        _$httpBackend.verifyNoOutstandingExpectation();
-    });
+        it("scope.searchResultsModel.pages array is set correctly", function () {
+            _$httpBackend.flush();
+            expect(_scope.searchResultsModel.pages.length).toBe(4);
+            expect(_scope.searchResultsModel.pages[0]).toBe(1);
+            expect(_scope.searchResultsModel.pages[1]).toBe(2);
+            expect(_scope.searchResultsModel.pages[2]).toBe(3);
+            expect(_scope.searchResultsModel.pages[3]).toBe(4);
+            expect(_scope.searchResultsModel.lastPageIndex).toBe(3);
+            expect(_scope.searchResultsModel.currentPageIndex).toBe(0);
+            expect(_scope.searchResultsModel.currentSlideNumber).toBe(0);
+        });
 
-    it("scope.searchResultsModel.pages array is set correctly", function () {
-        _$httpBackend.flush();
-        expect(_scope.searchResultsModel.pages.length).toBe(4);
-        expect(_scope.searchResultsModel.pages[0]).toBe(1);
-        expect(_scope.searchResultsModel.pages[1]).toBe(2);
-        expect(_scope.searchResultsModel.pages[2]).toBe(3);
-        expect(_scope.searchResultsModel.pages[3]).toBe(4);
-        expect(_scope.searchResultsModel.lastPageIndex).toBe(3);
-        expect(_scope.searchResultsModel.currentPageIndex).toBe(0);
-        expect(_scope.searchResultsModel.currentSlideNumber).toBe(0);
+        it("scope has a getLargeLabelImageUrlForProduct method", function () {
+            expect(_scope.getLargeLabelImageUrlForProduct).toBeDefined();
+        });
     });
-
-    it("scope has a getLargeLabelImageUrlForProduct method", function () {
-        expect(_scope.getLargeLabelImageUrlForProduct).toBeDefined();
-    });
-});
+} ());

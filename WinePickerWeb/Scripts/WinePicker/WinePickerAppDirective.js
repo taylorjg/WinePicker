@@ -1,6 +1,10 @@
-﻿/// <reference path="../jquery-1.9.1.js" />
+﻿/// <reference path="../angular.js" />
 
-angular.module("WinePickerApp")
+(function () {
+
+    "use strict";
+
+    angular.module("WinePickerApp")
     .directive("jtExternalLink", [function () {
         console.log(".directive() function for jtExternalLink");
         var directiveDefinitionObject = {
@@ -63,3 +67,4 @@ angular.module("WinePickerApp")
         };
         return directiveDefinitionObject;
     } ]);
+} ());

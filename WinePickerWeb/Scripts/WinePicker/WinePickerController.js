@@ -1,29 +1,32 @@
-﻿/// <reference path="WineApiProxy.js" />
+﻿/// <reference path="../angular.js" />
+/// <reference path="WineApiProxy.js" />
 /// <reference path="Models.js" />
-/// <reference path="../angular.js" />
 
 // ReSharper disable InconsistentNaming
 
-function WinePickerController($scope, $http, $location, wineApiProxy) {
+(function () {
 
     "use strict";
 
-    console.log("WinePickerController - $location.path(): " + $location.path());
+    window.WinePickerController = function WinePickerController($scope, $http, $location, wineApiProxy) {
 
-    $scope.winePickerModel = new WinePickerModel();
+        console.log("WinePickerController - $location.path(): " + $location.path());
 
-    wineApiProxy.start(function() {
-        $scope.winePickerModel.wineApiCallInProgress = true;
-    });
+        $scope.winePickerModel = new WinePickerModel();
 
-    wineApiProxy.end(function() {
-        $scope.winePickerModel.wineApiCallInProgress = false;
-    });
+        wineApiProxy.start(function() {
+            $scope.winePickerModel.wineApiCallInProgress = true;
+        });
 
-    wineApiProxy.error(function (errorMessages) {
-        $scope.winePickerModel.errorMessages = errorMessages;
-        $scope.winePickerModel.errorMessagesVisible = errorMessages.length > 0;
-    });
-}
+        wineApiProxy.end(function() {
+            $scope.winePickerModel.wineApiCallInProgress = false;
+        });
 
-WinePickerController.$inject = ["$scope", "$http", "$location", "wineApiProxy"];
+        wineApiProxy.error(function(errorMessages) {
+            $scope.winePickerModel.errorMessages = errorMessages;
+            $scope.winePickerModel.errorMessagesVisible = errorMessages.length > 0;
+        });
+    };
+
+    WinePickerController.$inject = ["$scope", "$http", "$location", "wineApiProxy"];
+} ());
