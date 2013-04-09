@@ -371,6 +371,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".jshintrc" />
     <None Include="package.json" />
     <None Include="Scripts\jasmine\MIT.LICENSE" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
