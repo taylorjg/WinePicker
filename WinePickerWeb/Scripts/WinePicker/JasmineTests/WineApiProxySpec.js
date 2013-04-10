@@ -35,10 +35,6 @@
             _wineApiProxy = $injector.instantiate(WineApiProxy);
         }));
 
-        it("$http is correctly injected when using the WineApiProxy constructor function", function () {
-            expect(_wineApiProxy._$http).not.toBe();
-        });
-
         it("callWineApi invokes $http.get()", function () {
             _$httpBackend.expectGET("api/wineapi?searchCriteria=wt:124|s:gamay").respond(_successfulWineApiResponse);
             _wineApiProxy.callWineApi("searchCriteria=wt:124|s:gamay");
@@ -165,6 +161,24 @@
             expect(reportedErrorMessages.length).toBe(3);
             expect(reportedErrorMessages[1]).toBe("my-message");
             expect(reportedErrorMessages[2]).toBe("my-message-detail");
+        });
+
+        it("private variables are not public", function () {
+            var actual1 = _wineApiProxy._$http;
+            var actual2 = _wineApiProxy._start;
+            var actual3 = _wineApiProxy._end;
+            var actual4 = _wineApiProxy._error;
+            expect(actual1).toBeUndefined();
+            expect(actual2).toBeUndefined();
+            expect(actual3).toBeUndefined();
+            expect(actual4).toBeUndefined();
+        });
+
+        it("private methods are not public", function () {
+            var actual1 = _wineApiProxy._clearErrors;
+            var actual2 = _wineApiProxy._reportErrors;
+            expect(actual1).toBeUndefined();
+            expect(actual2).toBeUndefined();
         });
 
         describe("getLargeLabelImageUrlForProduct method", function () {
