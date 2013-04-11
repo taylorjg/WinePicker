@@ -3,6 +3,9 @@
     Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
 
+<!-- use data-ng-app="WinePickerAppE2E" in order to use $httpBackend fake responses for calls to api/wineapi/* when doing e2e tests -->
+<!-- see ~/Scripts/WinePicker/EndToEndTests/WinePickerEndToEndTestHttpBackendSetup.js -->
+<!-- TODO: figure out how to switch between WinePickerApp and WinePickerAppE2E dynamically -->
 <div id="containerDiv" class="container-fluid" data-ng-app="WinePickerApp" data-ng-controller="WinePickerController">
     <div class="row">
         
