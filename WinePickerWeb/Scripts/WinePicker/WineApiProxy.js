@@ -27,6 +27,8 @@
 
         this.callWineApi = function (queryString, fn) {
 
+            var self = this;
+
             var url = "api/wineapi?" + queryString;
 
             if (_.isFunction(_start)) {
@@ -37,7 +39,7 @@
             .success(function (data) {
                 try {
                     if (data && data.Status && data.Status.ReturnCode === 0) {
-                        _clearErrors();
+                        self.clearErrors();
                         if (_.isFunction(fn)) {
                             fn(data);
                         }
@@ -99,9 +101,9 @@
             return result;
         };
 
-        function _clearErrors() {
+        this.clearErrors = function () {
             _reportErrors();
-        }
+        };
 
         function _reportErrors(errorMessages) {
 

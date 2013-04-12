@@ -1,21 +1,27 @@
+/* global module */
+
 module.exports = function (grunt) {
 
+    "use strict";
+
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON("package.json"),
         jshint: {
-			options: grunt.file.readJSON('.jshintrc'),
+            options: grunt.file.readJSON(".jshintrc"),
             files: [
-				'Scripts/WinePicker/**/*.js'
+				"Gruntfile.js",
+				"Scripts/WineApi/**/*.js",
+				"Scripts/WinePicker/**/*.js"
 			]
         },
         watch: {
-            files: ['<%= jshint.files %>'],
-            tasks: ['jshint']
+            files: ["<%= jshint.files %>"],
+            tasks: ["jshint"]
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    
-    grunt.registerTask('default', ['jshint']);
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+
+    grunt.registerTask("default", ["jshint"]);
 };

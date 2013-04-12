@@ -75,6 +75,15 @@
             expect(element("input[name='sortDirectionRadios']:checked").val()).toBe("descending");
         });
 
+        it("the reset button clears any error that is currently being displayed", function () {
+            browser().navigateTo(url);
+            input("searchCriteriaModel.searchTerm").enter("error");
+            element("#searchButton").click();
+            expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
+            element("#resetButton").click();
+            expect(element("div.alert-error:visible", "visible error message box").count()).toBe(0);
+        });
+
         it("selecting Wine Type 'Red Wine' should filter the Varietals menu", function () {
 
             browser().navigateTo(url);

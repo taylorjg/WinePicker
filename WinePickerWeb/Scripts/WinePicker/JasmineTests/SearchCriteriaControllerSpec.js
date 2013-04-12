@@ -4,6 +4,7 @@
 /// <reference path="../SearchCriteriaController.js" />
 /// <reference path="../Models.js" />
 /// <reference path="../WineApiConstants.js" />
+/// <reference path="../WineApiProxy.js" />
 
 // ReSharper disable InconsistentNaming
 
@@ -16,9 +17,12 @@
         var _scope;
         var _controller;
 
-        beforeEach(angular.mock.inject(function ($rootScope, $controller) {
+        beforeEach(angular.mock.inject(function ($http, $rootScope, $controller) {
             _scope = $rootScope.$new();
-            _controller = $controller(SearchCriteriaController, { $scope: _scope });
+            _controller = $controller(SearchCriteriaController, {
+                $scope: _scope,
+                wineApiProxy: new WineApiProxy($http)
+            });
         }));
 
         var _numRefinements = function (categoryId) {
