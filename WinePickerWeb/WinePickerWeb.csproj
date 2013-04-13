@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Filters\EndToEndTestDetectionFilter.cs" />
     <Compile Include="Controllers\WineApiController.cs" />
     <Compile Include="Controllers\WinePickerController.cs" />
     <Compile Include="Global.asax.cs">

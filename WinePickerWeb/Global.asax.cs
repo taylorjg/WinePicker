@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WinePickerWeb.App_Start;
+using WinePickerWeb.Controllers;
+using WinePickerWeb.Filters;
 
 namespace WinePickerWeb
 {
@@ -14,6 +16,7 @@ namespace WinePickerWeb
         {
             AreaRegistration.RegisterAllAreas();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalFilters.Filters.Add(new EndToEndTestDetectionFilter());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

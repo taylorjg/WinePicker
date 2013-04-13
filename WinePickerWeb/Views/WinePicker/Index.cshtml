@@ -4,9 +4,7 @@
 }
 
 @{
-    // TODO: we need to find somewhere to set Context.Items["isEndToEndTest"] to true/false as appropriate - maybe in an action filter ?
-    var isEndToEndTest = false;
-    Context.Items["isEndToEndTest"] = isEndToEndTest;
+    var isEndToEndTest = (bool)Context.Items["isEndToEndTest"];
     var ngAppName = (isEndToEndTest) ? "WinePickerAppE2E" : "WinePickerApp";
 }
 

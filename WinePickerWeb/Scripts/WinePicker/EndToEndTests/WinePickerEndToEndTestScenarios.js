@@ -12,10 +12,10 @@
         // web development server (Cassini). The port number is assigned
         // in the "Web" section of the WinePickerWeb project's properties
         // (see the "Specific port" setting).
-        var url = "http://localhost:51051/WinePicker";
+        var baseUrl = "http://localhost:51051/WinePicker?mode=e2etest";
 
         it("can search for 'dom perignon'", function () {
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
             input("searchCriteriaModel.searchTerm").enter("dom perignon");
             element("#searchButton").click();
             expect(window.binding("searchResultsModel.products.Total")).toBeGreaterThan(0);
@@ -24,7 +24,7 @@
 
         it("the reset button resets the search criteria", function () {
 
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
 
             select("searchCriteriaModel.wineType").option("Red Wine");
             select("searchCriteriaModel.varietal").option("Cabernet Sauvignon");
@@ -75,22 +75,22 @@
             expect(element("input[name='sortDirectionRadios']:checked").val()).toBe("descending");
         });
 
-        it("if a search fails with a wine.com API error then the error is displayed", function() {
-            browser().navigateTo(url);
+        it("if a search fails with a wine.com API error then the error is displayed", function () {
+            browser().navigateTo(makeWinePickerUrl());
             input("searchCriteriaModel.searchTerm").enter("error");
             element("#searchButton").click();
             expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
         });
 
-        it("if a search fails with a HTTP error then the error is displayed", function() {
-            browser().navigateTo(url);
+        it("if a search fails with a HTTP error then the error is displayed", function () {
+            browser().navigateTo(makeWinePickerUrl());
             input("searchCriteriaModel.searchTerm").enter("http-error");
             element("#searchButton").click();
             expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
         });
 
         it("the reset button clears any error that is currently being displayed", function () {
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
             input("searchCriteriaModel.searchTerm").enter("error");
             element("#searchButton").click();
             expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
@@ -100,7 +100,7 @@
 
         it("selecting Wine Type 'Red Wine' should filter the Varietals menu", function () {
 
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
 
             // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
             var beforeCountFuture = element("#varietalMenu option").count();
@@ -114,7 +114,7 @@
         });
 
         it("selecting Varietal 'Chardonnay' should select Wine Type 'White Wine'", function () {
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
             expect(element("#wineTypeMenu").val()).toBe("");
             select("searchCriteriaModel.varietal").option("Chardonnay");
             expect(element("#wineTypeMenu").val()).not().toBe("");
@@ -123,7 +123,7 @@
 
         it("selecting Region 'California' should filter the Appellations menu", function () {
 
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
 
             // http://stackoverflow.com/questions/14567018/angularjs-e2e-testing-how-to-get-value-of-repeater-count
             var beforeCountFuture = element("#appellationMenu option").count();
@@ -137,7 +137,7 @@
         });
 
         it("selecting Appellation 'Chile' should select Region 'South America'", function () {
-            browser().navigateTo(url);
+            browser().navigateTo(makeWinePickerUrl());
             expect(element("#regionMenu").val()).toBe("");
             select("searchCriteriaModel.appellation").option("Chile");
             expect(element("#regionMenu").val()).not().toBe("");
@@ -145,9 +145,17 @@
         });
 
         it("can browse directly to /wineDetails/id:112875", function () {
-            var path = "/wineDetails/id:112875";
-            browser().navigateTo(url + "#" + path);
+            browser().navigateTo(makeWineDetailsUrl(112875));
             expect(window.binding("wineDetailsModel.product.Varietal.Name")).toContain("Tempranillo");
         });
+
+        function makeWinePickerUrl() {
+            return baseUrl;
+        }
+
+        function makeWineDetailsUrl(id) {
+            var path = "/wineDetails/id:" + id;
+            return baseUrl + "#" + path;
+        }
     });
 } ());
