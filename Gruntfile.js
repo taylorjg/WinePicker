@@ -10,8 +10,8 @@ module.exports = function (grunt) {
             options: grunt.file.readJSON(".jshintrc"),
             files: [
 				"Gruntfile.js",
-				"Scripts/WineApi/**/*.js",
-				"Scripts/WinePicker/**/*.js"
+				"WinePickerWeb/Scripts/WineApi/**/*.js",
+				"WinePickerWeb/Scripts/WinePicker/**/*.js"
 			]
         },
         watch: {
