@@ -3,10 +3,14 @@
     Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
 
-<!-- use data-ng-app="WinePickerAppE2E" in order to use $httpBackend fake responses for calls to api/wineapi/* when doing e2e tests -->
-<!-- see ~/Scripts/WinePicker/EndToEndTests/WinePickerEndToEndTestHttpBackendSetup.js -->
-<!-- TODO: figure out how to switch between WinePickerApp and WinePickerAppE2E dynamically -->
-<div id="containerDiv" class="container-fluid" data-ng-app="WinePickerApp" data-ng-controller="WinePickerController">
+@{
+    // TODO: we need to find somewhere to set Context.Items["isEndToEndTest"] to true/false as appropriate - maybe in an action filter ?
+    var isEndToEndTest = false;
+    Context.Items["isEndToEndTest"] = isEndToEndTest;
+    var ngAppName = (isEndToEndTest) ? "WinePickerAppE2E" : "WinePickerApp";
+}
+
+<div id="containerDiv" class="container-fluid" data-ng-app="@ngAppName" data-ng-controller="WinePickerController">
     <div class="row">
         
         <div class="span4">

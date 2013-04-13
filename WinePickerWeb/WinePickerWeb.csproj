@@ -371,7 +371,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="package.json" />
     <None Include="Scripts\jasmine\MIT.LICENSE" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\_MyLayout.cshtml" />
