@@ -75,6 +75,20 @@
             expect(element("input[name='sortDirectionRadios']:checked").val()).toBe("descending");
         });
 
+        it("if a search fails with a wine.com API error then the error is displayed", function() {
+            browser().navigateTo(url);
+            input("searchCriteriaModel.searchTerm").enter("error");
+            element("#searchButton").click();
+            expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
+        });
+
+        it("if a search fails with a HTTP error then the error is displayed", function() {
+            browser().navigateTo(url);
+            input("searchCriteriaModel.searchTerm").enter("http-error");
+            element("#searchButton").click();
+            expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
+        });
+
         it("the reset button clears any error that is currently being displayed", function () {
             browser().navigateTo(url);
             input("searchCriteriaModel.searchTerm").enter("error");

@@ -11,6 +11,7 @@
         .run(["$httpBackend", function ($httpBackend) {
             $httpBackend.whenGET(/^api\/wineapi\?searchCriteria=.*(s:dom perignon).*/).respond(searchForDomPerignonResponse);
             $httpBackend.whenGET(/^api\/wineapi\?searchCriteria=.*(s:error).*/).respond(searchErrorResponse);
+            $httpBackend.whenGET(/^api\/wineapi\?searchCriteria=.*(s:http-error).*/).respond(500, "Some server side error.");
             $httpBackend.whenGET(/^api\/wineapi\?productCriteria=id:112875/).respond(productDetailsFor112875Response);
             $httpBackend.whenGET(/^api\/wineapi\?productCriteria=id:.*/).respond(productDetailsErrorResponse);
             $httpBackend.whenGET(/.*/).passThrough();
