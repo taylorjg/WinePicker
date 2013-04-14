@@ -2,8 +2,12 @@
     
     <hr />
 
-    <div>
+    <div id="gotSomeSearchResults" data-ng-show="searchResultsModel.products.Total > 0">
         Displaying {{searchResultsModel.products.Offset + 1}} through {{searchResultsModel.products.Offset + searchResultsModel.products.List.length}} of {{searchResultsModel.products.Total}}.
+    </div>
+
+    <div id="gotNoSearchResults" data-ng-show="searchResultsModel.products.Total == 0">
+        No wines matching the search criteria were found!
     </div>
 
     <br />

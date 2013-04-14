@@ -22,6 +22,22 @@
             expect(window.binding("product.Name")).toContain("Dom Perignon");
         });
 
+        it("search with some results shows correct message", function () {
+            browser().navigateTo(makeWinePickerUrl());
+            input("searchCriteriaModel.searchTerm").enter("dom perignon");
+            element("#searchButton").click();
+            expect(element("#gotSomeSearchResults:visible", "gotSomeSearchResults div").count()).toBe(1);
+            expect(element("#gotNoSearchResults:visible", "gotNoSearchResults div").count()).toBe(0);
+        });
+
+        it("search with no results shows correct message", function () {
+            browser().navigateTo(makeWinePickerUrl());
+            input("searchCriteriaModel.searchTerm").enter("search-term-with-no-results");
+            element("#searchButton").click();
+            expect(element("#gotSomeSearchResults:visible", "gotSomeSearchResults div").count()).toBe(0);
+            expect(element("#gotNoSearchResults:visible", "gotNoSearchResults div").count()).toBe(1);
+        });
+
         it("the reset button resets the search criteria", function () {
 
             browser().navigateTo(makeWinePickerUrl());
@@ -77,7 +93,7 @@
 
         it("if a search fails with a wine.com API error then the error is displayed", function () {
             browser().navigateTo(makeWinePickerUrl());
-            input("searchCriteriaModel.searchTerm").enter("error");
+            input("searchCriteriaModel.searchTerm").enter("api-error");
             element("#searchButton").click();
             expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
         });
@@ -91,7 +107,7 @@
 
         it("the reset button clears any error that is currently being displayed", function () {
             browser().navigateTo(makeWinePickerUrl());
-            input("searchCriteriaModel.searchTerm").enter("error");
+            input("searchCriteriaModel.searchTerm").enter("api-error");
             element("#searchButton").click();
             expect(element("div.alert-error:visible", "visible error message box").count()).toBe(1);
             element("#resetButton").click();
@@ -142,6 +158,28 @@
             select("searchCriteriaModel.appellation").option("Chile");
             expect(element("#regionMenu").val()).not().toBe("");
             expect(element("#regionMenu").val()).toBe("16");
+        });
+
+        it("selecting a varietal and then selecting All Wine Types should reset the varietal to All Varietals", function () {
+            browser().navigateTo(makeWinePickerUrl());
+            expect(element("#wineTypeMenu").val()).toBe("");
+            expect(element("#varietalMenu").val()).toBe("");
+            select("searchCriteriaModel.varietal").option("Merlot");
+            expect(element("#wineTypeMenu").val()).toBe("0");
+            select("searchCriteriaModel.wineType").option("");
+            expect(element("#wineTypeMenu").val()).toBe("");
+            expect(element("#varietalMenu").val()).toBe("");
+        });
+
+        it("selecting an appellation and then selecting All Regions should reset the appellation to All Appellations", function () {
+            browser().navigateTo(makeWinePickerUrl());
+            expect(element("#regionMenu").val()).toBe("");
+            expect(element("#appellationMenu").val()).toBe("");
+            select("searchCriteriaModel.appellation").option("Chile");
+            expect(element("#regionMenu").val()).toBe("16");
+            select("searchCriteriaModel.region").option("");
+            expect(element("#regionMenu").val()).toBe("");
+            expect(element("#appellationMenu").val()).toBe("");
         });
 
         it("can browse directly to /wineDetails/id:112875", function () {
