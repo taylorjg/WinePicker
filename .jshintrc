@@ -11,12 +11,7 @@
 	"strict": true,
 	"globals": {
 		"wineApi": true,
-		"WineApiProxy": true,
 		"winePicker": true,
-		"WinePickerController": true,
-		"SearchCriteriaController": true,
-		"SearchResultsController": true,
-		"WineDetailsController": true,
 		"$": true,
 		"_": true,
 		"console": true,

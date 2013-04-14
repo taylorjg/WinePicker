@@ -111,10 +111,10 @@
                 }
             });
 
-            var wineApiProxy = new WineApiProxy($http);
+            var wineApiProxy = new winePicker.services.WineApiProxy($http);
 
             _scope = $rootScope.$new();
-            _controller = $controller(WineDetailsController, {
+            _controller = $controller(window.winePicker.controllers.WineDetailsController, {
                 $scope: _scope,
                 wineApiProxy: wineApiProxy
             });

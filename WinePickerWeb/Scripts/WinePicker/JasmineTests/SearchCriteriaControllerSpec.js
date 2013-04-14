@@ -19,9 +19,9 @@
 
         beforeEach(angular.mock.inject(function ($http, $rootScope, $controller) {
             _scope = $rootScope.$new();
-            _controller = $controller(SearchCriteriaController, {
+            _controller = $controller(window.winePicker.controllers.SearchCriteriaController, {
                 $scope: _scope,
-                wineApiProxy: new WineApiProxy($http)
+                wineApiProxy: new winePicker.services.WineApiProxy($http)
             });
         }));
 

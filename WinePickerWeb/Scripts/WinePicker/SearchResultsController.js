@@ -9,9 +9,12 @@
 
     "use strict";
 
-    window.SearchResultsController = function SearchResultsController($scope, $location, $routeParams, wineApiProxy, searchResultsModel) {
+    window.winePicker = window.winePicker || {};
+    window.winePicker.controllers = window.winePicker.controllers || {};
 
-        console.log("SearchResultsController - $location.path(): " + $location.path());
+    window.winePicker.controllers.SearchResultsController = function($scope, $location, $routeParams, wineApiProxy, searchResultsModel) {
+
+        console.log("window.winePicker.controllers.SearchResultsController - $location.path(): " + $location.path());
 
         var searchCriteriaModel = new winePicker.models.SearchCriteriaModel();
         searchCriteriaModel.decode($routeParams.encodedSearchCriteria);
@@ -99,5 +102,5 @@
         _displayPageIndex(0);
     };
 
-    SearchResultsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy", "searchResultsModel"];
+    window.winePicker.controllers.SearchResultsController.$inject = ["$scope", "$location", "$routeParams", "wineApiProxy", "searchResultsModel"];
 } ());

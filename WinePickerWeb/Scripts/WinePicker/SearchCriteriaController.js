@@ -11,18 +11,21 @@
 
     "use strict";
 
-    window.SearchCriteriaController = function SearchCriteriaController($scope, $location, wineApiProxy) {
+    window.winePicker = window.winePicker || {};
+    window.winePicker.controllers = window.winePicker.controllers || {};
 
-        console.log("SearchCriteriaController - $location.path(): " + $location.path());
+    window.winePicker.controllers.SearchCriteriaController = function($scope, $location, wineApiProxy) {
+
+        console.log("window.winePicker.controllers.SearchCriteriaController - $location.path(): " + $location.path());
 
         $scope.searchCriteriaModel = new winePicker.models.SearchCriteriaModel();
 
-        $scope.onSearch = function () {
+        $scope.onSearch = function() {
             var encodedSearchCriteria = $scope.searchCriteriaModel.encode();
             $location.path("/searchResults/" + encodedSearchCriteria);
         };
 
-        $scope.onReset = function (suppressPathChange) {
+        $scope.onReset = function(suppressPathChange) {
 
             $scope.searchCriteriaModel.reset();
             wineApiProxy.clearErrors();
@@ -32,12 +35,12 @@
             }
         };
 
-        $scope.onWineTypeChanged = function () {
+        $scope.onWineTypeChanged = function() {
             console.log("$scope.onWineTypeChanged");
             var selectedWineType = $scope.searchCriteriaModel.wineType;
             if (selectedWineType) {
                 console.log("selectedWineType - Name: " + selectedWineType.Name + "; Id: " + selectedWineType.Id);
-                var filteredVarietals = _.filter($scope.searchCriteriaModel.allVarietals, function (v) {
+                var filteredVarietals = _.filter($scope.searchCriteriaModel.allVarietals, function(v) {
                     return _.contains(v.AssociatedWineTypes, selectedWineType.Id);
                 });
                 $scope.searchCriteriaModel.varietals = filteredVarietals;
@@ -46,12 +49,12 @@
             }
         };
 
-        $scope.onVarietalChanged = function () {
+        $scope.onVarietalChanged = function() {
             console.log("$scope.onVarietalChanged");
             var selectedVarietal = $scope.searchCriteriaModel.varietal;
             if (selectedVarietal) {
                 console.log("selectedVarietal - Name: " + selectedVarietal.Name + "; Id: " + selectedVarietal.Id);
-                var matchingVarietals = _.filter($scope.searchCriteriaModel.varietals, function (v) {
+                var matchingVarietals = _.filter($scope.searchCriteriaModel.varietals, function(v) {
                     return v.Id === selectedVarietal.Id;
                 });
                 if (matchingVarietals.length === 1) {
@@ -62,12 +65,12 @@
             }
         };
 
-        $scope.onRegionChanged = function () {
+        $scope.onRegionChanged = function() {
             console.log("$scope.onRegionChanged");
             var selectedRegion = $scope.searchCriteriaModel.region;
             if (selectedRegion) {
                 console.log("selectedRegion - Name: " + selectedRegion.Name + "; Id: " + selectedRegion.Id);
-                var filteredAppellations = _.filter($scope.searchCriteriaModel.allAppellations, function (a) {
+                var filteredAppellations = _.filter($scope.searchCriteriaModel.allAppellations, function(a) {
                     return _.contains(a.AssociatedRegions, selectedRegion.Id);
                 });
                 $scope.searchCriteriaModel.appellations = filteredAppellations;
@@ -76,12 +79,12 @@
             }
         };
 
-        $scope.onAppellationChanged = function () {
+        $scope.onAppellationChanged = function() {
             console.log("$scope.onAppellationChanged");
             var selectedAppellation = $scope.searchCriteriaModel.appellation;
             if (selectedAppellation) {
                 console.log("selectedAppellation - Name: " + selectedAppellation.Name + "; Id: " + selectedAppellation.Id);
-                var matchingAppellations = _.filter($scope.searchCriteriaModel.appellations, function (a) {
+                var matchingAppellations = _.filter($scope.searchCriteriaModel.appellations, function(a) {
                     return a.Id === selectedAppellation.Id;
                 });
                 if (matchingAppellations.length === 1) {
@@ -92,16 +95,16 @@
             }
         };
 
-        var _initialiseMenus = function () {
+        var _initialiseMenus = function() {
             $scope.searchCriteriaModel.allWineTypes = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_WINETYPE);
             $scope.searchCriteriaModel.allVarietals = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_VARIETAL);
             $scope.searchCriteriaModel.allRegions = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_REGION);
             $scope.searchCriteriaModel.allAppellations = _getCategoryRefinements(wineApi.menuData, wineApi.constants.CATEGORY_ID_APPELLATION);
         };
 
-        var _getCategoryRefinements = function (data, categoryId) {
+        var _getCategoryRefinements = function(data, categoryId) {
             var result = [];
-            var filteredCategories = _.filter(data.Categories, function (c) { return c.Id === categoryId; });
+            var filteredCategories = _.filter(data.Categories, function(c) { return c.Id === categoryId; });
             if (filteredCategories.length === 1) {
                 result = filteredCategories[0].Refinements;
             }
@@ -113,5 +116,5 @@
         $scope.onReset(true /* suppressPathChange */);
     };
 
-    SearchCriteriaController.$inject = ["$scope", "$location", "wineApiProxy"];
+    window.winePicker.controllers.SearchCriteriaController.$inject = ["$scope", "$location", "wineApiProxy"];
 } ());

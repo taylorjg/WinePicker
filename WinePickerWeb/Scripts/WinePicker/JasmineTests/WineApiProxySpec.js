@@ -32,7 +32,7 @@
 
         beforeEach(angular.mock.inject(function ($injector) {
             _$httpBackend = $injector.get("$httpBackend");
-            _wineApiProxy = $injector.instantiate(WineApiProxy);
+            _wineApiProxy = $injector.instantiate(winePicker.services.WineApiProxy);
         }));
 
         it("callWineApi invokes $http.get()", function () {

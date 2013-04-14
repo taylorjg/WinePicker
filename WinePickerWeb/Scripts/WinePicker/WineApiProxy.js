@@ -6,7 +6,10 @@
 
     "use strict";
 
-    window.WineApiProxy = function ($http) {
+    window.winePicker = window.winePicker || {};
+    window.winePicker.services = window.winePicker.services || {};
+
+    window.winePicker.services.WineApiProxy = function ($http) {
 
         var _$http = $http;
         var _start = null;
@@ -129,5 +132,5 @@
         }
     };
 
-    window.WineApiProxy.$inject = ["$http"];
+    window.winePicker.services.WineApiProxy.$inject = ["$http"];
 } ());

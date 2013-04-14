@@ -8,9 +8,12 @@
 
     "use strict";
 
-    window.WinePickerController = function WinePickerController($scope, $http, $location, wineApiProxy) {
+    window.winePicker = window.winePicker || {};
+    window.winePicker.controllers = window.winePicker.controllers || {};
 
-        console.log("WinePickerController - $location.path(): " + $location.path());
+    window.winePicker.controllers.WinePickerController = function($scope, $http, $location, wineApiProxy) {
+
+        console.log("winePicker.controllers.WinePickerController - $location.path(): " + $location.path());
 
         $scope.winePickerModel = new winePicker.models.WinePickerModel();
 
@@ -28,5 +31,5 @@
         });
     };
 
-    WinePickerController.$inject = ["$scope", "$http", "$location", "wineApiProxy"];
+    window.winePicker.controllers.WinePickerController.$inject = ["$scope", "$http", "$location", "wineApiProxy"];
 } ());

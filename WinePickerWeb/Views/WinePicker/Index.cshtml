@@ -8,7 +8,7 @@
     var ngAppName = (isEndToEndTest) ? "WinePickerAppE2E" : "WinePickerApp";
 }
 
-<div id="containerDiv" class="container-fluid" data-ng-app="@ngAppName" data-ng-controller="WinePickerController">
+<div id="containerDiv" class="container-fluid" data-ng-app="@ngAppName" data-ng-controller="winePicker.controllers.WinePickerController">
     <div class="row">
         
         <div class="span4">
@@ -34,7 +34,7 @@
                 <br />
             </div>
 
-            <form class="form-search" action="" data-ng-controller="SearchCriteriaController">
+            <form class="form-search" action="" data-ng-controller="window.winePicker.controllers.SearchCriteriaController">
                 
                 <select
                     id="wineTypeMenu"

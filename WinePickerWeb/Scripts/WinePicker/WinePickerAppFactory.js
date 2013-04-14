@@ -13,6 +13,6 @@
     } ])
     .factory("wineApiProxy", ["$http", function ($http) {
         console.log("wineApiProxyProvider.$get()");
-        return new WineApiProxy($http);
+        return new winePicker.services.WineApiProxy($http);
     } ]);
 } ());

@@ -39,9 +39,9 @@
 
             $routeParams.encodedSearchCriteria = "wt:124|s:gamay|st:WA|is:1";
 
-            _controller = $controller(SearchResultsController, {
+            _controller = $controller(window.winePicker.controllers.SearchResultsController, {
                 $scope: _scope,
-                wineApiProxy: new WineApiProxy($http),
+                wineApiProxy: new winePicker.services.WineApiProxy($http),
                 searchResultsModel: _searchResultsModel
             });
         }));
