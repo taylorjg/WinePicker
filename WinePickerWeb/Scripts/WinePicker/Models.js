@@ -5,13 +5,16 @@
 
     "use strict";
 
-    window.WinePickerModel = function () {
+    window.winePicker = window.winePicker || {};
+    window.winePicker.models = window.winePicker.models || {};
+
+    window.winePicker.models.WinePickerModel = function () {
         this.wineApiCallInProgress = false;
         this.errorMessages = null;
         this.errorMessagesVisible = false;
     };
 
-    window.SearchCriteriaModel = function () {
+    window.winePicker.models.SearchCriteriaModel = function () {
 
         this.allWineTypes = [];
         this.allVarietals = [];
@@ -40,7 +43,7 @@
         };
 
         this.encode = function () {
-            var criteriaFormatter = new CriteriaFormatter();
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter();
             criteriaFormatter.addComponent("wt", this.wineType.Id || "");
             criteriaFormatter.addComponent("v", this.varietal.Id || "");
             criteriaFormatter.addComponent("r", this.region.Id || "");
@@ -58,7 +61,7 @@
         };
 
         this.decode = function (s) {
-            var criteriaParser = new CriteriaParser(s);
+            var criteriaParser = new winePicker.utils.CriteriaParser(s);
             this.wineType = this.findWineTypeById(criteriaParser.getComponent("wt"));
             this.varietal = this.findVarietalById(criteriaParser.getComponent("v"));
             this.region = this.findRegionById(criteriaParser.getComponent("r"));
@@ -111,7 +114,7 @@
         this.reset();
     };
 
-    window.SearchResultsModel = function () {
+    window.winePicker.models.SearchResultsModel = function () {
 
         this.state = "";
         this.instock = "";
@@ -133,7 +136,7 @@
         };
 
         this.buildWineDetailsPath = function (product) {
-            var criteriaFormatter = new CriteriaFormatter();
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter();
             criteriaFormatter.addComponent("id", product.Id);
             criteriaFormatter.addComponent("st", this.state);
             criteriaFormatter.addComponent("is", this.instock);
@@ -141,7 +144,7 @@
         };
     };
 
-    window.WineDetailsModel = function () {
+    window.winePicker.models.WineDetailsModel = function () {
         this.product = null;
         this.productAttributesWithImageUrl = [];
     };

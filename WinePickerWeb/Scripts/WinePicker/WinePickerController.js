@@ -12,7 +12,7 @@
 
         console.log("WinePickerController - $location.path(): " + $location.path());
 
-        $scope.winePickerModel = new WinePickerModel();
+        $scope.winePickerModel = new winePicker.models.WinePickerModel();
 
         wineApiProxy.start(function() {
             $scope.winePickerModel.wineApiCallInProgress = true;

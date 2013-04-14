@@ -12,12 +12,12 @@
         describe("WinePickerModel", function () {
 
             it("can construct instance", function () {
-                var model = new WinePickerModel();
+                var model = new winePicker.models.WinePickerModel();
                 expect(model).not.toBeNull();
             });
 
             it("constructs object with correct initial values", function () {
-                var model = new WinePickerModel();
+                var model = new winePicker.models.WinePickerModel();
                 expect(model.wineApiCallInProgress).toBe(false);
                 expect(model.errorMessages).toBeNull();
                 expect(model.errorMessagesVisible).toBe(false);
@@ -27,12 +27,12 @@
         describe("SearchCriteriaModel", function () {
 
             it("can construct instance", function () {
-                var model = new SearchCriteriaModel();
+                var model = new window.winePicker.models.SearchCriteriaModel();
                 expect(model).not.toBeNull();
             });
 
             it("constructs object with correct initial values", function () {
-                var model = new SearchCriteriaModel();
+                var model = new window.winePicker.models.SearchCriteriaModel();
                 expect(model.allWineTypes).toEqual([]);
                 expect(model.allVarietals).toEqual([]);
                 expect(model.allRegions).toEqual([]);
@@ -63,7 +63,7 @@
 
                 beforeEach(function () {
 
-                    _model = new SearchCriteriaModel();
+                    _model = new window.winePicker.models.SearchCriteriaModel();
 
                     _model.allWineTypes = [{
                         Id: 123,
@@ -126,12 +126,12 @@
         describe("SearchResultsModel", function () {
 
             it("can construct instance", function () {
-                var model = new SearchResultsModel();
+                var model = new window.winePicker.models.SearchResultsModel();
                 expect(model).not.toBeNull();
             });
 
             it("constructs object with correct initial values", function () {
-                var model = new SearchResultsModel();
+                var model = new window.winePicker.models.SearchResultsModel();
                 expect(model.currentSlideNumber).toBe(0);
                 expect(model.size).toBe(10);
                 expect(model.pages).toEqual([]);
@@ -140,14 +140,14 @@
             });
 
             it("buildWineDetailsPath formats the path correctly with no state and no instock", function () {
-                var model = new SearchResultsModel();
+                var model = new window.winePicker.models.SearchResultsModel();
                 var product = { Id: 123 };
                 var actual = model.buildWineDetailsPath(product);
                 expect(actual).toBe("#/wineDetails/id:123");
             });
 
             it("buildWineDetailsPath formats the path correctly with state and instock", function () {
-                var model = new SearchResultsModel();
+                var model = new window.winePicker.models.SearchResultsModel();
                 model.state = "CA";
                 model.instock = "1";
                 var product = { Id: 123 };
@@ -159,12 +159,12 @@
         describe("WineDetailsModel", function () {
 
             it("can construct instance", function () {
-                var model = new WineDetailsModel();
+                var model = new window.winePicker.models.WineDetailsModel();
                 expect(model).not.toBeNull();
             });
 
             it("constructs object with correct initial values", function () {
-                var model = new WineDetailsModel();
+                var model = new window.winePicker.models.WineDetailsModel();
                 expect(model.product).toBeNull();
                 expect(model.productAttributesWithImageUrl).toEqual([]);
             });

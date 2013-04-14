@@ -10,20 +10,20 @@
     describe("CriteriaFormatter", function () {
 
         it("when no components are added returns prefix and equals sign", function () {
-            var criteriaFormatter = new CriteriaFormatter("testprefix");
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter("testprefix");
             var actual = criteriaFormatter.criteria();
             expect(actual).toBe("testprefix=");
         });
 
         it("when one component is added returns the correct format", function () {
-            var criteriaFormatter = new CriteriaFormatter("testprefix");
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter("testprefix");
             criteriaFormatter.addComponent("wt", 124);
             var actual = criteriaFormatter.criteria();
             expect(actual).toBe("testprefix=wt:124");
         });
 
         it("when two components are added returns the correct format", function () {
-            var criteriaFormatter = new CriteriaFormatter("testprefix");
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter("testprefix");
             criteriaFormatter.addComponent("wt", 124);
             criteriaFormatter.addComponent("s", "gamay");
             var actual = criteriaFormatter.criteria();
@@ -31,20 +31,20 @@
         });
 
         it("when constructed with no prefix and no components added returns empty string", function () {
-            var criteriaFormatter = new CriteriaFormatter();
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter();
             var actual = criteriaFormatter.criteria();
             expect(actual).toBe("");
         });
 
         it("when constructed with no prefix and one component added returns the correct format", function () {
-            var criteriaFormatter = new CriteriaFormatter();
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter();
             criteriaFormatter.addComponent("wt", 124);
             var actual = criteriaFormatter.criteria();
             expect(actual).toBe("wt:124");
         });
 
         it("when constructed with no prefix and two components added returns the correct format", function () {
-            var criteriaFormatter = new CriteriaFormatter();
+            var criteriaFormatter = new winePicker.utils.CriteriaFormatter();
             criteriaFormatter.addComponent("wt", 124);
             criteriaFormatter.addComponent("s", "gamay");
             var actual = criteriaFormatter.criteria();
@@ -55,31 +55,31 @@
     describe("CriteriaParser", function () {
 
         it("getComponent returns empty string when the input string is empty", function () {
-            var criteriaParser = new CriteriaParser("");
+            var criteriaParser = new winePicker.utils.CriteriaParser("");
             var actual = criteriaParser.getComponent("wt");
             expect(actual).toBe("");
         });
 
         it("getComponent returns empty string when the input string is null", function () {
-            var criteriaParser = new CriteriaParser(null);
+            var criteriaParser = new winePicker.utils.CriteriaParser(null);
             var actual = criteriaParser.getComponent("wt");
             expect(actual).toBe("");
         });
 
         it("getComponent returns empty string when the input string is undefined", function () {
-            var criteriaParser = new CriteriaParser();
+            var criteriaParser = new winePicker.utils.CriteriaParser();
             var actual = criteriaParser.getComponent("wt");
             expect(actual).toBe("");
         });
 
         it("getComponent returns empty string when the component is not in the input string", function () {
-            var criteriaParser = new CriteriaParser("wt:124|s:gamay");
+            var criteriaParser = new winePicker.utils.CriteriaParser("wt:124|s:gamay");
             var actual = criteriaParser.getComponent("so");
             expect(actual).toBe("");
         });
 
         it("getComponent returns correct value when there is only one component in the string", function () {
-            var criteriaParser = new CriteriaParser("wt:124");
+            var criteriaParser = new winePicker.utils.CriteriaParser("wt:124");
             var actual = criteriaParser.getComponent("wt");
             expect(actual).toBe("124");
         });
@@ -89,7 +89,7 @@
             var criteriaParser;
 
             beforeEach(function () {
-                criteriaParser = new CriteriaParser("wt:124|s:gamay|so:name");
+                criteriaParser = new winePicker.utils.CriteriaParser("wt:124|s:gamay|so:name");
             });
 
             it("getComponent can correctly parse out the 1st component", function () {

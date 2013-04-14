@@ -13,7 +13,7 @@
 
         console.log("SearchResultsController - $location.path(): " + $location.path());
 
-        var searchCriteriaModel = new SearchCriteriaModel();
+        var searchCriteriaModel = new winePicker.models.SearchCriteriaModel();
         searchCriteriaModel.decode($routeParams.encodedSearchCriteria);
 
         $scope.searchResultsModel = searchResultsModel;

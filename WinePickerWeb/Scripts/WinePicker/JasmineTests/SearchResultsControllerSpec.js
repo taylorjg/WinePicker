@@ -33,7 +33,7 @@
             _$httpBackend = _$httpBackend_;
 
             _scope = $rootScope.$new();
-            _searchResultsModel = new SearchResultsModel();
+            _searchResultsModel = new winePicker.models.SearchResultsModel();
 
             _$httpBackend.whenGET("api/wineapi?searchCriteria=wt:124|s:gamay|st:WA|is:1|o:0|sz:10").respond(_successfulWineApiResponse);
 

@@ -9,7 +9,7 @@
     angular.module("WinePickerApp")
     .factory("searchResultsModel", [function () {
         console.log("searchResultsModelProvider.$get()");
-        return new SearchResultsModel();
+        return new winePicker.models.SearchResultsModel();
     } ])
     .factory("wineApiProxy", ["$http", function ($http) {
         console.log("wineApiProxyProvider.$get()");

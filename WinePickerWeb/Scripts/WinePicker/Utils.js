@@ -2,12 +2,15 @@
 
     "use strict";
 
-// ReSharper disable InconsistentNaming
+    window.winePicker = window.winePicker || {};
+    window.winePicker.utils = window.winePicker.utils || {};
+
+    // ReSharper disable InconsistentNaming
     var COMPONENT_SEPARATOR = "|";
     var NAME_VALUE_SEPARATOR = ":";
 // ReSharper restore InconsistentNaming
 
-    window.CriteriaFormatter = function (prefix) {
+    window.winePicker.utils.CriteriaFormatter = function (prefix) {
 
         this._criteria = "";
         this._prefix = prefix || "";
@@ -27,7 +30,7 @@
         };
     };
 
-    window.CriteriaParser = function (criteria) {
+    window.winePicker.utils.CriteriaParser = function (criteria) {
 
         this._criteria = criteria || "";
         this._bits = this._criteria.split(COMPONENT_SEPARATOR);

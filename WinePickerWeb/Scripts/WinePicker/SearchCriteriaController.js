@@ -15,7 +15,7 @@
 
         console.log("SearchCriteriaController - $location.path(): " + $location.path());
 
-        $scope.searchCriteriaModel = new SearchCriteriaModel();
+        $scope.searchCriteriaModel = new winePicker.models.SearchCriteriaModel();
 
         $scope.onSearch = function () {
             var encodedSearchCriteria = $scope.searchCriteriaModel.encode();

@@ -13,7 +13,7 @@
 
         console.log("WineDetailsController - $location.path(): " + $location.path());
 
-        $scope.wineDetailsModel = new WineDetailsModel();
+        $scope.wineDetailsModel = new winePicker.models.WineDetailsModel();
 
         wineApiProxy.callWineApi("productCriteria=" + $routeParams.encodedProductCriteria, function(data) {
             if (data.Products.List.length === 1) {
