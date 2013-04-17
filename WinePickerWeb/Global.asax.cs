@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WinePickerWeb.App_Start;
-using WinePickerWeb.Controllers;
 using WinePickerWeb.Filters;
 
 namespace WinePickerWeb
