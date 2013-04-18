@@ -155,21 +155,21 @@
 
                     it("categories with a single value is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ categories: 124 })
+                        var url = urlBuilder.catalogService({ categoriesFilter: 124 })
                         .url();
                         expect(url).toContain("&filter=categories(124)");
                     });
 
                     it("categories with a single value in an array is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ categories: [124] })
+                        var url = urlBuilder.catalogService({ categoriesFilter: [124] })
                         .url();
                         expect(url).toContain("&filter=categories(124)");
                     });
 
                     it("categories with 2 values is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ categories: [124, 125] })
+                        var url = urlBuilder.catalogService({ categoriesFilter: [124, 125] })
                         .url();
                         expect(url).toContain("&filter=categories(124+125)");
                     });
@@ -179,21 +179,21 @@
 
                     it("rating with a single value is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ rating: 92 })
+                        var url = urlBuilder.catalogService({ ratingFilter: 92 })
                         .url();
                         expect(url).toContain("&filter=rating(92)");
                     });
 
                     it("rating with a single value in an array is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ rating: [92] })
+                        var url = urlBuilder.catalogService({ ratingFilter: [92] })
                         .url();
                         expect(url).toContain("&filter=rating(92)");
                     });
 
                     it("rating with a 2 values is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ rating: [92, 98] })
+                        var url = urlBuilder.catalogService({ ratingFilter: [92, 98] })
                         .url();
                         expect(url).toContain("&filter=rating(92|98)");
                     });
@@ -203,21 +203,21 @@
 
                     it("price with a single value is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ price: 20 })
+                        var url = urlBuilder.catalogService({ priceFilter: 20 })
                         .url();
                         expect(url).toContain("&filter=price(20)");
                     });
 
                     it("price with a single value in an array is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ price: [20] })
+                        var url = urlBuilder.catalogService({ priceFilter: [20] })
                         .url();
                         expect(url).toContain("&filter=price(20)");
                     });
 
                     it("price with a 2 values is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
-                        var url = urlBuilder.catalogService({ price: [20, 50] })
+                        var url = urlBuilder.catalogService({ priceFilter: [20, 50] })
                         .url();
                         expect(url).toContain("&filter=price(20|50)");
                     });

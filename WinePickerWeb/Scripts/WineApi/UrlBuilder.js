@@ -38,11 +38,11 @@
 
             options = options || {};
 
-            this.offset(options.offset || null);
-            this.size(options.size || null);
-            this.categoriesFilter(options.categories || null);
-            this.ratingFilter(options.rating || null);
-            this.priceFilter(options.price || null);
+            this.offset(options.offset);
+            this.size(options.size);
+            this.categoriesFilter(options.categoriesFilter);
+            this.ratingFilter(options.ratingFilter);
+            this.priceFilter(options.priceFilter);
 
             return this;
         };
