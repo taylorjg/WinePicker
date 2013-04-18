@@ -14,14 +14,28 @@ module.exports = function (grunt) {
 				"WinePickerWeb/Scripts/WinePicker/**/*.js"
 			]
         },
+        jasmine: {
+            winePicker: {
+                src: [
+                    "WinePickerWeb/Scripts/angular.js",
+                    "WinePickerWeb/Scripts/angular-mocks.js",
+                    "WinePickerWeb/Scripts/underscore.js",
+                    "WinePickerWeb/Scripts/WinePicker/*.js"
+                ],
+                options: {
+                    specs: "WinePickerWeb/Scripts/WinePicker/JasmineTests/*Spec.js"
+                }
+            }
+        },
         watch: {
             files: ["<%= jshint.files %>"],
-            tasks: ["jshint"]
+            tasks: ["jshint", "jasmine"]
         }
     });
 
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-contrib-jasmine");
 
     grunt.registerTask("default", ["jshint"]);
 };
