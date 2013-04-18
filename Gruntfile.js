@@ -9,10 +9,10 @@ module.exports = function (grunt) {
         jshint: {
             options: grunt.file.readJSON(".jshintrc"),
             files: [
-				"Gruntfile.js",
-				"WinePickerWeb/Scripts/WineApi/**/*.js",
-				"WinePickerWeb/Scripts/WinePicker/**/*.js"
-			]
+                "Gruntfile.js",
+                "WinePickerWeb/Scripts/WineApi/**/*.js",
+                "WinePickerWeb/Scripts/WinePicker/**/*.js"
+            ]
         },
         jasmine: {
             all_targets: {
