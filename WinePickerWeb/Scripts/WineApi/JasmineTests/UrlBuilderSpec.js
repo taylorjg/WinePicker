@@ -112,11 +112,28 @@
                         .url();
                     expect(url).toContain("?apikey=" + myApiKey);
                 });
+
+                it("should contain the affiliateId name/value pair if affiliateId value was passed to the constructor", function() {
+                    var myApiKey = "MyApiKeyValue";
+                    var myAffiliateId = "MyAffiliateIdValue";
+                    var urlBuilder = new wineApi.UrlBuilder2(myApiKey, myAffiliateId);
+                    var url = urlBuilder.catalogService()
+                        .url();
+                    expect(url).toContain("&affiliateId=" + myAffiliateId);
+                });
+
+                it("should not contain the affiliateId name/value pair if no affiliateId value was passed to the constructor", function () {
+                    var myApiKey = "MyApiKeyValue";
+                    var urlBuilder = new wineApi.UrlBuilder2(myApiKey);
+                    var url = urlBuilder.catalogService()
+                        .url();
+                    expect(url).not.toContain("&affiliateId=");
+                });
             });
 
             describe("when called with various options passed as a param", function () {
 
-                describe("offset option", function() {
+                describe("offset option", function () {
                     it("offset option is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
                         var url = urlBuilder.catalogService({ offset: 23 })
@@ -125,7 +142,7 @@
                     });
                 });
 
-                describe("size option", function() {
+                describe("size option", function () {
                     it("size option is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
                         var url = urlBuilder.catalogService({ size: 46 })
@@ -134,7 +151,7 @@
                     });
                 });
 
-                describe("categoriesFilter option", function() {
+                describe("categoriesFilter option", function () {
 
                     it("categories with a single value is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
@@ -158,7 +175,7 @@
                     });
                 });
 
-                describe("ratingFilter option", function() {
+                describe("ratingFilter option", function () {
 
                     it("rating with a single value is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();
@@ -182,7 +199,7 @@
                     });
                 });
 
-                describe("priceFilter option", function() {
+                describe("priceFilter option", function () {
 
                     it("price with a single value is handled correctly", function () {
                         var urlBuilder = new wineApi.UrlBuilder2();

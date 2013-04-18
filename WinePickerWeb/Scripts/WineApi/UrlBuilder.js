@@ -8,24 +8,24 @@
 
     window.wineApi = window.wineApi || {};
 
-    window.wineApi.UrlBuilder2 = function (apiKeyValue, affiliateIdValue) {
+    window.wineApi.UrlBuilder2 = function (apiKeyConstructorParam, affiliateIdConstructorParam) {
 
-        var _apiKeyValue = "SET-ME!";
-        var _affiliateIdValue = null;
+        var _apiKey = "SET-ME!";
+        var _affiliateId;
         var _url = "";
 
         this.apiKey = function (newValue) {
             if (arguments.length === 1) {
-                _apiKeyValue = newValue;
+                _apiKey = newValue;
             }
-            return _apiKeyValue;
+            return _apiKey;
         };
 
         this.affiliateId = function (newValue) {
             if (arguments.length === 1) {
-                _affiliateIdValue = newValue;
+                _affiliateId = newValue;
             }
-            return _affiliateIdValue;
+            return _affiliateId;
         };
 
         this.url = function () {
@@ -47,15 +47,15 @@
             return this;
         };
 
-        this.categoryMapService = function (options) {
+        this.categoryMapService = function (/* options */) {
             _buildBaseUrl("categoryMap");
-            options = options || {};
+            //options = options || {};
             return this;
         };
 
-        this.referenceService = function (options) {
+        this.referenceService = function (/* options */) {
             _buildBaseUrl("reference");
-            options = options || {};
+            //options = options || {};
             return this;
         };
 
@@ -85,9 +85,9 @@
         };
 
         function _buildBaseUrl(serviceName) {
-            _url = "http://services.wine.com/api/beta2/service.svc/json/" + serviceName + "?apikey=" + _apiKeyValue;
-            if (_affiliateIdValue !== null) {
-                _url = _url + "&affiliateId=" + _affiliateIdValue;
+            _url = "http://services.wine.com/api/beta2/service.svc/json/" + serviceName + "?apikey=" + _apiKey;
+            if (!_.isUndefined(_affiliateId)) {
+                _url = _url + "&affiliateId=" + _affiliateId;
             }
         }
 
@@ -141,11 +141,11 @@
         }
 
         if (arguments.length >= 1) {
-            this.apiKey(apiKeyValue);
+            this.apiKey(apiKeyConstructorParam);
         }
 
         if (arguments.length === 2) {
-            this.affiliateId(affiliateIdValue);
+            this.affiliateId(affiliateIdConstructorParam);
         }
     };
 } ());
