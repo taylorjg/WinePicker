@@ -116,82 +116,198 @@
 
             describe("when called with various options passed as a param", function () {
 
-                it("offset option is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService({ offset: 23 })
+                describe("offset option", function() {
+                    it("offset option is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ offset: 23 })
                         .url();
-                    expect(url).toContain("&offset=23");
+                        expect(url).toContain("&offset=23");
+                    });
                 });
 
-                it("size option is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService({ size: 46 })
+                describe("size option", function() {
+                    it("size option is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ size: 46 })
                         .url();
-                    expect(url).toContain("&size=46");
+                        expect(url).toContain("&size=46");
+                    });
                 });
 
-                it("categories with single int is handled correctly", function() {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService({ categories: 124 })
+                describe("categoriesFilter option", function() {
+
+                    it("categories with a single value is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ categories: 124 })
                         .url();
-                    expect(url).toContain("&filter=categories(124)");
+                        expect(url).toContain("&filter=categories(124)");
+                    });
+
+                    it("categories with a single value in an array is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ categories: [124] })
+                        .url();
+                        expect(url).toContain("&filter=categories(124)");
+                    });
+
+                    it("categories with 2 values is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ categories: [124, 125] })
+                        .url();
+                        expect(url).toContain("&filter=categories(124+125)");
+                    });
                 });
 
-                it("categories with array containing a single int is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService({ categories: [124] })
+                describe("ratingFilter option", function() {
+
+                    it("rating with a single value is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ rating: 92 })
                         .url();
-                    expect(url).toContain("&filter=categories(124)");
+                        expect(url).toContain("&filter=rating(92)");
+                    });
+
+                    it("rating with a single value in an array is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ rating: [92] })
+                        .url();
+                        expect(url).toContain("&filter=rating(92)");
+                    });
+
+                    it("rating with a 2 values is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ rating: [92, 98] })
+                        .url();
+                        expect(url).toContain("&filter=rating(92|98)");
+                    });
                 });
 
-                it("categories with array containing 2 ints is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService({ categories: [124, 125] })
+                describe("priceFilter option", function() {
+
+                    it("price with a single value is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ price: 20 })
                         .url();
-                    expect(url).toContain("&filter=categories(124+125)");
+                        expect(url).toContain("&filter=price(20)");
+                    });
+
+                    it("price with a single value in an array is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ price: [20] })
+                        .url();
+                        expect(url).toContain("&filter=price(20)");
+                    });
+
+                    it("price with a 2 values is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService({ price: [20, 50] })
+                        .url();
+                        expect(url).toContain("&filter=price(20|50)");
+                    });
                 });
             });
 
             describe("when called with various options passed via chaining", function () {
 
-                it("offset option is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService()
+                describe("offset option", function () {
+                    it("offset option is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
                         .offset(23)
                         .url();
-                    expect(url).toContain("&offset=23");
+                        expect(url).toContain("&offset=23");
+                    });
                 });
 
-                it("size option is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService()
+                describe("size option", function () {
+                    it("size option is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
                         .size(46)
                         .url();
-                    expect(url).toContain("&size=46");
+                        expect(url).toContain("&size=46");
+                    });
                 });
 
-                it("categories with single int is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService()
+                describe("categoriesFilter option", function () {
+
+                    it("categories with a single value is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
                         .categoriesFilter(124)
                         .url();
-                    expect(url).toContain("&filter=categories(124)");
-                });
+                        expect(url).toContain("&filter=categories(124)");
+                    });
 
-                it("categories with array containing a single int is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService()
+                    it("categories with a single value in an array is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
                         .categoriesFilter([124])
                         .url();
-                    expect(url).toContain("&filter=categories(124)");
-                });
+                        expect(url).toContain("&filter=categories(124)");
+                    });
 
-                it("categories with array containing 2 ints is handled correctly", function () {
-                    var urlBuilder = new wineApi.UrlBuilder2();
-                    var url = urlBuilder.catalogService()
+                    it("categories with 2 values is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
                         .categoriesFilter([124, 125])
                         .url();
-                    expect(url).toContain("&filter=categories(124+125)");
+                        expect(url).toContain("&filter=categories(124+125)");
+                    });
+                });
+
+                describe("ratingFilter option", function () {
+
+                    it("rating with a single value is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
+                        .ratingFilter(92)
+                        .url();
+                        expect(url).toContain("&filter=rating(92)");
+                    });
+
+                    it("rating with a single value in an array is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
+                        .ratingFilter([92])
+                        .url();
+                        expect(url).toContain("&filter=rating(92)");
+                    });
+
+                    it("rating with a 2 values is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
+                        .ratingFilter([92, 98])
+                        .url();
+                        expect(url).toContain("&filter=rating(92|98)");
+                    });
+                });
+
+                describe("priceFilter option", function () {
+
+                    it("price with a single value is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
+                        .priceFilter(20)
+                        .url();
+                        expect(url).toContain("&filter=price(20)");
+                    });
+
+                    it("price with a single value in an array is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
+                        .priceFilter([20])
+                        .url();
+                        expect(url).toContain("&filter=price(20)");
+                    });
+
+                    it("price with a 2 values is handled correctly", function () {
+                        var urlBuilder = new wineApi.UrlBuilder2();
+                        var url = urlBuilder.catalogService()
+                        .priceFilter([20, 50])
+                        .url();
+                        expect(url).toContain("&filter=price(20|50)");
+                    });
                 });
             });
         });
