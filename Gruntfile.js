@@ -5,7 +5,9 @@ module.exports = function (grunt) {
     "use strict";
 
     grunt.initConfig({
+
         pkg: grunt.file.readJSON("package.json"),
+
         jshint: {
             options: grunt.file.readJSON(".jshintrc"),
             files: [
@@ -14,6 +16,7 @@ module.exports = function (grunt) {
                 "WinePickerWeb/Scripts/WinePicker/**/*.js"
             ]
         },
+
         jasmine: {
             all_targets: {
                 src: [
@@ -32,6 +35,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         watch: {
             files: ["<%= jshint.files %>"],
             tasks: ["jshint", "jasmine"]
