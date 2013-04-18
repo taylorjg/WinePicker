@@ -15,15 +15,20 @@ module.exports = function (grunt) {
 			]
         },
         jasmine: {
-            winePicker: {
+            all_targets: {
                 src: [
                     "WinePickerWeb/Scripts/angular.js",
                     "WinePickerWeb/Scripts/angular-mocks.js",
                     "WinePickerWeb/Scripts/underscore.js",
+                    "WinePickerWeb/Scripts/jquery-1.9.1.js",
+                    "WinePickerWeb/Scripts/WineApi/*.js",
                     "WinePickerWeb/Scripts/WinePicker/*.js"
                 ],
                 options: {
-                    specs: "WinePickerWeb/Scripts/WinePicker/JasmineTests/*Spec.js"
+                    specs: [
+                        "WinePickerWeb/Scripts/WineApi/JasmineTests/*Spec.js",
+                        "WinePickerWeb/Scripts/WinePicker/JasmineTests/*Spec.js"
+                    ]
                 }
             }
         },
